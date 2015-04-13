@@ -5,7 +5,7 @@
     <artifactId>screamtool</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>screentool-service</artifactId>
+  <artifactId>screamtool-service</artifactId>
   <name>service</name>
   
   <dependencies>
