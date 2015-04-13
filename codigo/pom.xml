@@ -8,7 +8,6 @@
 	<name>screamtool</name>
 
 	<modules>
-		<module>visao</module>
 		<module>service</module>
 	</modules>
 
