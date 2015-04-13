@@ -9,6 +9,7 @@
 
 	<modules>
 		<module>service</module>
+		<module>visao</module>
 	</modules>
 
 	<properties>
