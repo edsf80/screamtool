@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * @author edsf
  *
  */
-@Service("usuarioService")
+@Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	/*
