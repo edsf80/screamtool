@@ -8,8 +8,10 @@
 	<name>screamtool</name>
 
 	<modules>
+		<module>data</module>
 		<module>service</module>
 		<module>visao</module>
+		<module>domain</module>
 	</modules>
 
 	<properties>
