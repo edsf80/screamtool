@@ -18,6 +18,8 @@
 		<resteasy-version>3.0.9.Final</resteasy-version>
 		<spring-version>4.1.1.RELEASE</spring-version>
 		<spring_security_version>3.2.5.RELEASE</spring_security_version>
+		<hibernate-version>4.1.7.Final</hibernate-version>
+		<hibernate_validator-version>4.3.0.Final</hibernate_validator-version>
 	</properties>
 
 	<dependencyManagement>
@@ -73,6 +75,29 @@
 						<groupId>spring-expression</groupId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+
+			<!-- Hibernate dependencies -->
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-envers</artifactId>
+				<version>${hibernate-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>${hibernate_validator-version}</version>
 			</dependency>
 
 			<dependency>
