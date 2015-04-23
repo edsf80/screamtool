@@ -11,6 +11,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifpb.screamtool.service.business.LoginService;
@@ -34,7 +37,10 @@ public class LoginServiceImpl implements LoginService {
 	 * br.edu.ifpb.screamtool.service.business.LoginService#autenticarUsuario
 	 * (java.lang.String, java.lang.String)
 	 */
-	public boolean autenticarUsuario(String login, String senha) {
+	@RequestMapping(value = "/login.rest", method = RequestMethod.POST)
+	public @ResponseBody boolean autenticarUsuario(
+			@RequestParam(value = "login", required = true) String login,
+			@RequestParam(value = "senha", required = true) String senha) {
 		if (login == null || senha == null) {
 			throw new IllegalArgumentException(
 					"Tentativa de autenticacao de login ou senha nula");
