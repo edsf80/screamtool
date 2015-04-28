@@ -20,7 +20,9 @@
 	<context:component-scan base-package="br.edu.ifpb.screamtool"
 		annotation-config="true" />
 
+	<import resource="classpath:service-application-context.xml" />
 	<import resource="web-security-config.xml" />
+	<import resource="classpath:data-application-context.xml" />
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />

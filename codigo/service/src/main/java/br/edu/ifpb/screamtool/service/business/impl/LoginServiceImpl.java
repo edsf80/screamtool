@@ -63,10 +63,6 @@ public class LoginServiceImpl implements LoginService {
 	 * @return
 	 */
 	private Authentication criarAutenticacao(String login, String senha) {
-		if (login == null || senha == null) {
-			throw new IllegalArgumentException(
-					"Tentativa de criação de autenticação com login ou senha nula");
-		}
 
 		Authentication authentication = null;
 
