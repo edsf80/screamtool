@@ -12,9 +12,12 @@
 	<context:component-scan base-package="br.edu.ifpb.screamtool.service"
 		annotation-config="true" />
 
-	<!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" 
-		/> <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"> 
-		<property name="validator" ref="validator"/> </bean> -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	<bean
+		class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor">
+		<property name="validator" ref="validator" />
+	</bean>
 
 	<bean id="userDetailsService"
 		class="br.edu.ifpb.screamtool.service.business.impl.UserDetailsServiceImpl" />

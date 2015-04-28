@@ -19,7 +19,7 @@
 		<spring-version>4.1.1.RELEASE</spring-version>
 		<spring_security_version>3.2.5.RELEASE</spring_security_version>
 		<hibernate-version>4.1.7.Final</hibernate-version>
-		<hibernate_validator-version>4.3.0.Final</hibernate_validator-version>
+		<hibernate_validator-version>5.1.3.Final</hibernate_validator-version>
 		<aspectj-version>1.7.0</aspectj-version>
 	</properties>
 
