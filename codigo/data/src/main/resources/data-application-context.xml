@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+
+	<context:annotation-config />
+	<context:component-scan base-package="br.edu.ifpb.screamtool.data" />
+
+	<tx:annotation-driven />
+
+	<!-- Provides access to the JNDI datasource -->
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/screamtoolds" />
+
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+		p:entity-manager-factory-ref="entityManagerFactory" />
+
+	<!-- PERSISTANCE UNIT MANAGER -->
+	<bean id="persistenceUnitManager"
+		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+		<property name="persistenceXmlLocations" value="classpath*:META-INF/persistence.xml" />
+		<!-- if no datasource is specified, use this one -->
+		<property name="defaultDataSource" ref="dataSource" />
+	</bean>
+
+
+	<!-- ENTITYMANAGER -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitManager" ref="persistenceUnitManager" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show.sql">false</prop>
+				<prop key="org.hibernate.envers.auditTablePrefix">aud_</prop>
+				<prop key="org.hibernate.envers.auditTableSuffix"></prop>
+				<prop key="org.hibernate.envers.storeDataAtDelete">true</prop>
+			</props>
+		</property>
+		<property name="persistenceUnitName" value="screamtool" />
+	</bean>
+
+	<!-- EXCEPTION TRANSLATION -->
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<!-- <jdbc:initialize-database data-source="dataSource">
+		<jdbc:script location="classpath:db/db-dev-data.sql" />
+	</jdbc:initialize-database> -->
+
+</beans>
