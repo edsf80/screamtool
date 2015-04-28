@@ -16,6 +16,7 @@
 		<intercept-url pattern="/login.html" access="permitAll" />
 		<intercept-url pattern="/registro.html" access="permitAll" />
 		<intercept-url pattern="/service/login.rest" access="permitAll" />
+		<intercept-url pattern="/service/registro.rest" access="permitAll" />
 		<intercept-url pattern="/private/**" access="isAuthenticated()" />
 		<form-login login-page="/login.html" default-target-url="/private/principal.html"></form-login>
 		<logout logout-url="/logout.html" logout-success-url="/login.html"

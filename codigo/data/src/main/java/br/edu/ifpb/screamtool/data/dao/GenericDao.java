@@ -10,6 +10,7 @@ import java.util.List;
  *
  */
 public interface GenericDao<T, K> {
+	
 	/**
 	 * @param entidade
 	 * @return
@@ -32,4 +33,9 @@ public interface GenericDao<T, K> {
 	 * @return
 	 */
 	List<T> buscarTodos();
+	
+	/**
+	 * @param entidade
+	 */
+	void apagar(T entidade);
 }

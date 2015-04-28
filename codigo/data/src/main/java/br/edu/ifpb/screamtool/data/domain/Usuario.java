@@ -1,7 +1,10 @@
 package br.edu.ifpb.screamtool.data.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 /**
@@ -19,6 +22,7 @@ public class Usuario implements Serializable {
 	/**
 	 * 
 	 */
+	@NotNull
 	@Id
 	@SequenceGenerator(name = "USUARIO_USRID_GENERATOR", sequenceName = "SQ_USUARIO")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_USRID_GENERATOR")
@@ -28,25 +32,27 @@ public class Usuario implements Serializable {
 	/**
 	 * 
 	 */
+	@NotNull
 	@Column(name = "usr_lgn")
 	private String login;
 
 	/**
 	 * 
 	 */
+	@NotNull
 	@Column(name = "usr_nme")
 	private String nome;
 
 	/**
 	 * 
 	 */
+	@NotNull
 	@Column(name = "usr_sen")
 	private String senha;
 
 	/**
 	 * 
 	 */
-	// bi-directional many-to-many association to Projeto
 	@ManyToMany
 	@JoinTable(name = "usuario_projeto", joinColumns = { @JoinColumn(name = "usr_id") }, inverseJoinColumns = { @JoinColumn(name = "prj_id") })
 	private List<Projeto> projetos;
