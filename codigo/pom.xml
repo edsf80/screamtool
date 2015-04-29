@@ -11,6 +11,7 @@
 		<module>data</module>
 		<module>service</module>
 		<module>visao</module>
+		<module>domain</module>
 	</modules>
 
 	<properties>
@@ -34,6 +35,12 @@
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>screamtool-service</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>screamtool-domain</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.ifpb.screamtool.data.domain.Usuario;
+import br.edu.ifpb.screamtool.domain.vo.RegistroUsuarioVO;
 import br.edu.ifpb.screamtool.service.business.UsuarioService;
 
 /**
@@ -25,12 +25,12 @@ public class RegistroRestService {
 	@Autowired
 	@Qualifier("usuarioService")
 	private UsuarioService usuarioService;
-	
+
 	@RequestMapping(value = "/registro.rest", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean registrarUsuario(@ModelAttribute Usuario usuario) {
-		
+	public boolean registrarUsuario(@ModelAttribute RegistroUsuarioVO usuario) {
+
 		return usuarioService.registrarUsuario(usuario);
-		
+
 	}
 }

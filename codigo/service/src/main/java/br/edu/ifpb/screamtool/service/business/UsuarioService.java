@@ -3,7 +3,10 @@
  */
 package br.edu.ifpb.screamtool.service.business;
 
-import br.edu.ifpb.screamtool.data.domain.Usuario;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import br.edu.ifpb.screamtool.domain.vo.RegistroUsuarioVO;
 
 /**
  * @author edsf
@@ -11,6 +14,6 @@ import br.edu.ifpb.screamtool.data.domain.Usuario;
  */
 public interface UsuarioService {
 	
-	boolean registrarUsuario(Usuario usuario);
+	boolean registrarUsuario(@NotNull @Valid RegistroUsuarioVO usuario);
 
 }

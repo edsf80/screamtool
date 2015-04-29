@@ -3,17 +3,17 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="screamtool">
-		<class>br.edu.ifpb.screamtool.data.domain.ItemBacklog</class>
-		<class>br.edu.ifpb.screamtool.data.domain.Papel</class>
-		<class>br.edu.ifpb.screamtool.data.domain.Permissao</class>
-		<class>br.edu.ifpb.screamtool.data.domain.ProductBacklog</class>
-		<class>br.edu.ifpb.screamtool.data.domain.Produto</class>
-		<class>br.edu.ifpb.screamtool.data.domain.Projeto</class>
-		<class>br.edu.ifpb.screamtool.data.domain.Release</class>
-		<class>br.edu.ifpb.screamtool.data.domain.Sprint</class>
-		<class>br.edu.ifpb.screamtool.data.domain.Tarefa</class>
-		<class>br.edu.ifpb.screamtool.data.domain.Usuario</class>
-		<class>br.edu.ifpb.screamtool.data.domain.UsuarioProjeto</class>
-		<class>br.edu.ifpb.screamtool.data.domain.UsuarioProjetoPK</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.ItemBacklog</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.Papel</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.Permissao</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.ProductBacklog</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.Produto</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.Projeto</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.Release</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.Sprint</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.Tarefa</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.Usuario</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.UsuarioProjeto</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.UsuarioProjetoPK</class>
 	</persistence-unit>
 </persistence>

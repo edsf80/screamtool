@@ -1,4 +1,4 @@
-package br.edu.ifpb.screamtool.data.domain;
+package br.edu.ifpb.screamtool.domain.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;

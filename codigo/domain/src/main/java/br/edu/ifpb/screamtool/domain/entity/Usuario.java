@@ -1,4 +1,4 @@
-package br.edu.ifpb.screamtool.data.domain;
+package br.edu.ifpb.screamtool.domain.entity;
 
 import java.io.Serializable;
 
@@ -12,7 +12,9 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
+@NamedQueries({
+		@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
+		@NamedQuery(name = "Usuario.verificarExiste", query = "SELECT 1 FROM Usuario u where u.login = :login") })
 public class Usuario implements Serializable {
 	/**
 	 * 

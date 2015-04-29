@@ -12,6 +12,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>screamtool-domain</artifactId>
+		</dependency>
+	
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>screamtool-data</artifactId>
 		</dependency>
 
