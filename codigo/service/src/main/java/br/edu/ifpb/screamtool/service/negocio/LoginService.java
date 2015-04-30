@@ -3,6 +3,7 @@
  */
 package br.edu.ifpb.screamtool.service.negocio;
 
+import javax.validation.constraints.NotNull;
 
 /**
  * @author edsf
@@ -10,5 +11,10 @@ package br.edu.ifpb.screamtool.service.negocio;
  */
 public interface LoginService {
 
-	boolean autenticarUsuario(String login, String senha);
+	/**
+	 * @param login
+	 * @param senha
+	 * @return
+	 */
+	boolean autenticarUsuario(@NotNull String login, @NotNull String senha);
 }

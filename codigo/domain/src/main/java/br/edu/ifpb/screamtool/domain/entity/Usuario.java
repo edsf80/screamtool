@@ -26,7 +26,7 @@ public class Usuario implements Serializable {
 	 */
 	@NotNull
 	@Id
-	@SequenceGenerator(name = "USUARIO_USRID_GENERATOR", sequenceName = "SQ_USUARIO")
+	@SequenceGenerator(name = "USUARIO_USRID_GENERATOR", sequenceName = "seq_usuario")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_USRID_GENERATOR")
 	@Column(name = "usr_id")
 	private Long id;

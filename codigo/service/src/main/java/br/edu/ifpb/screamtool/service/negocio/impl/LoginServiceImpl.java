@@ -3,6 +3,8 @@
  */
 package br.edu.ifpb.screamtool.service.negocio.impl;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,11 +12,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import br.edu.ifpb.screamtool.service.negocio.LoginService;
 
@@ -22,8 +21,8 @@ import br.edu.ifpb.screamtool.service.negocio.LoginService;
  * @author edsf
  *
  */
-@RestController
-@RequestMapping(value = "/service")
+@Validated
+@Service("loginService")
 public class LoginServiceImpl implements LoginService {
 
 	@Autowired
@@ -37,14 +36,8 @@ public class LoginServiceImpl implements LoginService {
 	 * br.edu.ifpb.screamtool.service.business.LoginService#autenticarUsuario
 	 * (java.lang.String, java.lang.String)
 	 */
-	@RequestMapping(value = "/login.rest", method = RequestMethod.POST)
-	public @ResponseBody boolean autenticarUsuario(
-			@RequestParam(value = "login", required = true) String login,
-			@RequestParam(value = "senha", required = true) String senha) {
-		if (login == null || senha == null) {
-			throw new IllegalArgumentException(
-					"Tentativa de autenticacao de login ou senha nula");
-		}
+	public boolean autenticarUsuario(@NotNull String login,
+			@NotNull String senha) {
 
 		Authentication authentication = this.criarAutenticacao(login, senha);
 

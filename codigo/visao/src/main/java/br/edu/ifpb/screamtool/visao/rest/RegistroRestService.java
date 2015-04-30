@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifpb.screamtool.service.negocio.UsuarioService;
 import br.edu.ifpb.screamtool.service.vo.RegistroUsuarioVO;
+import br.edu.ifpb.screamtool.visao.exception.ResponseEntity;
 
 /**
  * @author edsf
@@ -28,9 +29,16 @@ public class RegistroRestService {
 
 	@RequestMapping(value = "/registro.rest", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean registrarUsuario(@ModelAttribute RegistroUsuarioVO usuario) {
+	public ResponseEntity<Boolean> registrarUsuario(
+			@ModelAttribute RegistroUsuarioVO usuario) {
 
-		return usuarioService.registrarUsuario(usuario);
+		Boolean resultado = new Boolean(
+				usuarioService.registrarUsuario(usuario));
+
+		ResponseEntity<Boolean> responseEntity = new ResponseEntity<Boolean>(
+				resultado, 200);
+
+		return responseEntity;
 
 	}
 }

@@ -29,7 +29,7 @@ $(function() {
 				datatype : "json",
 				data : $(form).serialize()
 			}).done(function(data) {
-				if (data) {
+				if (data.status == 200 && data.objeto) {
 					window.location.href = "login.html";
 				} else {
 					// $.showWarningMessage("Login ou senha inválida!");
