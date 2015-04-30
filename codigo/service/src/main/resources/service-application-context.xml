@@ -20,6 +20,6 @@
 	</bean>
 
 	<bean id="userDetailsService"
-		class="br.edu.ifpb.screamtool.service.business.impl.UserDetailsServiceImpl" />
+		class="br.edu.ifpb.screamtool.service.negocio.impl.UserDetailsServiceImpl" />
 
 </beans>

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.edu.ifpb.screamtool.service.business.impl;
+package br.edu.ifpb.screamtool.service.negocio.impl;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -15,8 +15,8 @@ import org.springframework.validation.annotation.Validated;
 
 import br.edu.ifpb.screamtool.data.dao.UsuarioDao;
 import br.edu.ifpb.screamtool.domain.entity.Usuario;
-import br.edu.ifpb.screamtool.domain.vo.RegistroUsuarioVO;
-import br.edu.ifpb.screamtool.service.business.UsuarioService;
+import br.edu.ifpb.screamtool.service.negocio.UsuarioService;
+import br.edu.ifpb.screamtool.service.vo.RegistroUsuarioVO;
 
 /**
  * @author edsf
@@ -36,10 +36,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional
 	public boolean registrarUsuario(@NotNull @Valid RegistroUsuarioVO usuario) {
 
-		if(usuarioDao.verificarLoginExiste(usuario.getLogin())) {
-			throw new RuntimeException("Deu merda na validação"); 
-		}
-		
 		Usuario user = new Usuario();
 		user.setId(usuario.getId());
 		user.setLogin(usuario.getLogin());

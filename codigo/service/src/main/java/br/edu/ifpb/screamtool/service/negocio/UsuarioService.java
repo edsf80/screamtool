@@ -1,12 +1,12 @@
 /**
  * 
  */
-package br.edu.ifpb.screamtool.service.business;
+package br.edu.ifpb.screamtool.service.negocio;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import br.edu.ifpb.screamtool.domain.vo.RegistroUsuarioVO;
+import br.edu.ifpb.screamtool.service.vo.RegistroUsuarioVO;
 
 /**
  * @author edsf

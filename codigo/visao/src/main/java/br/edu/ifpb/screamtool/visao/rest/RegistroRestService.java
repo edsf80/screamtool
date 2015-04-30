@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.ifpb.screamtool.domain.vo.RegistroUsuarioVO;
-import br.edu.ifpb.screamtool.service.business.UsuarioService;
+import br.edu.ifpb.screamtool.service.negocio.UsuarioService;
+import br.edu.ifpb.screamtool.service.vo.RegistroUsuarioVO;
 
 /**
  * @author edsf

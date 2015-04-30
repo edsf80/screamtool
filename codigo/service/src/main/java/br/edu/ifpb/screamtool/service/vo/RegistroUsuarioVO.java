@@ -1,12 +1,14 @@
 /**
  * 
  */
-package br.edu.ifpb.screamtool.domain.vo;
+package br.edu.ifpb.screamtool.service.vo;
 
 import java.io.Serializable;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
+
+import br.edu.ifpb.screamtool.service.validator.UniqueUsername;
 
 /**
  * @author edsf
@@ -25,6 +27,7 @@ public class RegistroUsuarioVO implements Serializable {
 	 * 
 	 */
 	@NotNull
+	@UniqueUsername
 	private String login;
 
 	/**

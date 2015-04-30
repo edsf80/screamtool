@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.edu.ifpb.screamtool.service.business.impl;
+package br.edu.ifpb.screamtool.service.negocio.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.ifpb.screamtool.service.business.LoginService;
+import br.edu.ifpb.screamtool.service.negocio.LoginService;
 
 /**
  * @author edsf

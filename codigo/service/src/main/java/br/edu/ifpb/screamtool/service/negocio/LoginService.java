@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.edu.ifpb.screamtool.service.business;
+package br.edu.ifpb.screamtool.service.negocio;
 
 
 /**

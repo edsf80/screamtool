@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.edu.ifpb.screamtool.service.business.impl;
+package br.edu.ifpb.screamtool.service.negocio.impl;
 
 import java.util.Collection;
 

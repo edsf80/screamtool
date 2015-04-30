@@ -34,7 +34,7 @@
 
 		<div class="register-box-body">
 			<p class="login-box-msg">Registrar novo Membro</p>
-			<div id="caixaAlerta"
+			<div id="caixaAlerta" style="display:none;"
 				class="alert alert-warning alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert"
 					aria-hidden="true">&times;</button>
@@ -46,12 +46,12 @@
 			</div>
 			<form id="frmRegistro" action="service/registro.rest" method="post">
 				<div class="form-group has-feedback">
-					<input type="text" name="nome" class="form-control"
+					<input type="text" name="nome" id="nome" class="form-control"
 						placeholder="Nome Completo" /> <span
 						class="glyphicon glyphicon-user form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
-					<input type="text" name="login" class="form-control"
+					<input type="text" name="login" id="login" class="form-control"
 						placeholder="Login" /> <span
 						class="glyphicon glyphicon-envelope form-control-feedback"></span>
 				</div>
