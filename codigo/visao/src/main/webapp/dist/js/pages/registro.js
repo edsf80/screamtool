@@ -29,15 +29,21 @@ $(function() {
 				datatype : "json",
 				data : $(form).serialize()
 			}).done(function(data) {
-				if (data.status == 200 && data.objeto) {
+				if (data.objeto) {
 					window.location.href = "login.html";
 				} else {
 					// $.showWarningMessage("Login ou senha inválida!");
 					alert("Login ou senha invalida!");
 				}
-			}).fail(function() {
+			}).fail(function(data) {
+				console.log('print object: ' + JSON.stringify(data));
+				if(data.status == 404) {
+					$("#caixaAlerta").append(data.responseJSON.objeto.errorMessages);
+					$("#caixaAlerta").show();					
+				} else {
+					alert("Pau de selfie");
+				}
 				// $.showErrorMessage();
-				alert("Erro na bagaca!");
 			});
 		},
 		rules : {
