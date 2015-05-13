@@ -4,11 +4,19 @@
 $(function() {
 
 	$("#frmLogin").validate({
+		errorPlacement : function(error, element) {
+			$(element).parent().addClass("has-error");
+		},
+		onkeyup: false,
+		showErrors: function(errorMap, errorList) {
+			$.each( errorList, function( i, val ) {
+				$("#caixaAlerta").append(val.message + "<br>");
+			});
+			this.defaultShowErrors();
+		},
 		submitHandler : function(form) {
 			var actionurl = form.action;
 			var method = form.method;
-			// var actionurl = "http://demo3468794.mockable.io/login.rest";
-			// var method = "post";
 
 			$.ajax({
 				type : method,
@@ -16,30 +24,31 @@ $(function() {
 				datatype : "json",
 				data : $(form).serialize()
 			}).done(function(data) {
-				if (data) {
+				if (data.objeto) {
 					window.location.href = "private/main.html";
 				} else {
-					// $.showWarningMessage("Login ou senha inválida!");
 					alert("Login ou senha invalida!");
 				}
-			}).fail(function() {
-				// $.showErrorMessage();
+			}).fail(function(data) {
 				alert("Erro na bagaca!");
 			});
 		},
 		rules : {
-			login : {
-				required : true,
-				email : true
-			},
+			login : "required",
 			senha : "required"
 		},
 		messages : {
-			login : {
-				required : "O login é obrigatório",
-				email : "O formato de e-mail não é válido"
-			},
+			login : "O login é obrigatório",
 			senha : "A senha é obrigatória"
+		},
+		invalidHandler : function(event, validator) {
+			// 'this' refers to the form
+			var errors = validator.numberOfInvalids();
+			if (errors) {
+				$("#caixaAlerta").show();
+			} else {
+				$("#caixaAlerta").hide();
+			}
 		}
 	});
 });

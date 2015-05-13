@@ -16,13 +16,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import br.edu.ifpb.screamtool.visao.rest.RegistroRestService;
-
 /**
  * @author edsf
  *
  */
-@ControllerAdvice(assignableTypes = {RegistroRestService.class})
+@ControllerAdvice("br.edu.ifpb.screamtool.visao.rest")
 public class RestExceptionHandler {
 
 	@ExceptionHandler(ConstraintViolationException.class)

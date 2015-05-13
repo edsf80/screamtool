@@ -15,9 +15,9 @@ $(function() {
 			this.defaultShowErrors();
 		},
 		submitHandler : function(form) {
-			var actionurl = form.action;
+			var actionurl = "http://localhost:8080/screamtool/service/registro.rest";
 			var method = form.method;
-
+			
 			if (!$("#acordoTermos").is(':checked')) {
 				alert("É necessário aceitar os termos para registro.");
 				return false;
@@ -32,7 +32,6 @@ $(function() {
 				if (data.objeto) {
 					window.location.href = "login.html";
 				} else {
-					// $.showWarningMessage("Login ou senha inválida!");
 					alert("Login ou senha invalida!");
 				}
 			}).fail(function(data) {
@@ -43,7 +42,6 @@ $(function() {
 				} else {
 					alert("Pau de selfie");
 				}
-				// $.showErrorMessage();
 			});
 		},
 		rules : {
