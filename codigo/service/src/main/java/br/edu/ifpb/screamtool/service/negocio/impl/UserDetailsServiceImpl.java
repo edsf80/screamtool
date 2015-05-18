@@ -3,17 +3,16 @@
  */
 package br.edu.ifpb.screamtool.service.negocio.impl;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.screamtool.data.dao.UsuarioDao;
+import br.edu.ifpb.screamtool.domain.entity.Usuario;
+import br.edu.ifpb.screamtool.service.vo.UsuarioVO;
 
 /**
  * @author edsf
@@ -25,66 +24,28 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	@Qualifier("usuarioDao")
 	private UsuarioDao usuarioDao;
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.springframework.security.core.userdetails.UserDetailsService#
 	 * loadUserByUsername(java.lang.String)
 	 */
-	public UserDetails loadUserByUsername(String cpf)
+	public UserDetails loadUserByUsername(String login)
 			throws UsernameNotFoundException {
-		
-		if (cpf == null)
-		{
-			throw new IllegalArgumentException(
-					"Tentativa de carga de usuario pelo login passando login nulo");
+
+		Usuario usuario = usuarioDao.bucarPorLogin(login);
+
+		if (usuario == null) {
+			throw new UsernameNotFoundException("Usuario nao encontrado");
 		}
 
-		UserDetails userDetails = new UserDetails() {
-			
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 2159388617509639203L;
+		UsuarioVO usuarioVO = new UsuarioVO();
 
-			public boolean isEnabled() {
-				// TODO Auto-generated method stub
-				return true;
-			}
-			
-			public boolean isCredentialsNonExpired() {
-				// TODO Auto-generated method stub
-				return true;
-			}
-			
-			public boolean isAccountNonLocked() {
-				// TODO Auto-generated method stub
-				return true;
-			}
-			
-			public boolean isAccountNonExpired() {
-				// TODO Auto-generated method stub
-				return true;
-			}
-			
-			public String getUsername() {
-				// TODO Auto-generated method stub
-				return "edsf@gmail.com";
-			}
-			
-			public String getPassword() {
-				// TODO Auto-generated method stub
-				return "edsf";
-			}
-			
-			public Collection<? extends GrantedAuthority> getAuthorities() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		};
+		usuarioVO.setUsername(usuario.getLogin());
+		usuarioVO.setPassword(usuario.getSenha());
 
-		return userDetails;
+		return usuarioVO;
 	}
 
 }

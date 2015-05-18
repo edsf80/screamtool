@@ -35,4 +35,20 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario, Long> implements
 		return query.getResultList().size() > 0;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.edu.ifpb.screamtool.data.dao.UsuarioDao#bucarPorLogin(java.lang.String
+	 * )
+	 */
+	@Override
+	public Usuario bucarPorLogin(String login) {
+
+		Query query = this.entityManager.createNamedQuery("Usuario.buscarPorLogin");
+		query.setParameter("login", login);
+
+		return (Usuario) query.getSingleResult();
+	}
+
 }

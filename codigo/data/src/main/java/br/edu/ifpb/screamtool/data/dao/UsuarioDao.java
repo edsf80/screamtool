@@ -18,4 +18,10 @@ public interface UsuarioDao extends GenericDao<Usuario, Long> {
 	 * @return
 	 */
 	boolean verificarLoginExiste(String login);
+	
+	/**
+	 * @param login
+	 * @return
+	 */
+	Usuario bucarPorLogin(String login);
 }

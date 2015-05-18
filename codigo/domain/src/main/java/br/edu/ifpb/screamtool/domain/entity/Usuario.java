@@ -13,6 +13,7 @@ import java.util.List;
  */
 @Entity
 @NamedQueries({
+		@NamedQuery(name = "Usuario.buscarPorLogin", query = "SELECT u FROM Usuario u where u.login = :login"),
 		@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
 		@NamedQuery(name = "Usuario.verificarExiste", query = "SELECT 1 FROM Usuario u where u.login = :login") })
 public class Usuario implements Serializable {
