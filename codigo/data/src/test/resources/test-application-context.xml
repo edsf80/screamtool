@@ -38,7 +38,7 @@
 		<property name="jpaVendorAdapter">
 			<bean id="jpaAdapter"
 				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="generateDdl" value="false" />
+				<property name="generateDdl" value="true" />
 				<property name="databasePlatform" value="org.hibernate.dialect.HSQLDialect" />
 				<property name="showSql" value="true" />
 			</bean>
@@ -46,8 +46,8 @@
 		<property name="persistenceUnitName" value="screamtool" />
 	</bean>
 	
-	<jdbc:initialize-database data-source="dataSource">
+	<!-- <jdbc:initialize-database data-source="dataSource">
 		<jdbc:script location="classpath:db/testddl.sql" />
-	</jdbc:initialize-database>
+	</jdbc:initialize-database> -->
 
 </beans>

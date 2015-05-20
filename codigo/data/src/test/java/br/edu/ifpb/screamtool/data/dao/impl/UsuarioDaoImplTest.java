@@ -3,6 +3,8 @@
  */
 package br.edu.ifpb.screamtool.data.dao.impl;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,7 +52,7 @@ public class UsuarioDaoImplTest {
 
 		Assert.assertTrue(usuarioDao.criar(usuario).getId() != null);
 	}
-	
+
 	@Test
 	@Transactional
 	public void testeCriarAtributoNulo() {
@@ -58,6 +60,129 @@ public class UsuarioDaoImplTest {
 		Usuario usuario = new Usuario();
 
 		Assert.assertTrue(usuarioDao.criar(usuario).getId() != null);
+	}
+
+	@Test
+	public void testeBuscarPorId() {
+
+		Usuario usuario = usuarioDao.buscarPorId(20l);
+
+		Assert.assertTrue(usuario != null);
+	}
+
+	@Test
+	public void testeBuscarPorIdInexistente() {
+
+		Usuario usuario = usuarioDao.buscarPorId(50l);
+
+		Assert.assertTrue(usuario == null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testeBuscarPorIdParamNulo() {
+
+		usuarioDao.buscarPorId(null);
+
+	}
+
+	@Test
+	@Transactional
+	public void testeAlterar() {
+
+		Usuario usuario = usuarioDao.buscarPorId(20l);
+
+		usuario.setNome("Testando Alteracao");
+
+		usuario = usuarioDao.atualizar(usuario);
+
+		Assert.assertTrue(usuario.getNome().equals("Testando Alteracao"));
+
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	@Transactional
+	public void testeAlterarUsuarioNulo() {
+
+		Usuario usuario = usuarioDao.buscarPorId(20l);
+
+		usuario.setNome("Testando Alteracao");
+
+		usuario = usuarioDao.atualizar(null);
+
+		Assert.assertTrue(usuario.getNome().equals("Testando Alteracao"));
+
+	}
+
+	@Test
+	@Transactional
+	public void testeAlterarUsuarioSemAtributos() {
+
+		usuarioDao.atualizar(new Usuario());
+
+	}
+
+	@Test
+	public void testeBuscarPorLogin() {
+
+		Usuario usuario = usuarioDao.bucarPorLogin("tstdev");
+
+		Assert.assertNotNull(usuario);
+
+	}
+
+	@Test
+	public void testeBuscarPorLoginInexistente() {
+
+		Usuario usuario = usuarioDao.bucarPorLogin("naoexiste");
+
+		Assert.assertNull(usuario);
+
+	}
+
+	@Test
+	public void testeBuscarPorLoginNulo() {
+
+		Usuario usuario = usuarioDao.bucarPorLogin(null);
+
+		Assert.assertNull(usuario);
+
+	}
+
+	@Test
+	public void testeBuscarTodos() {
+
+		List<Usuario> usuarios = usuarioDao.buscarTodos();
+
+		Assert.assertNotNull(usuarios);
+		Assert.assertNotNull(usuarios.size() > 0);
+
+	}
+
+	@Test
+	public void testeVerificarLoginExiste() {
+
+		boolean resultado = usuarioDao.verificarLoginExiste("tstdev");
+
+		Assert.assertTrue(resultado);
+
+	}
+	
+	@Test
+	public void testeVerificarLoginExisteLoginInexistente() {
+
+		boolean resultado = usuarioDao.verificarLoginExiste("naoexiste");
+
+		Assert.assertFalse(resultado);
+
+	}
+	
+	@Test
+	public void testeVerificarLoginExisteParametroNulo() {
+
+		boolean resultado = usuarioDao.verificarLoginExiste(null);
+
+		Assert.assertFalse(resultado);
+
 	}
 
 }

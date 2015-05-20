@@ -3,6 +3,8 @@
  */
 package br.edu.ifpb.screamtool.data.dao.impl;
 
+import java.util.List;
+
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
@@ -25,7 +27,6 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario, Long> implements
 	 * br.edu.ifpb.screamtool.data.dao.UsuarioDao#verificarLoginExiste(java.
 	 * lang.String)
 	 */
-	@Override
 	public boolean verificarLoginExiste(String login) {
 
 		Query query = this.entityManager
@@ -42,13 +43,17 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario, Long> implements
 	 * br.edu.ifpb.screamtool.data.dao.UsuarioDao#bucarPorLogin(java.lang.String
 	 * )
 	 */
-	@Override
 	public Usuario bucarPorLogin(String login) {
 
-		Query query = this.entityManager.createNamedQuery("Usuario.buscarPorLogin");
+		Query query = this.entityManager
+				.createNamedQuery("Usuario.buscarPorLogin");
 		query.setParameter("login", login);
 
-		return (Usuario) query.getSingleResult();
+		List<Usuario> usuarios = query.getResultList();
+
+		Usuario resultado = usuarios.isEmpty() ? null : usuarios.get(0);
+
+		return resultado;
 	}
 
 }
