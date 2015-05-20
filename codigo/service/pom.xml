@@ -14,7 +14,7 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>screamtool-domain</artifactId>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>screamtool-data</artifactId>
@@ -40,7 +40,7 @@
 			<artifactId>validation-api</artifactId>
 		</dependency>
 
-		 <dependency>
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
@@ -75,6 +75,6 @@
 			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 	</dependencies>
 </project>
