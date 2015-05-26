@@ -4,41 +4,49 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the projeto database table.
  * 
  */
 @Entity
-@NamedQuery(name="Projeto.findAll", query="SELECT p FROM Projeto p")
+@NamedQuery(name = "Projeto.findAll", query = "SELECT p FROM Projeto p")
 public class Projeto implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Long prjId;
+
+	@Id
+	@SequenceGenerator(name = "PROJETO_PRJID_GENERATOR", sequenceName = "seq_projeto")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROJETO_PRJID_GENERATOR")
+	@Column(name = "prj_id")
+	private Long id;
+
+	@Column(name = "prj_dsc")
+	private String nome;
+
+	@ManyToOne
+	@JoinColumn(name = "prd_id")
 	private Produto produto;
+
+	// bi-directional many-to-one association to Release
+	@OneToMany(mappedBy = "projeto")
 	private List<Release> releases;
+
+	// bi-directional many-to-one association to Sprint
+	@OneToMany(mappedBy = "projeto")
 	private List<Sprint> sprints;
-	private List<Usuario> usuarios;
 
 	public Projeto() {
 	}
 
-
-	@Id
-	@SequenceGenerator(name="PROJETO_PRJID_GENERATOR", sequenceName="SQ_PROJETO")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PROJETO_PRJID_GENERATOR")
-	@Column(name="prj_id")
-	public Long getPrjId() {
-		return this.prjId;
+	public Long getId() {
+		return this.id;
 	}
 
-	public void setPrjId(Long prjId) {
-		this.prjId = prjId;
+	public void setId(Long prjId) {
+		this.id = prjId;
 	}
 
+	// bi-directional many-to-one association to Produto
 
-	//bi-directional many-to-one association to Produto
-	@ManyToOne
-	@JoinColumn(name="prd_id")
 	public Produto getProduto() {
 		return this.produto;
 	}
@@ -47,9 +55,6 @@ public class Projeto implements Serializable {
 		this.produto = produto;
 	}
 
-
-	//bi-directional many-to-one association to Release
-	@OneToMany(mappedBy="projeto")
 	public List<Release> getReleases() {
 		return this.releases;
 	}
@@ -72,9 +77,6 @@ public class Projeto implements Serializable {
 		return releas;
 	}
 
-
-	//bi-directional many-to-one association to Sprint
-	@OneToMany(mappedBy="projeto")
 	public List<Sprint> getSprints() {
 		return this.sprints;
 	}
@@ -97,15 +99,18 @@ public class Projeto implements Serializable {
 		return sprint;
 	}
 
-
-	//bi-directional many-to-many association to Usuario
-	@ManyToMany(mappedBy="projetos")
-	public List<Usuario> getUsuarios() {
-		return this.usuarios;
+	/**
+	 * @return the nome
+	 */
+	public String getNome() {
+		return nome;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	/**
+	 * @param nome
+	 *            the nome to set
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-
 }

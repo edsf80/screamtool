@@ -4,6 +4,7 @@
 package br.edu.ifpb.screamtool.service.vo;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,12 +23,55 @@ public class UsuarioVO implements UserDetails {
 	/**
 	 * 
 	 */
+	private Long id;
+
+	/**
+	 * 
+	 */
+	private String nome;
+
+	/**
+	 * 
+	 */
 	private String username;
 
 	/**
 	 * 
 	 */
 	private String password;
+
+	/**
+	 * 
+	 */
+	private List<ProjetoVO> projetos;
+
+	/**
+	 * @return
+	 */
+	public Long getId() {
+		return this.id;
+	}
+
+	/**
+	 * @param id
+	 */
+	public void setId(final Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getNome() {
+		return this.nome;
+	}
+
+	/**
+	 * @param nome
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -119,6 +163,21 @@ public class UsuarioVO implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	/**
+	 * @return the projetos
+	 */
+	public List<ProjetoVO> getProjetos() {
+		return projetos;
+	}
+
+	/**
+	 * @param projetos
+	 *            the projetos to set
+	 */
+	public void setProjetos(List<ProjetoVO> projetos) {
+		this.projetos = projetos;
 	}
 
 }

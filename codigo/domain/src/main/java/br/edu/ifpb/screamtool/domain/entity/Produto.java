@@ -4,38 +4,35 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the produto database table.
  * 
  */
 @Entity
-@NamedQuery(name="Produto.findAll", query="SELECT p FROM Produto p")
+@NamedQuery(name = "Produto.findAll", query = "SELECT p FROM Produto p")
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Long prdId;
+
+	@Id
+	@SequenceGenerator(name = "PRODUTO_PRDID_GENERATOR", sequenceName = "seq_produto")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRODUTO_PRDID_GENERATOR")
+	@Column(name = "prd_id")
+	private Long id;
+
+	@Column(name = "prd_dsc")
+	private String descricao;
+
+	// bi-directional many-to-one association to ProductBacklog
+	@OneToMany(mappedBy = "produto")
 	private List<ProductBacklog> productBacklogs;
+
+	// bi-directional many-to-one association to Projeto
+	@OneToMany(mappedBy = "produto")
 	private List<Projeto> projetos;
 
 	public Produto() {
 	}
 
-
-	@Id
-	@SequenceGenerator(name="PRODUTO_PRDID_GENERATOR", sequenceName="SQ_PRODUTO")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PRODUTO_PRDID_GENERATOR")
-	@Column(name="prd_id")
-	public Long getPrdId() {
-		return this.prdId;
-	}
-
-	public void setPrdId(Long prdId) {
-		this.prdId = prdId;
-	}
-
-
-	//bi-directional many-to-one association to ProductBacklog
-	@OneToMany(mappedBy="produto")
 	public List<ProductBacklog> getProductBacklogs() {
 		return this.productBacklogs;
 	}
@@ -58,9 +55,6 @@ public class Produto implements Serializable {
 		return productBacklog;
 	}
 
-
-	//bi-directional many-to-one association to Projeto
-	@OneToMany(mappedBy="produto")
 	public List<Projeto> getProjetos() {
 		return this.projetos;
 	}
@@ -81,6 +75,36 @@ public class Produto implements Serializable {
 		projeto.setProduto(null);
 
 		return projeto;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the descricao
+	 */
+	public String getDescricao() {
+		return descricao;
+	}
+
+	/**
+	 * @param descricao
+	 *            the descricao to set
+	 */
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 }

@@ -6,14 +6,31 @@ package br.edu.ifpb.screamtool.service.negocio;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import br.edu.ifpb.screamtool.domain.entity.Usuario;
 import br.edu.ifpb.screamtool.service.vo.RegistroUsuarioVO;
+import br.edu.ifpb.screamtool.service.vo.UsuarioVO;
 
 /**
  * @author edsf
  *
  */
 public interface UsuarioService {
-	
+
+	/**
+	 * @param usuario
+	 * @return
+	 */
 	boolean registrarUsuario(@NotNull @Valid RegistroUsuarioVO usuario);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	Usuario buscarPorId(@NotNull Long id);
+	
+	/**
+	 * @return
+	 */
+	UsuarioVO buscarUsuarioLogado();
 
 }

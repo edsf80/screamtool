@@ -63,11 +63,13 @@ public class UsuarioDaoImplTest {
 	}
 
 	@Test
+	@Transactional
 	public void testeBuscarPorId() {
 
 		Usuario usuario = usuarioDao.buscarPorId(20l);
 
 		Assert.assertTrue(usuario != null);
+		Assert.assertTrue(usuario.getProjetos().size() > 0);
 	}
 
 	@Test

@@ -86,7 +86,6 @@ public class GenericDaoImpl<T, K> implements GenericDao<T, K> {
 	 * 
 	 * @see br.edu.ifpb.screamtool.data.dao.GenericDao#apagar(java.lang.Object)
 	 */
-	@Override
 	public void apagar(T entidade) {
 
 		this.entityManager.remove(entidade);
