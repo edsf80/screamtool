@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,14 +25,16 @@ import br.edu.ifpb.screamtool.service.vo.UsuarioVO;
  */
 @Validated
 @Service("usuarioService")
-public class UsuarioServiceImpl implements UsuarioService {
-
-	@Autowired
-	@Qualifier("usuarioDao")
-	private UsuarioDao usuarioDao;
+public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Long>
+		implements UsuarioService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	public UsuarioServiceImpl(UsuarioDao dao) {
+		this.dao = dao;
+	}
 
 	@Transactional
 	public boolean registrarUsuario(@NotNull @Valid RegistroUsuarioVO usuario) {
@@ -44,29 +45,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		user.setSenha(passwordEncoder.encode(usuario.getSenha()));
 		user.setNome(usuario.getNome());
 
-		usuarioDao.criar(user);
+		this.criar(user);
 
 		return true;
 
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * br.edu.ifpb.screamtool.service.negocio.UsuarioService#buscarPorId(java
-	 * .lang.Long)
-	 */
-	public Usuario buscarPorId(@NotNull Long id) {
-
-		return usuarioDao.buscarPorId(id);
-	}
-
-	/**
-	 * @param usuarioDao
-	 */
-	protected void setUsuarioDao(UsuarioDao usuarioDao) {
-		this.usuarioDao = usuarioDao;
 	}
 
 	/*
@@ -77,10 +59,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 	 * ()
 	 */
 	public UsuarioVO buscarUsuarioLogado() {
-		
+
 		UsuarioVO usuarioAutenticado = (UsuarioVO) SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal();
-		
+
 		return usuarioAutenticado;
 	}
 

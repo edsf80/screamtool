@@ -7,13 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifpb.screamtool.service.negocio.UsuarioService;
 import br.edu.ifpb.screamtool.service.vo.UsuarioVO;
-import br.edu.ifpb.screamtool.visao.exception.ResponseEntity;
 
 /**
  * @author edsf

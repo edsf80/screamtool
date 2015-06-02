@@ -14,7 +14,7 @@ import br.edu.ifpb.screamtool.service.vo.UsuarioVO;
  * @author edsf
  *
  */
-public interface UsuarioService {
+public interface UsuarioService extends GenericService<Usuario, Long> {
 
 	/**
 	 * @param usuario
@@ -22,12 +22,6 @@ public interface UsuarioService {
 	 */
 	boolean registrarUsuario(@NotNull @Valid RegistroUsuarioVO usuario);
 
-	/**
-	 * @param id
-	 * @return
-	 */
-	Usuario buscarPorId(@NotNull Long id);
-	
 	/**
 	 * @return
 	 */

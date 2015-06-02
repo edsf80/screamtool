@@ -42,13 +42,5 @@ public class UsuarioServiceImplTest {
 		
 		Assert.assertNotNull(usuario);
 	}
-	
-	@Test
-	public void testBuscarPorIdNull() {
-		
-		Usuario usuario = usuarioService.buscarPorId(null);
-		
-		Assert.assertNotNull(usuario);
-	}
 
 }

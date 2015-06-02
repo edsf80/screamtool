@@ -53,6 +53,8 @@ public class GenericDaoImpl<T, K> implements GenericDao<T, K> {
 	 * br.edu.ifpb.screamtool.data.dao.GenericDao#buscarPorId(java.lang.Object)
 	 */
 	public T buscarPorId(K id) {
+		
+		
 
 		return (T) this.entityManager.find(tipo, id);
 	}
@@ -74,7 +76,7 @@ public class GenericDaoImpl<T, K> implements GenericDao<T, K> {
 	 * @see br.edu.ifpb.screamtool.data.dao.GenericDao#buscarTodos()
 	 */
 	public List<T> buscarTodos() {
-
+		
 		Query query = entityManager.createQuery("select t from "
 				+ tipo.getName() + " t");
 
