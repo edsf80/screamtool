@@ -34,15 +34,16 @@ $(function() {
 		dataType : "json"
 	}).done(
 			function(data) {
-				alert("Tntou buscar as porra dos produto!");
 				var lista = data == null ? [] : (data instanceof Array ? data
 						: [ data ]);
 
 				$("#tProdutos tbody tr").remove();
 				$.each(lista, function(index, produto) {
 					$("#tProdutos tbody").append(
-							'<tr><th>' + produto.id + '</th><th>'
-									+ produto.descricao + '</th></tr>');
+							'<tr><td>' + produto.id + '</td><td>'
+									+ produto.descricao + '</td>'
+									+ '<td style="width: 100px"><div class="btn-group"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button>'
+                                    + '<button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button></div></td></tr>');
 				});
 			}).fail(function(data) {
 		alert("Pau de selfie");

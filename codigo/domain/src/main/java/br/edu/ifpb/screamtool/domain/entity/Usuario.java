@@ -25,7 +25,6 @@ public class Usuario implements Serializable {
 	/**
 	 * 
 	 */
-	@NotNull
 	@Id
 	@SequenceGenerator(name = "USUARIO_USRID_GENERATOR", sequenceName = "seq_usuario")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_USRID_GENERATOR")
@@ -132,6 +131,37 @@ public class Usuario implements Serializable {
 	 */
 	public void setProjetos(List<Projeto> projetos) {
 		this.projetos = projetos;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return this.id.intValue();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+
+		boolean resultado = Boolean.FALSE;
+
+		if (obj != null) {
+			Usuario eb = (Usuario) obj;
+
+			if ((eb.getId() == this.getId()) || eb.getId().equals(this.getId())) {
+				resultado = Boolean.TRUE;
+			}
+		}
+
+		return resultado;
 	}
 
 }

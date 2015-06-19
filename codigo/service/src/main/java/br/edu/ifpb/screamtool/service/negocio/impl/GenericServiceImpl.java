@@ -5,6 +5,9 @@ package br.edu.ifpb.screamtool.service.negocio.impl;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ifpb.screamtool.data.dao.GenericDao;
@@ -27,7 +30,7 @@ public class GenericServiceImpl<T, K> implements GenericService<T, K> {
 	 */
 	@Transactional
 	@Override
-	public T criar(T entidade) {
+	public T criar(@Valid @NotNull T entidade) {
 
 		return dao.criar(entidade);
 	}

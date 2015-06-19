@@ -16,31 +16,33 @@ import br.edu.ifpb.screamtool.domain.entity.Usuario;
  *
  */
 public class UsuarioServiceImplTest {
-	
+
 	private UsuarioServiceImpl usuarioService;
-	
+
+	private Usuario usuarioDaBusca, usuarioCriar, usuarioCriado;
+
 	@Before
 	public void setup() {
-		Usuario usuarioDaBusca = new Usuario();
+		usuarioDaBusca = new Usuario();
 		usuarioDaBusca.setId(1l);
-		
-		
-		usuarioService = new UsuarioServiceImpl();
-		
-		
+		usuarioCriar = new Usuario();
+		usuarioCriar.setNome("Teste de criacao");
+		usuarioCriado = new Usuario();
+		usuarioCriado.setId(2l);
+		usuarioCriado.setNome("Teste de criacao");
+
 		UsuarioDao usuarioDao = Mockito.mock(UsuarioDao.class);
 		Mockito.when(usuarioDao.buscarPorId(1l)).thenReturn(usuarioDaBusca);
-		
-		
-		usuarioService.setUsuarioDao(usuarioDao);
-	}
-	
-	@Test
-	public void testBuscarPorId() {
-		
-		Usuario usuario = usuarioService.buscarPorId(1l);
-		
-		Assert.assertNotNull(usuario);
+		Mockito.when(usuarioDao.criar(usuarioCriar)).thenReturn(usuarioCriado);
+
+		usuarioService = new UsuarioServiceImpl(usuarioDao);
 	}
 
+	@Test
+	public void testBuscarPorId() {
+
+		Usuario usuario = usuarioService.buscarPorId(1l);
+
+		Assert.assertNotNull(usuario);
+	}
 }
