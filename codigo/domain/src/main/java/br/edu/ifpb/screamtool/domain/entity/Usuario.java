@@ -140,7 +140,15 @@ public class Usuario implements Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		return this.id.intValue();
+		int resultado;
+
+		if (this.id == null) {
+			resultado = super.hashCode();
+		} else {
+			resultado = this.id.intValue();
+		}
+
+		return resultado;
 	}
 
 	/*

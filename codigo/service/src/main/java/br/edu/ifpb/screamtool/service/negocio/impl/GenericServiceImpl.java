@@ -43,7 +43,7 @@ public class GenericServiceImpl<T, K> implements GenericService<T, K> {
 	 * .lang.Object)
 	 */
 	@Override
-	public T buscarPorId(K id) {
+	public T buscarPorId(@NotNull K id) {
 
 		return dao.buscarPorId(id);
 	}
@@ -57,7 +57,7 @@ public class GenericServiceImpl<T, K> implements GenericService<T, K> {
 	 */
 	@Transactional
 	@Override
-	public T atualizar(T entidade) {
+	public T atualizar(@NotNull @Valid T entidade) {
 
 		return dao.atualizar(entidade);
 	}
@@ -81,7 +81,7 @@ public class GenericServiceImpl<T, K> implements GenericService<T, K> {
 	 */
 	@Transactional
 	@Override
-	public void apagar(T entidade) {
+	public void apagar(@NotNull @Valid T entidade) {
 		dao.apagar(entidade);
 	}
 

@@ -75,7 +75,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	/**
 	 * @param usuarioDao
 	 */
-	protected void setUsuarioDao(UsuarioDao usuarioDao) {
+	public void setUsuarioDao(UsuarioDao usuarioDao) {
 		this.usuarioDao = usuarioDao;
 	}
 

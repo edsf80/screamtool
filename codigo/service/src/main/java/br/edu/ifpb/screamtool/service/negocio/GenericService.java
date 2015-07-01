@@ -24,13 +24,13 @@ public interface GenericService<T, K> {
 	 * @param id
 	 * @return
 	 */
-	T buscarPorId(K id);
+	T buscarPorId(@NotNull K id);
 
 	/**
 	 * @param entidade
 	 * @return
 	 */
-	T atualizar(T entidade);
+	T atualizar(@NotNull @Valid T entidade);
 
 	/**
 	 * @return
@@ -40,5 +40,5 @@ public interface GenericService<T, K> {
 	/**
 	 * @param entidade
 	 */
-	void apagar(T entidade);
+	void apagar(@NotNull @Valid T entidade);
 }

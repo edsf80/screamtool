@@ -131,6 +131,10 @@
 						<artifactId>org.springframework</artifactId>
 						<groupId>spring-expression</groupId>
 					</exclusion>
+					<exclusion>
+						<artifactId>org.springframework</artifactId>
+						<groupId>spring-core</groupId>
+					</exclusion>
 				</exclusions>
 			</dependency>
 

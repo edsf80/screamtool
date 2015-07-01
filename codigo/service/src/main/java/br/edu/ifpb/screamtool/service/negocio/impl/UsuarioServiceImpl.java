@@ -28,10 +28,10 @@ import br.edu.ifpb.screamtool.service.vo.UsuarioVO;
 public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Long>
 		implements UsuarioService {
 
-	@Autowired
+	@Autowired(required = false)
 	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
+
+	@Autowired(required = false)
 	public UsuarioServiceImpl(UsuarioDao dao) {
 		this.dao = dao;
 	}
@@ -64,6 +64,17 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Long>
 				.getContext().getAuthentication().getPrincipal();
 
 		return usuarioAutenticado;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.edu.ifpb.screamtool.service.negocio.UsuarioService#setDao(br.edu.ifpb
+	 * .screamtool.data.dao.UsuarioDao)
+	 */
+	public void setDao(UsuarioDao dao) {
+		this.dao = dao;
 	}
 
 }
