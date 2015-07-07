@@ -28,10 +28,10 @@ import br.edu.ifpb.screamtool.service.vo.UsuarioVO;
 public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Long>
 		implements UsuarioService {
 
-	@Autowired(required = false)
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@Autowired(required = false)
+	@Autowired
 	public UsuarioServiceImpl(UsuarioDao dao) {
 		this.dao = dao;
 	}

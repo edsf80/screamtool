@@ -6,7 +6,10 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.edu.ifpb.screamtool.data.dao.UsuarioDao;
 import br.edu.ifpb.screamtool.domain.entity.Produto;
@@ -14,6 +17,8 @@ import br.edu.ifpb.screamtool.domain.entity.Projeto;
 import br.edu.ifpb.screamtool.domain.entity.Usuario;
 import br.edu.ifpb.screamtool.service.vo.UsuarioVO;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/service-application-context-test.xml" })
 public class UserDetailsServiceImplTest {
 
 	private UserDetailsServiceImpl userDetailsService;

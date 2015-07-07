@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifpb.screamtool.domain.entity.Produto;
 import br.edu.ifpb.screamtool.service.negocio.ProdutoService;
+import br.edu.ifpb.screamtool.visao.exception.TableResult;
 
 /**
  * @author edsf
@@ -29,10 +30,29 @@ public class ProdutoRestService {
 	/**
 	 * @return
 	 */
-	@RequestMapping(value = "/buscarTodosProdutos.rest", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/buscarTodosProdutos.rest", method = RequestMethod.GET)
 	public @ResponseBody List<Produto> buscarTodos() {
 
 		return produtoService.buscarTodos();
+	}*/
+	
+	@RequestMapping(value = "/buscarTodosProdutos.rest", method = RequestMethod.GET)
+	public @ResponseBody TableResult buscarTodos() {
+		
+		List<Produto> produtos = produtoService.buscarTodos(); 
+		
+		String [][] linhas = new String[produtos.size()][2];
+		
+		TableResult resultado = new TableResult(0, 0);
+		
+		for(int i = 0; i < produtos.size(); i++) {
+			linhas[i][0] = produtos.get(i).getId().toString();
+			linhas[i][1] = produtos.get(i).getDescricao();
+		}
+		
+		resultado.setData(linhas);
+
+		return resultado;
 	}
 
 	/**
