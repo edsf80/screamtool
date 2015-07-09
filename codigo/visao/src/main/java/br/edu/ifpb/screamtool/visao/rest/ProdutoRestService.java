@@ -6,6 +6,7 @@ package br.edu.ifpb.screamtool.visao.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,15 +28,7 @@ public class ProdutoRestService {
 	@Autowired
 	private ProdutoService produtoService;
 
-	/**
-	 * @return
-	 */
-	/*@RequestMapping(value = "/buscarTodosProdutos.rest", method = RequestMethod.GET)
-	public @ResponseBody List<Produto> buscarTodos() {
-
-		return produtoService.buscarTodos();
-	}*/
-	
+	@PreAuthorize("hasRole('perm_consultar_produto')")
 	@RequestMapping(value = "/buscarTodosProdutos.rest", method = RequestMethod.GET)
 	public @ResponseBody TableResult<Produto> buscarTodos() {
 		
@@ -58,6 +51,7 @@ public class ProdutoRestService {
 	 * @param produto
 	 * @return
 	 */
+	@PreAuthorize("hasRole('perm_salvar_produto')")
 	@RequestMapping(value = "/salvarProduto.rest", method = RequestMethod.POST)
 	public @ResponseBody Produto salvarProduto(@ModelAttribute Produto produto) {
 

@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ifpb.screamtool.data.dao.UsuarioDao;
+import br.edu.ifpb.screamtool.domain.entity.Papel;
+import br.edu.ifpb.screamtool.domain.entity.Permissao;
 import br.edu.ifpb.screamtool.domain.entity.Projeto;
 import br.edu.ifpb.screamtool.domain.entity.Usuario;
 import br.edu.ifpb.screamtool.service.vo.ProjetoVO;
@@ -56,18 +60,31 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		List<Projeto> projetos = usuario.getProjetos();
 
-		if (projetos != null && !projetos.isEmpty()) {
-			List<ProjetoVO> projetosVO = new ArrayList<>();
+		List<ProjetoVO> projetosVO = new ArrayList<>();
 
-			for (Projeto projeto : projetos) {
-				ProjetoVO novoProjeto = new ProjetoVO();
-				novoProjeto.setId(projeto.getId());
-				novoProjeto.setNome(projeto.getNome());
-				projetosVO.add(novoProjeto);
+		for (Projeto projeto : projetos) {
+			ProjetoVO novoProjeto = new ProjetoVO();
+			novoProjeto.setId(projeto.getId());
+			novoProjeto.setNome(projeto.getNome());
+			projetosVO.add(novoProjeto);
+		}
+
+		usuarioVO.setProjetos(projetosVO);
+
+		List<Papel> papeis = usuario.getPapeis();
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+		for (Papel papel : papeis) {
+			List<Permissao> permissoes = papel.getPermissoes();
+
+			for (Permissao permissao : permissoes) {
+				authorities.add(new SimpleGrantedAuthority(permissao
+						.getCodigo()));
 			}
 
-			usuarioVO.setProjetos(projetosVO);
 		}
+
+		usuarioVO.setAuthorities(authorities);
 
 		return usuarioVO;
 	}

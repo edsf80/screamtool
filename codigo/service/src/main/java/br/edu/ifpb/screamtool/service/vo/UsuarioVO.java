@@ -46,6 +46,11 @@ public class UsuarioVO implements UserDetails {
 	private List<ProjetoVO> projetos;
 
 	/**
+	 * A lista de permissoes do usuário
+	 */
+	private List<GrantedAuthority> authorities;
+
+	/**
 	 * @return
 	 */
 	public Long getId() {
@@ -81,8 +86,16 @@ public class UsuarioVO implements UserDetails {
 	 * ()
 	 */
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return this.authorities;
+	}
+	
+	/**
+	 * @param authorities
+	 */
+	public void setAuthorities(List<GrantedAuthority> authorities) {
+
+		this.authorities = authorities;
 	}
 
 	/*
@@ -179,5 +192,4 @@ public class UsuarioVO implements UserDetails {
 	public void setProjetos(List<ProjetoVO> projetos) {
 		this.projetos = projetos;
 	}
-
 }

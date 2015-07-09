@@ -5,6 +5,8 @@ $(function() {
 	
 	var linhaSelecionada;
 	
+	var permissoes;
+	
 	function abrirModal(titulo, dados) {
 		$("#caixaAlerta").hide();
 		$('#mCadProduto').find('.modal-title').text(titulo);
@@ -19,14 +21,58 @@ $(function() {
 		$("#mCadProduto").modal('toggle');
 	}
 	
+	/*$.ajax({
+		type : "get",
+		url : "../service/buscarUsuarioSessao.rest",
+		datatype : "json"
+	}).done(function(data) {
+		$("#sNomeUsuario").append(data.nome);
+		$("#pNomeUsuarioPainel").append(data.nome);
+		$("#pNomeUsuarioMenu").append(data.nome);
+		
+		//$(".perm_salvar_produto").removeClass("disabled");
+
+		var lista = data.projetos == null ? []
+			: (data.projetos instanceof Array ? data.projetos
+			: [ data.projetos ]);
+
+		//$("#mProjetos li").remove();
+		$.each(lista, function(index, projeto) {
+			$("#mProjetos").append('<li><a href="dashboard.html?projeto=' + projeto.id
+									+ '"><i class="fa fa-circle-o"></i> '
+									+ projeto.nome + '</a></li>');
+		});
+		
+		permissoes = data.authorities == null ? []
+				: (data.authorities instanceof Array ? data.authorities
+				: [ data.authorities ]);
+		
+		$.each(permissoes, function(index, permissao) {
+			$("."+permissao.authority).removeClass("disabled");
+		});
+		
+	}).fail(function(data) {
+		alert("Pau de selfie");
+	});*/
+	
+	$.fn.dataTable.ext.errMode = 'none';
+	
 	var table = $("#tProdutos").DataTable({
 		"ajax" : "../service/buscarTodosProdutos.rest",
-        "columns": [
+		"columns": [
             { "data": "id" },
             { "data": "descricao" },
-            { "data": null, "defaultContent": "<button id=\"bAltProduto\" type=\"button\" class=\"btn btn-xs btn-default\"><i class='fa fa-edit'></i></button>"}
+            { "data": null, "defaultContent": "<button id=\"bAltProduto\" type=\"button\" class=\"btn btn-xs btn-default disabled perm_salvar_produto\"><i class='fa fa-edit'></i></button>"}
         ]
 	});
+	
+	function exibirCaixaAlerta(mensagens) {
+		$.each(mensagens, function(i, val) {
+			$("#caixaAlerta p").empty();
+			$("#caixaAlerta").append("<p>"+val+"</p>");
+			$("#caixaAlerta").show();
+		});
+	}
 
 	$('#tProdutos tbody').on( 'click', 'button', function () {
         linhaSelecionada = table.row( $(this).parents('tr') );
@@ -38,29 +84,6 @@ $(function() {
 	$("#bAdProduto").click(function(){
 		linhaSelecionada = undefined;
 		abrirModal('Novo Produto');
-	});
-
-	$.ajax({
-		type : "get",
-		url : "../service/buscarUsuarioSessao.rest",
-		datatype : "json"
-	}).done(function(data) {
-		$("#sNomeUsuario").append(data.nome);
-		$("#pNomeUsuarioPainel").append(data.nome);
-		$("#pNomeUsuarioMenu").append(data.nome);
-
-		var lista = data.projetos == null ? []
-			: (data.projetos instanceof Array ? data.projetos
-			: [ data.projetos ]);
-
-		//$("#mProjetos li").remove();
-		$.each(lista, function(index, projeto) {
-		$("#mProjetos").append('<li><a href="dashboard.html?projeto=' + projeto.id
-									+ '"><i class="fa fa-circle-o"></i> '
-									+ projeto.nome + '</a></li>');
-		});
-	}).fail(function(data) {
-		alert("Pau de selfie");
 	});
 
 	$("#frmProduto").validate({
@@ -78,6 +101,7 @@ $(function() {
 			$.each(errorList, function(i, val) {
 				$("#caixaAlerta p").empty();
 				$("#caixaAlerta").append("<p>"+val.message+"</p>");
+				$("#caixaAlerta").show();
 			});
 			this.defaultShowErrors();
 		},
@@ -88,13 +112,7 @@ $(function() {
 			descricao : "A descrição é obrigatória"
 		},
 		invalidHandler : function(event, validator) {
-			// 'this' refers to the form
-			//var errors = validator.numberOfInvalids();
-			//if (errors) {
-			$("#caixaAlerta").show();
-			//} else {
-				//$("#caixaAlerta").hide();
-			//}
+			//$("#caixaAlerta").show();
 		}
 	});
 
@@ -118,14 +136,14 @@ $(function() {
 				estado.draw(false);
 				$("#hIdProduto").val(data.id);
 			}).fail(function(data) {
-				if (data.status == 404) {
-					$("#caixaAlerta").append(data.responseJSON.objeto.errorMessages);
-					$("#caixaAlerta").show();
+				if(data.status == 403) {
+					exibirCaixaAlerta(["Usuário não possui permissão para executar operação!"]);
+				}else if (data.status == 404) {
+					exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
 				} else {
 					alert("Pau de selfie");
 				}
 			});
 		}
 	});
-
 });

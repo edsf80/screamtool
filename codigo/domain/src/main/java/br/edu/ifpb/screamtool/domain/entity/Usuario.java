@@ -26,8 +26,8 @@ public class Usuario implements Serializable {
 	 * 
 	 */
 	@Id
-	@SequenceGenerator(name = "USUARIO_USRID_GENERATOR", sequenceName = "seq_usuario")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_USRID_GENERATOR")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
+	@SequenceGenerator(name = "seq_usuario", sequenceName = "seq_usuario")	
 	@Column(name = "usr_id")
 	private Long id;
 
@@ -55,9 +55,16 @@ public class Usuario implements Serializable {
 	/**
 	 * 
 	 */
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "usuario_projeto", joinColumns = { @JoinColumn(name = "usr_id") }, inverseJoinColumns = { @JoinColumn(name = "prj_id") })
 	private List<Projeto> projetos;
+
+	/**
+	 * 
+	 */
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "usuario_papel", joinColumns = { @JoinColumn(name = "usr_id") }, inverseJoinColumns = { @JoinColumn(name = "ppl_id") })
+	private List<Papel> papeis;
 
 	/**
 	 * @return the id
@@ -170,6 +177,20 @@ public class Usuario implements Serializable {
 		}
 
 		return resultado;
+	}
+
+	/**
+	 * @return the papeis
+	 */
+	public List<Papel> getPapeis() {
+		return papeis;
+	}
+
+	/**
+	 * @param papeis the papeis to set
+	 */
+	public void setPapeis(List<Papel> papeis) {
+		this.papeis = papeis;
 	}
 
 }

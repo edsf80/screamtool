@@ -164,7 +164,7 @@
 								<div class="box-tools">
 									<div class="input-group">
 										<button id="bAdProduto"
-											class="btn btn-sm btn-primary">Adicionar
+											class="btn btn-sm btn-primary disabled perm_salvar_produto">Adicionar
 											Produto</button>
 									</div>									
 								</div>
@@ -275,5 +275,42 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="../dist/js/demo.js" type="text/javascript"></script>
 	<script src="../dist/js/pages/produto.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(function() {
+		$.ajax({
+			type : "get",
+			url : "../service/buscarUsuarioSessao.rest",
+			datatype : "json"
+		}).done(function(data) {
+			$("#sNomeUsuario").append(data.nome);
+			$("#pNomeUsuarioPainel").append(data.nome);
+			$("#pNomeUsuarioMenu").append(data.nome);
+			
+			//$(".perm_salvar_produto").removeClass("disabled");
+	
+			var lista = data.projetos == null ? []
+				: (data.projetos instanceof Array ? data.projetos
+				: [ data.projetos ]);
+	
+			//$("#mProjetos li").remove();
+			$.each(lista, function(index, projeto) {
+				$("#mProjetos").append('<li><a href="dashboard.html?projeto=' + projeto.id
+										+ '"><i class="fa fa-circle-o"></i> '
+										+ projeto.nome + '</a></li>');
+			});
+			
+			permissoes = data.authorities == null ? []
+					: (data.authorities instanceof Array ? data.authorities
+					: [ data.authorities ]);
+			
+			$.each(permissoes, function(index, permissao) {
+				$("."+permissao.authority).removeClass("disabled");
+			});
+			
+		}).fail(function(data) {
+			alert("Pau de selfie");
+		});
+	})
+	</script>
 </body>
 </html>

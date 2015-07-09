@@ -4,75 +4,81 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the papel database table.
  * 
  */
 @Entity
-@NamedQuery(name="Papel.findAll", query="SELECT p FROM Papel p")
+@NamedQuery(name = "Papel.findAll", query = "SELECT p FROM Papel p")
 public class Papel implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	private Long pplId;
-	private String pplDsc;
-	private List<Permissao> permissaos;
-	private List<UsuarioProjeto> usuarioProjetos;
 
-	public Papel() {
-	}
-
-
+	/**
+	 * 
+	 */
 	@Id
-	@SequenceGenerator(name="PAPEL_PPLID_GENERATOR", sequenceName="SQ_PAPEL")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PAPEL_PPLID_GENERATOR")
-	@Column(name="ppl_id")
-	public Long getPplId() {
-		return this.pplId;
-	}
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_papel")
+	@SequenceGenerator(name = "seq_papel", sequenceName = "seq_papel")
+	@Column(name = "ppl_id")
+	private Long id;
 
-	public void setPplId(Long pplId) {
-		this.pplId = pplId;
-	}
+	/**
+	 * 
+	 */
+	@Column(name = "ppl_dsc")
+	private String descricao;
 
-
-	@Column(name="ppl_dsc")
-	public String getPplDsc() {
-		return this.pplDsc;
-	}
-
-	public void setPplDsc(String pplDsc) {
-		this.pplDsc = pplDsc;
-	}
-
-
-	//bi-directional many-to-many association to Permissao
+	/**
+	 * 
+	 */
 	@ManyToMany
-	@JoinTable(
-		name="papel_permissao"
-		, joinColumns={
-			@JoinColumn(name="ppl_id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="prm_id")
-			}
-		)
-	public List<Permissao> getPermissaos() {
-		return this.permissaos;
+	@JoinTable(name = "papel_permissao", joinColumns = { @JoinColumn(name = "ppl_id") }, inverseJoinColumns = { @JoinColumn(name = "prm_id") })
+	private List<Permissao> permissoes;
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
 	}
 
-	public void setPermissaos(List<Permissao> permissaos) {
-		this.permissaos = permissaos;
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-
-	//bi-directional many-to-many association to UsuarioProjeto
-	@ManyToMany(mappedBy="papels")
-	public List<UsuarioProjeto> getUsuarioProjetos() {
-		return this.usuarioProjetos;
+	/**
+	 * @return the descricao
+	 */
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setUsuarioProjetos(List<UsuarioProjeto> usuarioProjetos) {
-		this.usuarioProjetos = usuarioProjetos;
+	/**
+	 * @param descricao
+	 *            the descricao to set
+	 */
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	/**
+	 * @return the permissoes
+	 */
+	public List<Permissao> getPermissoes() {
+		return permissoes;
+	}
+
+	/**
+	 * @param permissoes
+	 *            the permissoes to set
+	 */
+	public void setPermissoes(List<Permissao> permissoes) {
+		this.permissoes = permissoes;
 	}
 
 }

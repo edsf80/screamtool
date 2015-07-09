@@ -1,57 +1,87 @@
 package br.edu.ifpb.screamtool.domain.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 
 /**
  * The persistent class for the permissao database table.
  * 
  */
 @Entity
-@NamedQuery(name="Permissao.findAll", query="SELECT p FROM Permissao p")
+@NamedQuery(name = "Permissao.findAll", query = "SELECT p FROM Permissao p")
 public class Permissao implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Long prmId;
-	private String prmDsc;
-	private List<Papel> papels;
 
-	public Permissao() {
-	}
-
-
+	/**
+	 * 
+	 */
 	@Id
-	@SequenceGenerator(name="PERMISSAO_PRMID_GENERATOR", sequenceName="SQ_PERMISSAO")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PERMISSAO_PRMID_GENERATOR")
-	@Column(name="prm_id")
-	public Long getPrmId() {
-		return this.prmId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_permissao")
+	@SequenceGenerator(name = "seq_permissao", sequenceName = "seq_permissao")	
+	@Column(name = "prm_id")
+	private Long id;
+
+	/**
+	 * 
+	 */
+	@Column(name = "prm_dsc")
+	private String descricao;
+	
+	/**
+	 * 
+	 */
+	@Column(name = "prm_cod")
+	private String codigo;
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
 	}
 
-	public void setPrmId(Long prmId) {
-		this.prmId = prmId;
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-
-	@Column(name="prm_dsc")
-	public String getPrmDsc() {
-		return this.prmDsc;
+	/**
+	 * @return the descricao
+	 */
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setPrmDsc(String prmDsc) {
-		this.prmDsc = prmDsc;
+	/**
+	 * @param descricao
+	 *            the descricao to set
+	 */
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-
-	//bi-directional many-to-many association to Papel
-	@ManyToMany(mappedBy="permissaos")
-	public List<Papel> getPapels() {
-		return this.papels;
+	/**
+	 * @return the codigo
+	 */
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setPapels(List<Papel> papels) {
-		this.papels = papels;
+	/**
+	 * @param codigo the codigo to set
+	 */
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 }

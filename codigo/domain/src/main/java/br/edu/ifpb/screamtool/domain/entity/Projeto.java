@@ -14,8 +14,8 @@ public class Projeto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "PROJETO_PRJID_GENERATOR", sequenceName = "seq_projeto")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROJETO_PRJID_GENERATOR")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_projeto")
+	@SequenceGenerator(name = "seq_projeto", sequenceName = "seq_projeto")	
 	@Column(name = "prj_id")
 	private Long id;
 
