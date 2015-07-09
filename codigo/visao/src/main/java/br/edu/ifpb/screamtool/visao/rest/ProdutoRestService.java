@@ -37,17 +37,16 @@ public class ProdutoRestService {
 	}*/
 	
 	@RequestMapping(value = "/buscarTodosProdutos.rest", method = RequestMethod.GET)
-	public @ResponseBody TableResult buscarTodos() {
+	public @ResponseBody TableResult<Produto> buscarTodos() {
 		
 		List<Produto> produtos = produtoService.buscarTodos(); 
 		
-		String [][] linhas = new String[produtos.size()][2];
+		Produto [] linhas = new Produto[produtos.size()];
 		
-		TableResult resultado = new TableResult(0, 0);
+		TableResult<Produto> resultado = new TableResult<>();
 		
 		for(int i = 0; i < produtos.size(); i++) {
-			linhas[i][0] = produtos.get(i).getId().toString();
-			linhas[i][1] = produtos.get(i).getDescricao();
+			linhas[i] = produtos.get(i);
 		}
 		
 		resultado.setData(linhas);

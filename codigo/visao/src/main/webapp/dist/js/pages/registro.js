@@ -15,7 +15,7 @@ $(function() {
 			this.defaultShowErrors();
 		},
 		submitHandler : function(form) {
-			var actionurl = "http://localhost:8080/screamtool/service/registro.rest";
+			var actionurl = form.action;
 			var method = form.method;
 			
 			if (!$("#acordoTermos").is(':checked')) {

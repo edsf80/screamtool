@@ -9,24 +9,20 @@ import java.io.Serializable;
  * @author edsf
  *
  */
-public class TableResult implements Serializable {
+public class TableResult<T> implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1324123040177904212L;
 	
-	private String data[][];
+	private T data[];
 	
-	public TableResult(int a, int b) {
-		data = new String[a][b];
-	}
-	
-	public void setData(String[][] data) {
+	public void setData(T[] data) {
 		this.data = data;
 	}
 	
-	public String[][] getData() {
+	public T[] getData() {
 		return data;
 	}
 

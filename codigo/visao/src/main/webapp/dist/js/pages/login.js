@@ -7,10 +7,14 @@ $(function() {
 		errorPlacement : function(error, element) {
 			$(element).parent().addClass("has-error");
 		},
+		unhighlight: function(element, errorClass, validClass) {
+			$(element).parent().removeClass("has-error");
+		},
 		onkeyup: false,
 		showErrors: function(errorMap, errorList) {
 			$.each( errorList, function( i, val ) {
-				$("#caixaAlerta").append(val.message + "<br>");
+				$("#caixaAlerta p").empty();
+				$("#caixaAlerta").append("<p>"+val.message+"</p>");
 			});
 			this.defaultShowErrors();
 		},
