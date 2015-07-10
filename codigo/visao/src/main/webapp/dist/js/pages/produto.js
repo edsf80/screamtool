@@ -3,9 +3,7 @@
  */
 $(function() {
 	
-	var linhaSelecionada;
-	
-	var permissoes;
+	var linhaSelecionada, table, permissoes;
 	
 	function abrirModal(titulo, dados) {
 		$("#caixaAlerta").hide();
@@ -21,50 +19,59 @@ $(function() {
 		$("#mCadProduto").modal('toggle');
 	}
 	
-	/*$.ajax({
-		type : "get",
-		url : "../service/buscarUsuarioSessao.rest",
-		datatype : "json"
-	}).done(function(data) {
-		$("#sNomeUsuario").append(data.nome);
-		$("#pNomeUsuarioPainel").append(data.nome);
-		$("#pNomeUsuarioMenu").append(data.nome);
-		
-		//$(".perm_salvar_produto").removeClass("disabled");
-
-		var lista = data.projetos == null ? []
-			: (data.projetos instanceof Array ? data.projetos
-			: [ data.projetos ]);
-
-		//$("#mProjetos li").remove();
-		$.each(lista, function(index, projeto) {
-			$("#mProjetos").append('<li><a href="dashboard.html?projeto=' + projeto.id
-									+ '"><i class="fa fa-circle-o"></i> '
-									+ projeto.nome + '</a></li>');
-		});
-		
-		permissoes = data.authorities == null ? []
-				: (data.authorities instanceof Array ? data.authorities
-				: [ data.authorities ]);
-		
-		$.each(permissoes, function(index, permissao) {
-			$("."+permissao.authority).removeClass("disabled");
-		});
-		
-	}).fail(function(data) {
-		alert("Pau de selfie");
-	});*/
-	
 	$.fn.dataTable.ext.errMode = 'none';
 	
-	var table = $("#tProdutos").DataTable({
+	$.when(table = $("#tProdutos").DataTable({
 		"ajax" : "../service/buscarTodosProdutos.rest",
 		"columns": [
             { "data": "id" },
             { "data": "descricao" },
-            { "data": null, "defaultContent": "<button id=\"bAltProduto\" type=\"button\" class=\"btn btn-xs btn-default disabled perm_salvar_produto\"><i class='fa fa-edit'></i></button>"}
+            { "data": null, 
+              "defaultContent": "<button id=\"bAltProduto\" type=\"button\" class=\"btn btn-xs btn-default disabled perm_salvar_produto\"><i class='fa fa-edit'></i></button>"
+            }
         ]
+	})).done(function(){
+		
+		$.ajax({
+			type : "get",
+			url : "../service/buscarUsuarioSessao.rest",
+			datatype : "json"
+		}).done(function(data) {
+			$("#sNomeUsuario").append(data.nome);
+			$("#pNomeUsuarioPainel").append(data.nome);
+			$("#pNomeUsuarioMenu").append(data.nome);
+			
+			
+	
+			var lista = data.projetos == null ? []
+				: (data.projetos instanceof Array ? data.projetos
+				: [ data.projetos ]);
+	
+			//$("#mProjetos li").remove();
+			$.each(lista, function(index, projeto) {
+				$("#mProjetos").append('<li><a href="dashboard.html?projeto=' + projeto.id
+										+ '"><i class="fa fa-circle-o"></i> '
+										+ projeto.nome + '</a></li>');
+			});
+			
+			permissoes = data.authorities == null ? []
+					: (data.authorities instanceof Array ? data.authorities
+					: [ data.authorities ]);
+
+			$.each(permissoes, function(index, permissao) {
+				$("."+permissao.authority).removeClass("disabled");
+			});
+			
+		}).fail(function(data) {
+			window.location.href = "../erro.html";
+		});		
 	});
+	
+	$('#tProdutos').on( 'draw.dt', function () {
+		$.each(permissoes, function(index, permissao) {
+			$("."+permissao.authority).removeClass("disabled");
+		});
+	} );
 	
 	function exibirCaixaAlerta(mensagens) {
 		$.each(mensagens, function(i, val) {
@@ -76,6 +83,7 @@ $(function() {
 
 	$('#tProdutos tbody').on( 'click', 'button', function () {
         linhaSelecionada = table.row( $(this).parents('tr') );
+        console.log(linhaSelecionada);
 		var data = linhaSelecionada.data();
 		
 		abrirModal('Alterar Produto', data);
@@ -110,9 +118,6 @@ $(function() {
 		},
 		messages : {
 			descricao : "A descrição é obrigatória"
-		},
-		invalidHandler : function(event, validator) {
-			//$("#caixaAlerta").show();
 		}
 	});
 
@@ -141,7 +146,7 @@ $(function() {
 				}else if (data.status == 404) {
 					exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
 				} else {
-					alert("Pau de selfie");
+					window.location.href = "../erro.html";
 				}
 			});
 		}
