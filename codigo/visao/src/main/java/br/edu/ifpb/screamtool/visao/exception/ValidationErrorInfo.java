@@ -4,6 +4,7 @@
 package br.edu.ifpb.screamtool.visao.exception;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author edsf
@@ -19,12 +20,12 @@ public class ValidationErrorInfo implements Serializable {
 	/**
 	 * 
 	 */
-	private String errorMessages;
+	private List<String> errorMessages;
 
 	/**
 	 * @return the errorMessages
 	 */
-	public String getErrorMessages() {
+	public List<String> getErrorMessages() {
 		return errorMessages;
 	}
 
@@ -32,7 +33,7 @@ public class ValidationErrorInfo implements Serializable {
 	 * @param errorMessages
 	 *            the errorMessages to set
 	 */
-	public void setErrorMessages(String errorMessages) {
+	public void setErrorMessages(List<String> errorMessages) {
 		this.errorMessages = errorMessages;
 	}
 

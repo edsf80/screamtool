@@ -3,7 +3,9 @@
  */
 package br.edu.ifpb.screamtool.visao.exception;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,14 +34,14 @@ public class RestExceptionHandler {
 		Set<ConstraintViolation<?>> violacoes = cvex.getConstraintViolations();
 		Iterator<ConstraintViolation<?>> iterator = violacoes.iterator();
 
-		StringBuffer messages = new StringBuffer();
+		List<String> messages = new ArrayList<>();
 
 		while (iterator.hasNext()) {
-			messages.append(iterator.next().getMessage());
+			messages.add(iterator.next().getMessage());
 		}
 
 		ValidationErrorInfo validationErrorInfo = new ValidationErrorInfo();
-		validationErrorInfo.setErrorMessages(messages.toString());
+		validationErrorInfo.setErrorMessages(messages);
 		ResponseEntity<ValidationErrorInfo> responseEntity = new ResponseEntity<ValidationErrorInfo>(
 				validationErrorInfo, 200);
 

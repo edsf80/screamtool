@@ -29,6 +29,10 @@
 		<constructor-arg name="classToBeMocked" value="br.edu.ifpb.screamtool.data.dao.ProdutoDao"/>
 	</bean>
 	
+	<bean id="projetoDaoMock" class="br.edu.ifpb.screamtool.service.negocio.impl.MockFactoryBean">
+		<constructor-arg name="classToBeMocked" value="br.edu.ifpb.screamtool.data.dao.ProjetoDao"/>
+	</bean>
+	
 	<bean id="encoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
 		<constructor-arg name="strength" value="11" />

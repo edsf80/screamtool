@@ -1,8 +1,17 @@
 package br.edu.ifpb.screamtool.domain.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 /**
  * The persistent class for the projeto database table.
@@ -19,23 +28,14 @@ public class Projeto implements Serializable {
 	@Column(name = "prj_id")
 	private Long id;
 
+	@NotNull(message = "O nome do projeto é obrigatório")
 	@Column(name = "prj_dsc")
 	private String nome;
 
+	@NotNull(message = "O produto é obrigatório")
 	@ManyToOne
 	@JoinColumn(name = "prd_id")
 	private Produto produto;
-
-	// bi-directional many-to-one association to Release
-	@OneToMany(mappedBy = "projeto")
-	private List<Release> releases;
-
-	// bi-directional many-to-one association to Sprint
-	@OneToMany(mappedBy = "projeto")
-	private List<Sprint> sprints;
-
-	public Projeto() {
-	}
 
 	public Long getId() {
 		return this.id;
@@ -55,15 +55,8 @@ public class Projeto implements Serializable {
 		this.produto = produto;
 	}
 
-	public List<Release> getReleases() {
-		return this.releases;
-	}
 
-	public void setReleases(List<Release> releases) {
-		this.releases = releases;
-	}
-
-	public Release addReleas(Release releas) {
+/*	public Release addReleas(Release releas) {
 		getReleases().add(releas);
 		releas.setProjeto(this);
 
@@ -75,9 +68,9 @@ public class Projeto implements Serializable {
 		releas.setProjeto(null);
 
 		return releas;
-	}
+	}*/
 
-	public List<Sprint> getSprints() {
+	/*public List<Sprint> getSprints() {
 		return this.sprints;
 	}
 
@@ -97,7 +90,7 @@ public class Projeto implements Serializable {
 		sprint.setProjeto(null);
 
 		return sprint;
-	}
+	}*/
 
 	/**
 	 * @return the nome

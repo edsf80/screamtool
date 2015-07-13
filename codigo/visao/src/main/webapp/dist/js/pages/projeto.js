@@ -5,47 +5,47 @@ $(function() {
 	
 	var linhaSelecionada, table, permissoes;
 	
+	$("#tDataInicio").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+	
+	$("#tDataInicio").datepicker({
+		format: 'dd/mm/yyyy'
+	});
+	
 	function abrirModal(titulo, dados) {
 		$("#caixaAlerta").hide();
-		$('#mCadProduto').find('.modal-title').text(titulo);
-		$("#frmProduto")[0].reset();
+		$('#mCadProjeto').find('.modal-title').text(titulo);
+		$("#frmProjeto")[0].reset();
 		$(".has-error").removeClass("has-error");
 		
 		if(dados !== undefined) {
-			$("#hIdProduto").val(dados.id);
-			$("#tDescricao").val(dados.descricao);
+			$("#hIdProjeto").val(dados.id);
+			$("#tNomeprojeto").val(dados.nome);
 		}
 		
-		$("#mCadProduto").modal('toggle');		
+		$("#mCadProjeto").modal('toggle');		
 	}
 	
 	$.fn.dataTable.ext.errMode = 'none';
 	
-	$.when(table = $("#tProdutos").DataTable({
-		"ajax" : "../service/buscarTodosProdutos.rest",
-		"columns": [
-            { "data": "id" },
-            { "data": "descricao" },
-            { "data": null, 
-              "defaultContent": "<button id=\"bAltProduto\" type=\"button\" class=\"btn btn-xs btn-default disabled perm_salvar_produto\"><i class='fa fa-edit'></i></button>"
-            }
-        ]
-	})).done(function(){
-		
+	var dataSet;
+	
+	$.when(
 		$.ajax({
 			type : "get",
-			url : "../service/buscarUsuarioSessao.rest",
+			url : "../service/projeto/buscarTodosDados.rest",
 			datatype : "json"
 		}).done(function(data) {
-			$("#sNomeUsuario").append(data.nome);
-			$("#pNomeUsuarioPainel").append(data.nome);
-			$("#pNomeUsuarioMenu").append(data.nome);
+			dataSet = data.projetos.data;
+			
+			$("#sNomeUsuario").append(data.usuario.nome);
+			$("#pNomeUsuarioPainel").append(data.usuario.nome);
+			$("#pNomeUsuarioMenu").append(data.usuario.nome);
 			
 			
 	
-			var lista = data.projetos == null ? []
-				: (data.projetos instanceof Array ? data.projetos
-				: [ data.projetos ]);
+			var lista = data.usuario.projetos == null ? []
+				: (data.usuario.projetos instanceof Array ? data.usuario.projetos
+				: [ data.usuario.projetos ]);
 	
 			//$("#mProjetos li").remove();
 			$.each(lista, function(index, projeto) {
@@ -54,20 +54,36 @@ $(function() {
 										+ projeto.nome + '</a></li>');
 			});
 			
-			permissoes = data.authorities == null ? []
-					: (data.authorities instanceof Array ? data.authorities
-					: [ data.authorities ]);
+			permissoes = data.usuario.authorities == null ? []
+					: (data.usuario.authorities instanceof Array ? data.usuario.authorities
+					: [ data.usuario.authorities ]);
 
 			$.each(permissoes, function(index, permissao) {
 				$("."+permissao.authority).removeClass("disabled");
 			});
 			
-		}).fail(function(data) {
-			window.location.href = "../erro.html";
-		});		
+			var produtos = data.produtos == null ? []
+					: (data.produtos instanceof Array ? data.produtos
+					: [ data.produtos ]);
+			
+			$.each(produtos, function(index, produto) {
+				$("#sProdutos").append("<option value=\""+produto.id+"\">"+produto.descricao+"</option>");
+			});
+		})
+	).done(function(){
+		$("#tProjetos").DataTable({
+			"data" : dataSet,
+			"columns": [
+	            { "data": "id" },
+	            { "data": "nome" },
+	            { "data": "produto.descricao" },
+	            { "data": null, 
+	              "defaultContent": "<button id=\"bAltProjeto\" type=\"button\" class=\"btn btn-xs btn-default disabled perm_salvar_projeto\"><i class='fa fa-edit'></i></button>"
+	            }
+	        ]});
 	});
 	
-	$('#tProdutos').on( 'draw.dt', function () {
+	$('#tProjetos').on( 'draw.dt', function () {
 		$.each(permissoes, function(index, permissao) {
 			$("."+permissao.authority).removeClass("disabled");
 		});
@@ -81,20 +97,20 @@ $(function() {
 		$("#caixaAlerta").show();
 	}
 
-	$('#tProdutos tbody').on( 'click', 'button', function () {
+	$('#tProjetos tbody').on( 'click', 'button', function () {
         linhaSelecionada = table.row( $(this).parents('tr') );
         console.log(linhaSelecionada);
 		var data = linhaSelecionada.data();
 		
-		abrirModal('Alterar Produto', data);
+		abrirModal('Alterar Projeto', data);
     } );
 	
-	$("#bAdProduto").click(function(){
+	$("#bAdProjeto").click(function(){
 		linhaSelecionada = undefined;
-		abrirModal('Novo Produto');		
+		abrirModal('Novo Projeto');		
 	});
 
-	$("#frmProduto").validate({
+	$("#frmProjeto").validate({
 		errorPlacement : function(error, element) {
 			$(element).parent().addClass("has-error");
 		},
@@ -103,7 +119,8 @@ $(function() {
 			$("#caixaAlerta").hide();
 		},
 		onkeyup : false,
-		onsubmit : false,
+		onclick : false,
+		//onsubmit : false,
 		onfocusout: false,
 		showErrors : function(errorMap, errorList) {
 			$("#caixaAlerta p").empty();
@@ -114,23 +131,26 @@ $(function() {
 			this.defaultShowErrors();
 		},
 		rules : {
-			descricao : "required"
+			nome : "required",
+			dataInicio: "required",
+			produto: "required"
 		},
 		messages : {
-			descricao : "A descrição é obrigatória"
-		}
-	});
-
-	$("#bSalvar").click(function() {
-						
-	    if ($("#frmProduto").valid()) {							
-	    	$.ajax({
-				type : "POST",
-				url : "../service/salvarProduto.rest",
+			nome : "O nome do projeto é obrigatório",
+			dataInicio: "A data de início do projeto é obrigatória",
+			produto: "O produto é obrigatório"
+		},
+		submitHandler : function(form) {
+			var actionurl = form.action;
+			var method = form.method;
+			
+			$.ajax({
+				type : method,
+				url : actionurl,
 				datatype : "json",
 				data : $("#frmProduto").serialize()
 			}).done(function(data) {
-				alert("Produto Salvo com Sucesso!");
+				alert("Projeto Salvo com Sucesso!");
 				if(linhaSelecionada !== undefined) {
 					linhaSelecionada.remove().draw(false);
 				}
@@ -139,8 +159,9 @@ $(function() {
 					"descricao":data.descricao});
 				linhaSelecionada = table.row(estado.index());
 				estado.draw(false);
-				$("#hIdProduto").val(data.id);
+				$("#hIdProjeto").val(data.id);
 			}).fail(function(data) {
+				console.log(data);
 				if(data.status == 403) {
 					exibirCaixaAlerta(["Usuário não possui permissão para executar operação!"]);
 				}else if (data.status == 404) {
