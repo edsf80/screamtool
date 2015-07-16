@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.ifpb.screamtool.domain.entity.Produto;
 import br.edu.ifpb.screamtool.domain.entity.Projeto;
 import br.edu.ifpb.screamtool.service.negocio.ProdutoService;
 import br.edu.ifpb.screamtool.service.negocio.ProjetoService;
@@ -84,15 +85,24 @@ public class ProjetoRestService {
 	 */
 	@PreAuthorize("hasRole('perm_salvar_projeto')")
 	@RequestMapping(value = "/salvarProjeto.rest", method = RequestMethod.POST)
-	public @ResponseBody Projeto salvarProjeto(@ModelAttribute Projeto projeto) {
+	public @ResponseBody Projeto salvarProjeto(@ModelAttribute ProjetoForm projetoForm) {
+		
+		Produto produto = new Produto();
+		String[] dadosProduto = projetoForm.getIdProduto().split("-");		
+		produto.setId(Long.parseLong(dadosProduto[0]));
+		produto.setDescricao(dadosProduto[1]);
+		
+		Projeto resultado = new Projeto();
+		resultado.setId(projetoForm.getId());
+		resultado.setNome(projetoForm.getNome());
+		resultado.setProduto(produto);
+		
 
-		Projeto resultado = null;
+		if (resultado.getId() == null) {
 
-		if (projeto.getId() == null) {
-
-			resultado = projetoService.criar(projeto);
+			resultado = projetoService.criar(resultado);
 		} else {
-			resultado = projetoService.atualizar(projeto);
+			resultado = projetoService.atualizar(resultado);
 		}
 
 		return resultado;

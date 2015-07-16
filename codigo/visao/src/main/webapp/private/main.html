@@ -40,12 +40,18 @@
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="produto.html">Produtos <span class="sr-only">(current)</span></a></li>
-                <li class="dropdown">
+              <li class="dropdown">
+              	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Administração <span class="caret"></span></a>
+                  <ul id="mProjetos" class="dropdown-menu" role="menu">
+				    <li><a href="produto.html"><i class="fa fa-circle-o"></i> Produtos</a></li>
+				    <li><a href="projeto.html"><i class="fa fa-circle-o"></i> Projetos</a></li>
+				  </ul>
+              </li>
+              <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Meus Projetos <span class="caret"></span></a>
                   <ul id="mProjetos" class="dropdown-menu" role="menu">
-                    <li><a href="projeto.html"><i class="fa fa-circle-o"></i> Criar Novo Projeto</a></li>
-                  </ul>
+				    <li><a href="#"><i class="fa fa-circle-o"></i> Não há projetos</a></li>
+				  </ul>
                 </li>
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
@@ -156,5 +162,16 @@
     <script src="../dist/js/app.min.js" type="text/javascript"></script>
     
     <script src="../dist/js/pages/main.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    	/* $(function(){
+    		$('#lProdutos').on("click",function(){
+    			  $.get("produtoTemplate.html", function(data){
+    				  $(".content-wrapper section").remove();
+    				  $(".content-wrapper").html(data);
+    			  });
+    			  //post code
+    			});
+    	}); */
+    </script>
   </body>
 </html>

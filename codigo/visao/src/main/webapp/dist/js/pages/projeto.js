@@ -19,7 +19,8 @@ $(function() {
 		
 		if(dados !== undefined) {
 			$("#hIdProjeto").val(dados.id);
-			$("#tNomeprojeto").val(dados.nome);
+			$("#tNomeProjeto").val(dados.nome);
+			$("#sProdutos").val(dados.produto.id+"-"+dados.produto.descricao);
 		}
 		
 		$("#mCadProjeto").modal('toggle');		
@@ -40,8 +41,6 @@ $(function() {
 			$("#sNomeUsuario").append(data.usuario.nome);
 			$("#pNomeUsuarioPainel").append(data.usuario.nome);
 			$("#pNomeUsuarioMenu").append(data.usuario.nome);
-			
-			
 	
 			var lista = data.usuario.projetos == null ? []
 				: (data.usuario.projetos instanceof Array ? data.usuario.projetos
@@ -67,11 +66,11 @@ $(function() {
 					: [ data.produtos ]);
 			
 			$.each(produtos, function(index, produto) {
-				$("#sProdutos").append("<option value=\""+produto.id+"\">"+produto.descricao+"</option>");
+				$("#sProdutos").append("<option value=\""+produto.id+"-"+produto.descricao+"\">"+produto.descricao+"</option>");
 			});
 		})
 	).done(function(){
-		$("#tProjetos").DataTable({
+		table = $("#tProjetos").DataTable({
 			"data" : dataSet,
 			"columns": [
 	            { "data": "id" },
@@ -81,6 +80,13 @@ $(function() {
 	              "defaultContent": "<button id=\"bAltProjeto\" type=\"button\" class=\"btn btn-xs btn-default disabled perm_salvar_projeto\"><i class='fa fa-edit'></i></button>"
 	            }
 	        ]});
+		
+		$('#tProjetos tbody').on( 'click', 'button', function () {
+	        linhaSelecionada = table.row( $(this).parents('tr') );
+			var data = linhaSelecionada.data();
+			
+			abrirModal('Alterar Projeto', data);
+	    } );
 	});
 	
 	$('#tProjetos').on( 'draw.dt', function () {
@@ -97,14 +103,6 @@ $(function() {
 		$("#caixaAlerta").show();
 	}
 
-	$('#tProjetos tbody').on( 'click', 'button', function () {
-        linhaSelecionada = table.row( $(this).parents('tr') );
-        console.log(linhaSelecionada);
-		var data = linhaSelecionada.data();
-		
-		abrirModal('Alterar Projeto', data);
-    } );
-	
 	$("#bAdProjeto").click(function(){
 		linhaSelecionada = undefined;
 		abrirModal('Novo Projeto');		
@@ -112,10 +110,10 @@ $(function() {
 
 	$("#frmProjeto").validate({
 		errorPlacement : function(error, element) {
-			$(element).parent().addClass("has-error");
+			$(element).closest(".form-group").addClass("has-error");
 		},
 		unhighlight: function(element, errorClass, validClass) {
-			$(element).parent().removeClass("has-error");
+			$(element).closest(".form-group").removeClass("has-error");
 			$("#caixaAlerta").hide();
 		},
 		onkeyup : false,
@@ -133,12 +131,12 @@ $(function() {
 		rules : {
 			nome : "required",
 			dataInicio: "required",
-			produto: "required"
+			idProduto: "required"
 		},
 		messages : {
 			nome : "O nome do projeto é obrigatório",
 			dataInicio: "A data de início do projeto é obrigatória",
-			produto: "O produto é obrigatório"
+			idProduto: "O produto é obrigatório"
 		},
 		submitHandler : function(form) {
 			var actionurl = form.action;
@@ -148,7 +146,7 @@ $(function() {
 				type : method,
 				url : actionurl,
 				datatype : "json",
-				data : $("#frmProduto").serialize()
+				data : $("#frmProjeto").serialize()
 			}).done(function(data) {
 				alert("Projeto Salvo com Sucesso!");
 				if(linhaSelecionada !== undefined) {
@@ -156,12 +154,12 @@ $(function() {
 				}
 				estado = table.row.add({
 					"id": data.id, 
-					"descricao":data.descricao});
+					"nome":data.nome,
+					"produto.descricao": data.produto.descricao});
 				linhaSelecionada = table.row(estado.index());
 				estado.draw(false);
 				$("#hIdProjeto").val(data.id);
 			}).fail(function(data) {
-				console.log(data);
 				if(data.status == 403) {
 					exibirCaixaAlerta(["Usuário não possui permissão para executar operação!"]);
 				}else if (data.status == 404) {

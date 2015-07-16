@@ -27,6 +27,15 @@ public class ProjetoForm implements Serializable {
 	private List<Produto> produtos;
 	
 	private UsuarioVO usuario;
+	
+	private String nome;
+	
+	private Long id;
+	
+	/**
+	 * 
+	 */
+	private String idProduto;
 
 	/**
 	 * @return the projetos
@@ -68,6 +77,48 @@ public class ProjetoForm implements Serializable {
 	 */
 	public void setUsuario(UsuarioVO usuario) {
 		this.usuario = usuario;
+	}
+
+	/**
+	 * @return the nome
+	 */
+	public String getNome() {
+		return nome;
+	}
+
+	/**
+	 * @param nome the nome to set
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the idProduto
+	 */
+	public String getIdProduto() {
+		return idProduto;
+	}
+
+	/**
+	 * @param idProduto the idProduto to set
+	 */
+	public void setIdProduto(String idProduto) {
+		this.idProduto = idProduto;
 	}
 
 }
