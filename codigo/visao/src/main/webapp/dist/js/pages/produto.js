@@ -21,51 +21,65 @@ $(function() {
 	
 	$.fn.dataTable.ext.errMode = 'none';
 	
-	$.when(table = $("#tProdutos").DataTable({
-		"ajax" : "../service/buscarTodosProdutos.rest",
-		"columns": [
-            { "data": "id" },
-            { "data": "descricao" },
-            { "data": null, 
-              "defaultContent": "<button id=\"bAltProduto\" type=\"button\" class=\"btn btn-xs btn-default disabled perm_salvar_produto\"><i class='fa fa-edit'></i></button>"
-            }
-        ]
-	})).done(function(){
+	var dataSet;
+	
+	$.when(
+			$.ajax({
+				type : "get",
+				url : "../service/produto/buscarTodosDados.rest",
+				datatype : "json"
+			}).done(function(data) {
+				dataSet = data.produtos.data;
+				
+				$("#sNomeUsuario").append(data.usuario);
+				$("#pNomeUsuarioPainel").append(data.usuario);
+				$("#pNomeUsuarioMenu").append(data.usuario);
 		
-		$.ajax({
-			type : "get",
-			url : "../service/buscarUsuarioSessao.rest",
-			datatype : "json"
-		}).done(function(data) {
-			$("#sNomeUsuario").append(data.nome);
-			$("#pNomeUsuarioPainel").append(data.nome);
-			$("#pNomeUsuarioMenu").append(data.nome);
-			
-			
-	
-			var lista = data.projetos == null ? []
-				: (data.projetos instanceof Array ? data.projetos
-				: [ data.projetos ]);
-	
-			//$("#mProjetos li").remove();
-			$.each(lista, function(index, projeto) {
-				$("#mProjetos").append('<li><a href="dashboard.html?projeto=' + projeto.id
-										+ '"><i class="fa fa-circle-o"></i> '
-										+ projeto.nome + '</a></li>');
-			});
-			
-			permissoes = data.authorities == null ? []
-					: (data.authorities instanceof Array ? data.authorities
-					: [ data.authorities ]);
+				var lista = data.projetos == null ? []
+					: (data.projetos instanceof Array ? data.projetos
+					: [ data.projetos ]);
+		
+				//$("#mProjetos li").remove();
+				$.each(lista, function(index, projeto) {
+					$("#mProjetos").append('<li><a href="dashboard.html?projeto=' + projeto.id
+											+ '"><i class="fa fa-circle-o"></i> '
+											+ projeto.nome + '</a></li>');
+				});
+				
+				permissoes = data.permissoes == null ? []
+						: (data.permissoes instanceof Array ? data.permissoes
+						: [ data.permissoes ]);
 
-			$.each(permissoes, function(index, permissao) {
-				$("."+permissao.authority).removeClass("disabled");
-			});
+				$.each(permissoes, function(index, permissao) {
+					$("."+permissao.authority).removeClass("disabled");
+				});
+			}).fail(function(data) {
+				if(data.status == 403) {
+					alert("Usuário não possui permissão para executar operação!");
+				}else if (data.status == 404) {
+					exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
+				} else {
+					window.location.href = "../erro.html";
+				}
+			})
+		).done(function(){
+			table = $("#tProdutos").DataTable({
+				"data" : dataSet,
+				"columns": [
+		            { "data": "id" },
+		            { "data": "descricao" },
+		            { "data": null, 
+		              "defaultContent": "<button id=\"bAltProduto\" type=\"button\" class=\"btn btn-xs btn-default disabled perm_salvar_produto\"><i class='fa fa-edit'></i></button>"
+		            }
+		        ]});
 			
-		}).fail(function(data) {
-			window.location.href = "../erro.html";
-		});		
-	});
+			$('#tProdutos tbody').on( 'click', 'button', function () {
+		        linhaSelecionada = table.row( $(this).parents('tr') );
+				var data = linhaSelecionada.data();
+				
+				abrirModal('Alterar Produto', data);
+		    } );
+		});
 	
 	$('#tProdutos').on( 'draw.dt', function () {
 		$.each(permissoes, function(index, permissao) {
@@ -80,14 +94,6 @@ $(function() {
 		});
 		$("#caixaAlerta").show();
 	}
-
-	$('#tProdutos tbody').on( 'click', 'button', function () {
-        linhaSelecionada = table.row( $(this).parents('tr') );
-        console.log(linhaSelecionada);
-		var data = linhaSelecionada.data();
-		
-		abrirModal('Alterar Produto', data);
-    } );
 	
 	$("#bAdProduto").click(function(){
 		linhaSelecionada = undefined;
@@ -103,7 +109,7 @@ $(function() {
 			$("#caixaAlerta").hide();
 		},
 		onkeyup : false,
-		onsubmit : false,
+		//onsubmit : false,
 		onfocusout: false,
 		showErrors : function(errorMap, errorList) {
 			$("#caixaAlerta p").empty();
@@ -118,19 +124,21 @@ $(function() {
 		},
 		messages : {
 			descricao : "A descrição é obrigatória"
-		}
-	});
-
-	$("#bSalvar").click(function() {
-						
-	    if ($("#frmProduto").valid()) {							
-	    	$.ajax({
-				type : "POST",
-				url : "../service/salvarProduto.rest",
+		},
+		submitHandler : function(form) {
+			var actionurl = form.action;
+			var method = form.method;
+			
+			$(".overlay").show();
+			
+			$.ajax({
+				type : method,
+				url : actionurl,
 				datatype : "json",
 				data : $("#frmProduto").serialize()
 			}).done(function(data) {
 				alert("Produto Salvo com Sucesso!");
+				$(".overlay").hide();
 				if(linhaSelecionada !== undefined) {
 					linhaSelecionada.remove().draw(false);
 				}
@@ -141,6 +149,7 @@ $(function() {
 				estado.draw(false);
 				$("#hIdProduto").val(data.id);
 			}).fail(function(data) {
+				$(".overlay").hide();
 				if(data.status == 403) {
 					exibirCaixaAlerta(["Usuário não possui permissão para executar operação!"]);
 				}else if (data.status == 404) {

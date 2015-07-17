@@ -68,6 +68,14 @@ $(function() {
 			$.each(produtos, function(index, produto) {
 				$("#sProdutos").append("<option value=\""+produto.id+"-"+produto.descricao+"\">"+produto.descricao+"</option>");
 			});
+		}).fail(function(data) {
+			if(data.status == 403) {
+				alert("Usuário não possui permissão para executar operação!");
+			}else if (data.status == 404) {
+				exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
+			} else {
+				window.location.href = "../erro.html";
+			}
 		})
 	).done(function(){
 		table = $("#tProjetos").DataTable({
@@ -142,6 +150,8 @@ $(function() {
 			var actionurl = form.action;
 			var method = form.method;
 			
+			$(".overlay").show();
+			
 			$.ajax({
 				type : method,
 				url : actionurl,
@@ -149,6 +159,7 @@ $(function() {
 				data : $("#frmProjeto").serialize()
 			}).done(function(data) {
 				alert("Projeto Salvo com Sucesso!");
+				$(".overlay").hide();
 				if(linhaSelecionada !== undefined) {
 					linhaSelecionada.remove().draw(false);
 				}
@@ -160,6 +171,7 @@ $(function() {
 				estado.draw(false);
 				$("#hIdProjeto").val(data.id);
 			}).fail(function(data) {
+				$(".overlay").hide();
 				if(data.status == 403) {
 					exibirCaixaAlerta(["Usuário não possui permissão para executar operação!"]);
 				}else if (data.status == 404) {

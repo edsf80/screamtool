@@ -45,9 +45,7 @@ public class ProjetoRestService {
 	/**
 	 * @return
 	 */
-	@PreAuthorize("hasRole('perm_consultar_projeto')")
-	@RequestMapping(value = "/buscarTodosProjetos.rest", method = RequestMethod.GET)
-	public @ResponseBody TableResult<Projeto> buscarTodos() {
+	private TableResult<Projeto> buscarTodos() {
 
 		List<Projeto> projetos = projetoService.buscarTodos();
 
