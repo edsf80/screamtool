@@ -17,7 +17,8 @@ $(function() {
 						: (data.projetos instanceof Array ? data.projetos
 								: [ data.projetos ]);
 
-				//$("#mProjetos li").remove();
+				console.log(lista);
+				$("#mProjetos li").remove();
 				$.each(lista, function(index, projeto) {
 					$("#mProjetos").append(
 							'<li><a href="dashboard.html?projeto='+projeto.id+'"><i class="fa fa-circle-o"></i> '
