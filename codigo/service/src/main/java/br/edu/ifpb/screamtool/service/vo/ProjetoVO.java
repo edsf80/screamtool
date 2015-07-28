@@ -49,4 +49,43 @@ public class ProjetoVO implements Serializable {
 		this.nome = nome;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		int resultado;
+
+		if (this.id == null) {
+			resultado = super.hashCode();
+		} else {
+			resultado = this.id.intValue();
+		}
+
+		return resultado;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+
+		boolean resultado = Boolean.FALSE;
+
+		if (obj != null) {
+			ProjetoVO eb = (ProjetoVO) obj;
+
+			if ((eb.getId() == this.getId()) || eb.getId().equals(this.getId())) {
+				resultado = Boolean.TRUE;
+			}
+		}
+
+		return resultado;
+	}
+
 }

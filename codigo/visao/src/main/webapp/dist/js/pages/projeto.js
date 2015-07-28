@@ -18,9 +18,9 @@ $(function() {
 		$(".has-error").removeClass("has-error");
 		
 		if(dados !== undefined) {
-			$("#hIdProjeto").val(dados.id);
-			$("#tNomeProjeto").val(dados.nome);
-			$("#sProdutos").val(dados.produto.id+"-"+dados.produto.descricao);
+			$("#hIdProjeto").val(dados[0]);
+			$("#tNomeProjeto").val(dados[1]);
+			$("#sProdutos").val(dados[2]+"-"+dados[3]);
 		}
 		
 		$("#mCadProjeto").modal('toggle');		
@@ -28,80 +28,28 @@ $(function() {
 	
 	$.fn.dataTable.ext.errMode = 'none';
 	
-	var dataSet;
-	
-	$.when(
-		$.ajax({
-			type : "get",
-			url : "../service/projeto/buscarTodosDados.rest",
-			datatype : "json"
-		}).done(function(data) {
-			dataSet = data.projetos.data;
-			
-			$("#sNomeUsuario").append(data.usuario.nome);
-			$("#pNomeUsuarioPainel").append(data.usuario.nome);
-			$("#pNomeUsuarioMenu").append(data.usuario.nome);
-	
-			var lista = data.usuario.projetos == null ? []
-				: (data.usuario.projetos instanceof Array ? data.usuario.projetos
-				: [ data.usuario.projetos ]);
-	
-			//$("#mProjetos li").remove();
-			$.each(lista, function(index, projeto) {
-				$("#mProjetos").append('<li><a href="dashboard.html?projeto=' + projeto.id
-										+ '"><i class="fa fa-circle-o"></i> '
-										+ projeto.nome + '</a></li>');
-			});
-			
-			permissoes = data.usuario.authorities == null ? []
-					: (data.usuario.authorities instanceof Array ? data.usuario.authorities
-					: [ data.usuario.authorities ]);
-
-			$.each(permissoes, function(index, permissao) {
-				$("."+permissao.authority).removeClass("disabled");
-			});
-			
-			var produtos = data.produtos == null ? []
-					: (data.produtos instanceof Array ? data.produtos
-					: [ data.produtos ]);
-			
-			$.each(produtos, function(index, produto) {
-				$("#sProdutos").append("<option value=\""+produto.id+"-"+produto.descricao+"\">"+produto.descricao+"</option>");
-			});
-		}).fail(function(data) {
-			if(data.status == 403) {
-				alert("Usuário não possui permissão para executar operação!");
-			}else if (data.status == 404) {
-				exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
-			} else {
-				window.location.href = "../erro.html";
-			}
-		})
-	).done(function(){
-		table = $("#tProjetos").DataTable({
-			"data" : dataSet,
-			"columns": [
-	            { "data": "id" },
-	            { "data": "nome" },
-	            { "data": "produto.descricao" },
-	            { "data": null, 
-	              "defaultContent": "<button id=\"bAltProjeto\" type=\"button\" class=\"btn btn-xs btn-default disabled perm_salvar_projeto\"><i class='fa fa-edit'></i></button>"
-	            }
-	        ]});
+	table = $("#tProjetos").on( 'draw.dt', function () {
+		var semPermissao = $("#bAdProjeto").hasClass("disabled"); 
 		
-		$('#tProjetos tbody').on( 'click', 'button', function () {
-	        linhaSelecionada = table.row( $(this).parents('tr') );
-			var data = linhaSelecionada.data();
-			
-			abrirModal('Alterar Projeto', data);
-	    } );
+		if(!semPermissao) {
+			$(".disabled").removeClass("disabled");
+		}
+	}).DataTable({
+		"columnDefs": [
+           {
+               "targets": [ 2 ],
+               "visible": false,
+               "searchable": false
+           }
+        ]
 	});
 	
-	$('#tProjetos').on( 'draw.dt', function () {
-		$.each(permissoes, function(index, permissao) {
-			$("."+permissao.authority).removeClass("disabled");
-		});
-	} );
+	$('#tProjetos tbody').on( 'click', 'button', function () {
+        linhaSelecionada = table.row( $(this).parents('tr') );
+		var data = linhaSelecionada.data();
+		
+		abrirModal('Alterar Projeto', data);
+    } );
 	
 	function exibirCaixaAlerta(mensagens) {
 		$("#caixaAlerta p").empty();
@@ -161,12 +109,13 @@ $(function() {
 				alert("Projeto Salvo com Sucesso!");
 				$(".overlay").hide();
 				if(linhaSelecionada !== undefined) {
-					linhaSelecionada.remove().draw(false);
+					linhaSelecionada.remove();
 				}
-				estado = table.row.add({
-					"id": data.id, 
-					"nome":data.nome,
-					"produto.descricao": data.produto.descricao});
+				estado = table.row.add([data.id, 
+					data.nome,
+					data.produto.id,
+					data.produto.descricao,
+					'<button id="bAltProjeto" type="button" class="btn btn-xs btn-default disabled">	<i class="fa fa-edit"></i></button>']);
 				linhaSelecionada = table.row(estado.index());
 				estado.draw(false);
 				$("#hIdProjeto").val(data.id);

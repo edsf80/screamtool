@@ -17,11 +17,12 @@
 		<intercept-url pattern="/registro.html" access="permitAll" />
 		<intercept-url pattern="/service/login.rest" access="permitAll" />
 		<intercept-url pattern="/service/registro.rest" access="permitAll" />
-		<intercept-url pattern="/private/produto.html" access="hasRole('perm_consultar_produto')" />
+		<intercept-url pattern="/private/produto.htm" access="hasRole('perm_consultar_produto')" />
+		<intercept-url pattern="/private/projeto.htm" access="hasRole('perm_consultar_projeto')" />
 		<intercept-url pattern="/private/**" access="isAuthenticated()" />
 		
 		
-		<form-login login-page="/login.html" default-target-url="/private/principal.html"></form-login>
+		<form-login login-page="/login.html" default-target-url="/private/main.htm"></form-login>
 		<logout logout-url="/logout.html" logout-success-url="/login.html"
 			invalidate-session="true" />
 		<session-management>

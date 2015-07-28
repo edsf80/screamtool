@@ -29,7 +29,7 @@ $(function() {
 				data : $(form).serialize()
 			}).done(function(data) {
 				if (data.objeto) {
-					window.location.href = "private/main.html";
+					window.location.href = "private/main.htm";
 				} else {
 					alert("Login ou senha invalida!");
 				}

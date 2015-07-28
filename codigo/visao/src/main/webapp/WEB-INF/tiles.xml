@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="projeto" template="/WEB-INF/jsp/template.jsp">
+		<put-attribute name="header" value="/WEB-INF/jsp/projeto/header.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/projeto/projeto.jsp" />
+		<put-attribute name="modal" value="/WEB-INF/jsp/projeto/cadProjeto.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/projeto/footer.jsp" />
+	</definition>
+	
+	<definition name="main" template="/WEB-INF/jsp/template.jsp">
+		<put-attribute name="header" value="/WEB-INF/jsp/main/header.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/main/main.jsp" />
+		<put-attribute name="modal" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/main/footer.jsp" />
+	</definition>
+	
+	<definition name="produto" template="/WEB-INF/jsp/template.jsp">
+		<put-attribute name="header" value="/WEB-INF/jsp/produto/header.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/produto/produto.jsp" />
+		<put-attribute name="modal" value="/WEB-INF/jsp/produto/cadProduto.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/produto/footer.jsp" />
+	</definition>
+</tiles-definitions>

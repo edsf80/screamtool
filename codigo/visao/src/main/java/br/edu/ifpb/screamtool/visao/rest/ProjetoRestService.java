@@ -3,8 +3,6 @@
  */
 package br.edu.ifpb.screamtool.visao.rest;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,10 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifpb.screamtool.domain.entity.Produto;
 import br.edu.ifpb.screamtool.domain.entity.Projeto;
-import br.edu.ifpb.screamtool.service.negocio.ProdutoService;
 import br.edu.ifpb.screamtool.service.negocio.ProjetoService;
-import br.edu.ifpb.screamtool.service.negocio.UsuarioService;
-import br.edu.ifpb.screamtool.visao.exception.TableResult;
 import br.edu.ifpb.screamtool.visao.form.ProjetoForm;
 
 /**
@@ -32,50 +27,7 @@ public class ProjetoRestService {
 
 	@Autowired
 	@Qualifier("projetoService")
-	private ProjetoService projetoService;
-	
-	@Autowired
-	@Qualifier("produtoService")
-	private ProdutoService produtoService;
-	
-	@Autowired
-	@Qualifier("usuarioService")
-	private UsuarioService usuarioService;
-
-	/**
-	 * @return
-	 */
-	private TableResult<Projeto> buscarTodos() {
-
-		List<Projeto> projetos = projetoService.buscarTodos();
-
-		Projeto[] linhas = new Projeto[projetos.size()];
-
-		TableResult<Projeto> resultado = new TableResult<>();
-
-		for (int i = 0; i < projetos.size(); i++) {
-			linhas[i] = projetos.get(i);
-		}
-
-		resultado.setData(linhas);
-
-		return resultado;
-	}
-	
-	/**
-	 * @return
-	 */
-	@PreAuthorize("hasRole('perm_consultar_projeto')")
-	@RequestMapping(value = "/buscarTodosDados.rest", method = RequestMethod.GET)
-	public @ResponseBody ProjetoForm buscarTodosDados() {
-
-		ProjetoForm projetoForm = new ProjetoForm();
-		projetoForm.setProjetos(this.buscarTodos());
-		projetoForm.setProdutos(produtoService.buscarTodos());
-		projetoForm.setUsuario(usuarioService.buscarUsuarioLogado());
-
-		return projetoForm;
-	}
+	private ProjetoService projetoService;	
 
 	/**
 	 * @param produto
