@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import br.edu.ifpb.screamtool.service.vo.ProjetoVO;
+import br.edu.ifpb.screamtool.domain.entity.Projeto;
 import br.edu.ifpb.screamtool.service.vo.UsuarioVO;
 
 /**
@@ -31,8 +31,8 @@ public class DashboardController {
 	 * @return Um projeto sem atributos.
 	 */
 	@ModelAttribute("projetoAberto")
-	public ProjetoVO createProjeto() {
-		return new ProjetoVO();
+	public Projeto createProjeto() {
+		return new Projeto();
 	}
 
 	/**
@@ -46,21 +46,28 @@ public class DashboardController {
 	public String loadPage(
 			ModelMap model,
 			@RequestParam(required = false, value = "projeto") String idProjeto,
-			@ModelAttribute("projetoAberto") ProjetoVO projetoAberto,
+			@ModelAttribute("projetoAberto") Projeto projetoAberto,
 			// Esse atributo é capturado da sessão vide @SessionAttributes
 			@ModelAttribute("usuario") UsuarioVO usuario) {
 
 		if (idProjeto != null) {
 
-			ProjetoVO projeto = new ProjetoVO();
-			projeto.setId(Long.parseLong(idProjeto));
+			Projeto projetoSelecionado = null;
 
-			int indiceProjetoSelecionado = usuario.getProjetos().indexOf(
-					projeto);
-			projeto = (ProjetoVO) usuario.getProjetos().get(
-					indiceProjetoSelecionado);
+			for (Projeto projeto : usuario.getProjetos()) {
+				if (projeto.getId().equals(Long.parseLong(idProjeto))) {
+					projetoSelecionado = projeto;
+				}
+			}
 
-			model.addAttribute("projetoAberto", projeto);
+			// Se o usuário colocou o id de um projeto que não existe ou que ele
+			// não pode ver o mesmo deverá ser redirecionado para a página
+			// principal.
+			if (projetoSelecionado != null) {
+				model.addAttribute("projetoAberto", projetoSelecionado);
+			} else {
+				model.remove("projetoAberto");
+			}
 		} else {
 			// Isso siginifica que nenhum projeto está aberto. Deve redirecionar
 			// para página principal sem abrir o menu do projeto. Tira o projeto

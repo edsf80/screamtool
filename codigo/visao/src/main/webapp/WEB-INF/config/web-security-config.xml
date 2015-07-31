@@ -19,6 +19,7 @@
 		<intercept-url pattern="/service/registro.rest" access="permitAll" />
 		<intercept-url pattern="/private/produto.htm" access="hasRole('perm_consultar_produto')" />
 		<intercept-url pattern="/private/projeto.htm" access="hasRole('perm_consultar_projeto')" />
+		<intercept-url pattern="/private/itembacklog.htm" access="hasRole('perm_consultar_item_backlog')" />
 		<intercept-url pattern="/private/**" access="isAuthenticated()" />
 		
 		

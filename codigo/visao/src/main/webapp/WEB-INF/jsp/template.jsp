@@ -135,11 +135,13 @@
 		                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
 		              </a>
 		            </li>
+		            <sec:authorize access="hasRole('perm_consultar_item_backlog')">
 		            <li>
-		              <a href="widgets.html">
+		              <a href="itembacklog.htm">
 		                <i class="fa fa-newspaper-o"></i> <span>Backlog</span>
 		              </a>
 		            </li>
+		            </sec:authorize>
 		            <li>
 		              <a href="widgets.html">
 		                <i class="fa fa-fighter-jet"></i> <span>Sprints</span>

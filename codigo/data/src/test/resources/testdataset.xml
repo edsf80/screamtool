@@ -5,4 +5,7 @@
 	<produto prd_id="20" prd_dsc="Produto Teste"/>
 	<projeto prj_id="1" prd_id="1" prj_dsc="Projeto Teste"/>
 	<usuario_projeto usr_id="20" prj_id="1"/>
+	<item_backlog ibl_id="1" prd_id="20" ibl_dsc="Item de backlog teste" ibl_sts="NOVO" ibl_ord="1"/>
+	<item_backlog ibl_id="2" prd_id="20" ibl_dsc="Item de backlog teste 2" ibl_sts="NOVO" ibl_ord="2"/>
+	<item_backlog ibl_id="3" prd_id="20" ibl_dsc="Item de backlog teste 3" ibl_sts="NOVO" ibl_ord="3"/>
 </dataset>

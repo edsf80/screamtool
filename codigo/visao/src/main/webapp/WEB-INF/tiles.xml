@@ -23,4 +23,11 @@
 		<put-attribute name="modal" value="/WEB-INF/jsp/produto/cadProduto.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/jsp/produto/footer.jsp" />
 	</definition>
+	
+	<definition name="itembacklog" template="/WEB-INF/jsp/template.jsp">
+		<put-attribute name="header" value="/WEB-INF/jsp/itembacklog/header.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/itembacklog/itemBacklog.jsp" />
+		<put-attribute name="modal" value="/WEB-INF/jsp/itembacklog/cadItemBacklog.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/itembacklog/footer.jsp" />
+	</definition>
 </tiles-definitions>

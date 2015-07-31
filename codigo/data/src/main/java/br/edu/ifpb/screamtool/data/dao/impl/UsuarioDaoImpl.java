@@ -48,7 +48,6 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario, Long> implements
 		Query query = this.entityManager
 				.createNamedQuery("Usuario.buscarPorLogin");
 		query.setParameter("login", login);
-
 		List<Usuario> usuarios = query.getResultList();
 
 		Usuario resultado = usuarios.isEmpty() ? null : usuarios.get(0);

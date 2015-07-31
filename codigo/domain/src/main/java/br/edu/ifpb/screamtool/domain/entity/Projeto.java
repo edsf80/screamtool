@@ -1,7 +1,5 @@
 package br.edu.ifpb.screamtool.domain.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,12 +17,12 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @NamedQuery(name = "Projeto.findAll", query = "SELECT p FROM Projeto p")
-public class Projeto implements Serializable {
+public class Projeto extends EntidadeBasica {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_projeto")
-	@SequenceGenerator(name = "seq_projeto", sequenceName = "seq_projeto")	
+	@SequenceGenerator(name = "seq_projeto", sequenceName = "seq_projeto")
 	@Column(name = "prj_id")
 	private Long id;
 
@@ -37,16 +35,16 @@ public class Projeto implements Serializable {
 	@JoinColumn(name = "prd_id")
 	private Produto produto;
 
-	public Long getId() {
-		return this.id;
-	}
-
+	/**
+	 * @param prjId
+	 */
 	public void setId(Long prjId) {
 		this.id = prjId;
 	}
 
-	// bi-directional many-to-one association to Produto
-
+	/**
+	 * @return
+	 */
 	public Produto getProduto() {
 		return this.produto;
 	}
@@ -55,42 +53,33 @@ public class Projeto implements Serializable {
 		this.produto = produto;
 	}
 
+	/*
+	 * public Release addReleas(Release releas) { getReleases().add(releas);
+	 * releas.setProjeto(this);
+	 * 
+	 * return releas; }
+	 * 
+	 * public Release removeReleas(Release releas) {
+	 * getReleases().remove(releas); releas.setProjeto(null);
+	 * 
+	 * return releas; }
+	 */
 
-/*	public Release addReleas(Release releas) {
-		getReleases().add(releas);
-		releas.setProjeto(this);
-
-		return releas;
-	}
-
-	public Release removeReleas(Release releas) {
-		getReleases().remove(releas);
-		releas.setProjeto(null);
-
-		return releas;
-	}*/
-
-	/*public List<Sprint> getSprints() {
-		return this.sprints;
-	}
-
-	public void setSprints(List<Sprint> sprints) {
-		this.sprints = sprints;
-	}
-
-	public Sprint addSprint(Sprint sprint) {
-		getSprints().add(sprint);
-		sprint.setProjeto(this);
-
-		return sprint;
-	}
-
-	public Sprint removeSprint(Sprint sprint) {
-		getSprints().remove(sprint);
-		sprint.setProjeto(null);
-
-		return sprint;
-	}*/
+	/*
+	 * public List<Sprint> getSprints() { return this.sprints; }
+	 * 
+	 * public void setSprints(List<Sprint> sprints) { this.sprints = sprints; }
+	 * 
+	 * public Sprint addSprint(Sprint sprint) { getSprints().add(sprint);
+	 * sprint.setProjeto(this);
+	 * 
+	 * return sprint; }
+	 * 
+	 * public Sprint removeSprint(Sprint sprint) { getSprints().remove(sprint);
+	 * sprint.setProjeto(null);
+	 * 
+	 * return sprint; }
+	 */
 
 	/**
 	 * @return the nome
@@ -105,5 +94,15 @@ public class Projeto implements Serializable {
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.edu.ifpb.screamtool.domain.entity.EntidadeBasica#getId()
+	 */
+	@Override
+	public Long getId() {
+		return this.id;
 	}
 }

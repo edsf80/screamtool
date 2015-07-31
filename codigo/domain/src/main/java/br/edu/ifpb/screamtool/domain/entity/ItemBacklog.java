@@ -1,54 +1,100 @@
 package br.edu.ifpb.screamtool.domain.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * The persistent class for the item_backlog database table.
  * 
  */
 @Entity
-@Table(name="item_backlog")
-@NamedQuery(name="ItemBacklog.findAll", query="SELECT i FROM ItemBacklog i")
-public class ItemBacklog implements Serializable {
+@Table(name = "item_backlog")
+@NamedQueries({
+		@NamedQuery(name = "ItemBacklog.findAll", query = "SELECT i FROM ItemBacklog i"),
+		@NamedQuery(name = "ItemBacklog.buscarPorProduto", query = "SELECT i FROM ItemBacklog i where i.produto.id = :produto") })
+public class ItemBacklog extends EntidadeBasica {
+
+	public enum ItemBacklogStatus {
+		N, P, A, F
+	}
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	private Long iblId;
-	private ProductBacklog productBacklog;
+
+	/**
+	 * 
+	 */
+	@Id
+	@SequenceGenerator(name = "seq_item_backlog", sequenceName = "seq_item_backlog")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_item_backlog")
+	@Column(name = "ibl_id")
+	private Long id;
+
+	/**
+	 * 
+	 */
+	@Column(name = "ibl_dsc")
+	private String descricao;
+
+	/**
+	 * 
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "prd_id", nullable = false)
+	private Produto produto;
+
+	/**
+	 * 
+	 */
+	@Enumerated(EnumType.STRING)
+	@Column(name = "ibl_sts")
+	private ItemBacklogStatus status;
+
+	/**
+	 * 
+	 */
+	@Column(name = "ibl_ord")
+	private Integer ordem;
+	
+	/**
+	 * 
+	 */
+	@Column(name = "ibl_esu")
+	private String estoriaUsuario;
+
+	/**
+	 * 
+	 */
+	@Column(name = "ibl_stp")
+	private Integer storyPoints;
+
+	/**
+	 * 
+	 */
+	@OneToMany(mappedBy = "itemBacklog")
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Tarefa> tarefas;
 
-	public ItemBacklog() {
-	}
-
-
-	@Id
-	@SequenceGenerator(name="ITEM_BACKLOG_IBLID_GENERATOR", sequenceName="SQ_ITEM_BACKLOG")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ITEM_BACKLOG_IBLID_GENERATOR")
-	@Column(name="ibl_id")
-	public Long getIblId() {
-		return this.iblId;
-	}
-
-	public void setIblId(Long iblId) {
-		this.iblId = iblId;
-	}
-
-
-	//bi-directional many-to-one association to ProductBacklog
-	@ManyToOne
-	@JoinColumn(name="pbg_id")
-	public ProductBacklog getProductBacklog() {
-		return this.productBacklog;
-	}
-
-	public void setProductBacklog(ProductBacklog productBacklog) {
-		this.productBacklog = productBacklog;
-	}
-
-
-	//bi-directional many-to-one association to Tarefa
-	@OneToMany(mappedBy="itemBacklog")
 	public List<Tarefa> getTarefas() {
 		return this.tarefas;
 	}
@@ -69,6 +115,112 @@ public class ItemBacklog implements Serializable {
 		tarefa.setItemBacklog(null);
 
 		return tarefa;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.edu.ifpb.screamtool.domain.entity.EntidadeBasica#getId()
+	 */
+	@Override
+	public Long getId() {
+		return this.id;
+	}
+
+	/**
+	 * @param id
+	 */
+	public void setId(final Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the descricao
+	 */
+	public String getDescricao() {
+		return descricao;
+	}
+
+	/**
+	 * @param descricao
+	 *            the descricao to set
+	 */
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	/**
+	 * @return the produto
+	 */
+	public Produto getProduto() {
+		return produto;
+	}
+
+	/**
+	 * @param produto
+	 *            the produto to set
+	 */
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public ItemBacklogStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status
+	 *            the status to set
+	 */
+	public void setStatus(ItemBacklogStatus status) {
+		this.status = status;
+	}
+
+	/**
+	 * @return the ordem
+	 */
+	public Integer getOrdem() {
+		return ordem;
+	}
+
+	/**
+	 * @param ordem
+	 *            the ordem to set
+	 */
+	public void setOrdem(Integer ordem) {
+		this.ordem = ordem;
+	}
+
+	/**
+	 * @return the storyPoints
+	 */
+	public Integer getStoryPoints() {
+		return storyPoints;
+	}
+
+	/**
+	 * @param storyPoints
+	 *            the storyPoints to set
+	 */
+	public void setStoryPoints(Integer storyPoints) {
+		this.storyPoints = storyPoints;
+	}
+
+	/**
+	 * @return the estoriaUsuario
+	 */
+	public String getEstoriaUsuario() {
+		return estoriaUsuario;
+	}
+
+	/**
+	 * @param estoriaUsuario the estoriaUsuario to set
+	 */
+	public void setEstoriaUsuario(String estoriaUsuario) {
+		this.estoriaUsuario = estoriaUsuario;
 	}
 
 }

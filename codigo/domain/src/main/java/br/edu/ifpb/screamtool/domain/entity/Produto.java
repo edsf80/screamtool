@@ -1,7 +1,5 @@
 package br.edu.ifpb.screamtool.domain.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +14,7 @@ import javax.persistence.SequenceGenerator;
  */
 @Entity
 @NamedQuery(name = "Produto.findAll", query = "SELECT p FROM Produto p")
-public class Produto implements Serializable {
+public class Produto extends EntidadeBasica {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -29,13 +27,6 @@ public class Produto implements Serializable {
 	private String descricao;
 
 	public Produto() {
-	}
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
 	}
 
 	/**
@@ -59,6 +50,16 @@ public class Produto implements Serializable {
 	 */
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.edu.ifpb.screamtool.domain.entity.EntidadeBasica#getId()
+	 */
+	@Override
+	public Long getId() {
+		return this.id;
 	}
 
 }

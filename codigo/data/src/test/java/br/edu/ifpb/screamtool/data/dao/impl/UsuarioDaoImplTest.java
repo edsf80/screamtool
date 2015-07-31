@@ -4,6 +4,7 @@
 package br.edu.ifpb.screamtool.data.dao.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,6 +20,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ifpb.screamtool.data.dao.UsuarioDao;
+import br.edu.ifpb.screamtool.domain.entity.Projeto;
 import br.edu.ifpb.screamtool.domain.entity.Usuario;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
@@ -127,9 +129,10 @@ public class UsuarioDaoImplTest {
 	public void testeBuscarPorLogin() {
 
 		Usuario usuario = usuarioDao.bucarPorLogin("tstdev");
+		Set<Projeto> projetos = usuario.getProjetos();
 
 		Assert.assertNotNull(usuario);
-
+		Assert.assertTrue(projetos.size()>0);
 	}
 
 	@Test

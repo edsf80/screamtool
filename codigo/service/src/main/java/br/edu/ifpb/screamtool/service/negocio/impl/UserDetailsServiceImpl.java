@@ -5,6 +5,7 @@ package br.edu.ifpb.screamtool.service.negocio.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,7 +22,6 @@ import br.edu.ifpb.screamtool.domain.entity.Papel;
 import br.edu.ifpb.screamtool.domain.entity.Permissao;
 import br.edu.ifpb.screamtool.domain.entity.Projeto;
 import br.edu.ifpb.screamtool.domain.entity.Usuario;
-import br.edu.ifpb.screamtool.service.vo.ProjetoVO;
 import br.edu.ifpb.screamtool.service.vo.UsuarioVO;
 
 /**
@@ -58,20 +58,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		usuarioVO.setId(usuario.getId());
 		usuarioVO.setNome(usuario.getNome());
 
-		List<Projeto> projetos = usuario.getProjetos();
+		Set<Projeto> projetos = usuario.getProjetos();
+		usuarioVO.setProjetos(projetos);
 
-		List<ProjetoVO> projetosVO = new ArrayList<>();
-
-		for (Projeto projeto : projetos) {
-			ProjetoVO novoProjeto = new ProjetoVO();
-			novoProjeto.setId(projeto.getId());
-			novoProjeto.setNome(projeto.getNome());
-			projetosVO.add(novoProjeto);
-		}
-
-		usuarioVO.setProjetos(projetosVO);
-
-		List<Papel> papeis = usuario.getPapeis();
+		Set<Papel> papeis = usuario.getPapeis();
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
 		for (Papel papel : papeis) {

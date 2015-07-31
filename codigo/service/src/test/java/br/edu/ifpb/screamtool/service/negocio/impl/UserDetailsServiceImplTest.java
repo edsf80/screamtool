@@ -1,6 +1,7 @@
 package br.edu.ifpb.screamtool.service.negocio.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,8 +38,8 @@ public class UserDetailsServiceImplTest {
 		Usuario usuarioSemNada = new Usuario();
 		usuarioSemNada.setId(1l);
 		usuarioSemNada.setNome("Teste de Pesquisa");
-		usuarioSemNada.setPapeis(new ArrayList<Papel>());
-		usuarioSemNada.setProjetos(new ArrayList<Projeto>());
+		usuarioSemNada.setPapeis(new HashSet<Papel>());
+		usuarioSemNada.setProjetos(new HashSet<Projeto>());
 		
 		UsuarioDao usuarioDao = Mockito.mock(UsuarioDao.class);
 		Mockito.when(usuarioDao.bucarPorLogin("testesp")).thenReturn(usuarioSemNada);
@@ -55,7 +56,7 @@ public class UserDetailsServiceImplTest {
 		Usuario usuarioPesquisadoPorLoginComProjeto = new Usuario();
 		usuarioPesquisadoPorLoginComProjeto.setId(2l);
 		usuarioPesquisadoPorLoginComProjeto.setNome("Teste de Pesquisa com Projeto");
-		usuarioPesquisadoPorLoginComProjeto.setPapeis(new ArrayList<Papel>());
+		usuarioPesquisadoPorLoginComProjeto.setPapeis(new HashSet<Papel>());
 		
 		Produto produto = new Produto();
 		produto.setId(1l);
@@ -64,7 +65,7 @@ public class UserDetailsServiceImplTest {
 		projeto.setNome("Projeto Teste");
 		projeto.setProduto(produto);
 		
-		List<Projeto> projetos = new ArrayList<>();
+		HashSet<Projeto> projetos = new HashSet<>();
 		projetos.add(projeto);
 		usuarioPesquisadoPorLoginComProjeto.setProjetos(projetos);
 		
@@ -84,7 +85,7 @@ public class UserDetailsServiceImplTest {
 		Usuario usuarioComPerm = new Usuario();
 		usuarioComPerm.setId(1l);
 		usuarioComPerm.setNome("Teste de Pesquisa com Projeto");
-		usuarioComPerm.setProjetos(new ArrayList<Projeto>());
+		usuarioComPerm.setProjetos(new HashSet<Projeto>());
 		
 		Permissao permissao = new Permissao();
 		permissao.setId(1l);
@@ -98,7 +99,7 @@ public class UserDetailsServiceImplTest {
 		papel.setId(1l);
 		papel.setDescricao("Papel Teste");
 		papel.setPermissoes(permissoes);
-		List<Papel> papeis = new ArrayList<>();
+		HashSet<Papel> papeis = new HashSet<>();
 		papeis.add(papel);		
 		usuarioComPerm.setPapeis(papeis);
 		

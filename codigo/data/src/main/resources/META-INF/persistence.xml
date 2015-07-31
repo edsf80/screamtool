@@ -6,7 +6,6 @@
 		<class>br.edu.ifpb.screamtool.domain.entity.ItemBacklog</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.Papel</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.Permissao</class>
-		<class>br.edu.ifpb.screamtool.domain.entity.ProductBacklog</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.Produto</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.Projeto</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.Release</class>

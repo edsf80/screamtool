@@ -5,9 +5,12 @@ package br.edu.ifpb.screamtool.service.vo;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import br.edu.ifpb.screamtool.domain.entity.Projeto;
 
 /**
  * @author edsf
@@ -43,7 +46,7 @@ public class UsuarioVO implements UserDetails {
 	/**
 	 * 
 	 */
-	private List<ProjetoVO> projetos;
+	private Set<Projeto> projetos;
 
 	/**
 	 * A lista de permissoes do usuário
@@ -181,7 +184,7 @@ public class UsuarioVO implements UserDetails {
 	/**
 	 * @return the projetos
 	 */
-	public List<ProjetoVO> getProjetos() {
+	public Set<Projeto> getProjetos() {
 		return projetos;
 	}
 
@@ -189,7 +192,7 @@ public class UsuarioVO implements UserDetails {
 	 * @param projetos
 	 *            the projetos to set
 	 */
-	public void setProjetos(List<ProjetoVO> projetos) {
+	public void setProjetos(Set<Projeto> projetos) {
 		this.projetos = projetos;
 	}
 }

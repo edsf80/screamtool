@@ -1,11 +1,23 @@
 package br.edu.ifpb.screamtool.domain.entity;
 
-import java.io.Serializable;
+import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
-import java.util.List;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * The persistent class for the usuario database table.
@@ -13,10 +25,10 @@ import java.util.List;
  */
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Usuario.buscarPorLogin", query = "SELECT u FROM Usuario u where u.login = :login"),
+		@NamedQuery(name = "Usuario.buscarPorLogin", query = "SELECT u FROM Usuario u LEFT JOIN FETCH u.projetos LEFT JOIN FETCH u.papeis where u.login = :login"),
 		@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
 		@NamedQuery(name = "Usuario.verificarExiste", query = "SELECT 1 FROM Usuario u where u.login = :login") })
-public class Usuario implements Serializable {
+public class Usuario extends EntidadeBasica {
 	/**
 	 * 
 	 */
@@ -27,7 +39,7 @@ public class Usuario implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
-	@SequenceGenerator(name = "seq_usuario", sequenceName = "seq_usuario")	
+	@SequenceGenerator(name = "seq_usuario", sequenceName = "seq_usuario")
 	@Column(name = "usr_id")
 	private Long id;
 
@@ -56,22 +68,17 @@ public class Usuario implements Serializable {
 	 * 
 	 */
 	@ManyToMany(fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "usuario_projeto", joinColumns = { @JoinColumn(name = "usr_id") }, inverseJoinColumns = { @JoinColumn(name = "prj_id") })
-	private List<Projeto> projetos;
+	private Set<Projeto> projetos;
 
 	/**
 	 * 
 	 */
 	@ManyToMany(fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "usuario_papel", joinColumns = { @JoinColumn(name = "usr_id") }, inverseJoinColumns = { @JoinColumn(name = "ppl_id") })
-	private List<Papel> papeis;
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
+	private Set<Papel> papeis;
 
 	/**
 	 * @param id
@@ -129,68 +136,40 @@ public class Usuario implements Serializable {
 	/**
 	 * @return
 	 */
-	public List<Projeto> getProjetos() {
+	public Set<Projeto> getProjetos() {
 		return this.projetos;
 	}
 
 	/**
 	 * @param projetos
 	 */
-	public void setProjetos(List<Projeto> projetos) {
+	public void setProjetos(Set<Projeto> projetos) {
 		this.projetos = projetos;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		int resultado;
-
-		if (this.id == null) {
-			resultado = super.hashCode();
-		} else {
-			resultado = this.id.intValue();
-		}
-
-		return resultado;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-
-		boolean resultado = Boolean.FALSE;
-
-		if (obj != null) {
-			Usuario eb = (Usuario) obj;
-
-			if ((eb.getId() == this.getId()) || eb.getId().equals(this.getId())) {
-				resultado = Boolean.TRUE;
-			}
-		}
-
-		return resultado;
 	}
 
 	/**
 	 * @return the papeis
 	 */
-	public List<Papel> getPapeis() {
+	public Set<Papel> getPapeis() {
 		return papeis;
 	}
 
 	/**
-	 * @param papeis the papeis to set
+	 * @param papeis
+	 *            the papeis to set
 	 */
-	public void setPapeis(List<Papel> papeis) {
+	public void setPapeis(Set<Papel> papeis) {
 		this.papeis = papeis;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.edu.ifpb.screamtool.domain.entity.EntidadeBasica#getId()
+	 */
+	@Override
+	public Long getId() {
+		return this.id;
 	}
 
 }
