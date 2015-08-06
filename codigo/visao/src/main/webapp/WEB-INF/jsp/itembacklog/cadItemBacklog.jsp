@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!-- Modal -->
 <div class="modal fade" id="mCadItemBacklog">
 	<div class="modal-dialog" role="document">
@@ -10,40 +11,43 @@
 				<h4 class="modal-title">Novo Item de Backlog</h4>
 			</div>
 			<div class="modal-body">
-				<!-- form start -->
-				<div id="caixaAlerta" style="display: none;"
+				<div id="caixaAlerta"
 					class="alert alert-warning alert-dismissable">
 					<h4>
-						<i class="icon fa fa-warning"></i> Validação do formulário!
+						<i class="icon fa fa-warning"></i> ValidaÃ§Ã£o do formulÃ¡rio!
 					</h4>
 				</div>
+				<!-- form start -->				
 				<form id="frmItemBacklog" method="POST"
 					action="../service/itembacklog/salvarItemBacklog.rest" role="form">
-					<div class="box-body">
 						<input type="text" name="id" style="display: none;"
 							id="hIdItemBacklog" />
 						<div class="form-group">
-							<label for="tDescricao">Descrição*</label> <input type="text"
+							<label for="tDescricao">DescriÃ§Ã£o*</label> <input type="text"
 								name="descricao" class="form-control" id="tDescricao" autofocus>
 						</div>
-						<label for="sStatus">Status*</label> <select
-								id="sStatus" name="status" class="form-control">
-								<option value="N">Novo</option>
-								<option value="P">Preparado</option>
-						</select>
-						<label for="sPontos">Pontos</label> <select
-								id="sPontos" name="pontos" class="form-control">
-								<option value=""></option>
-								<option value="2">2</option>
-								<option value="8">8</option>
-								<option value="13">13</option>
-								<option value="20">20</option>
-						</select>
 						<div class="form-group">
-                      		<label for="tEstoriaUsuario">Estória do Usuário*</label>
-                      		<textarea name="estoriaUsuario" id="tEstoriaUsuario" class="form-control" rows="3" placeholder="Insira a estória do usuário..."></textarea>
+							<label for="sStatus">Status*</label> <select
+									id="sStatus" name="status" class="form-control">
+									<option value="N">Novo</option>
+									<option value="P">Preparado</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="sPontos">Pontos</label> <select
+									id="sPontos" name="storyPoints" class="form-control">
+									<option value=""></option>
+									<option value="2">2</option>
+									<option value="8">8</option>
+									<option value="13">13</option>
+									<option value="20">20</option>
+							</select>
+						</div>						
+						<div class="form-group">
+                      		<label for="tEstoriaUsuario">EstÃ³ria do UsuÃ¡rio*</label>
+                      		<textarea name="estoriaUsuario" id="tEstoriaUsuario" class="form-control" rows="3" placeholder="Insira a estÃ³ria do usuÃ¡rio..."></textarea>
                     	</div>
-					</div>
+					
 			</div>
 			<!-- /.modal-body -->
 			<div class="modal-footer">

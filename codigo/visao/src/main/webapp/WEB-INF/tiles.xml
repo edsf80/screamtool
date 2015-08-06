@@ -30,4 +30,12 @@
 		<put-attribute name="modal" value="/WEB-INF/jsp/itembacklog/cadItemBacklog.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/jsp/itembacklog/footer.jsp" />
 	</definition>
+	
+	<definition name="erro" template="/WEB-INF/jsp/template.jsp">
+		<put-attribute name="header" value="/WEB-INF/jsp/main/header.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/erro.jsp" />
+		<put-attribute name="modal" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/main/footer.jsp" />
+	</definition>
+	
 </tiles-definitions>

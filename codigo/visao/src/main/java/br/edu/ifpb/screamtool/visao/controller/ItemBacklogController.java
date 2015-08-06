@@ -31,15 +31,30 @@ public class ItemBacklogController {
 	@Qualifier("itemBacklogService")
 	private ItemBacklogService itemBacklogService;
 
+	@ModelAttribute("projetoAberto")
+	public Projeto createProjeto() {
+		return new Projeto();
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String loadPage(ModelMap model,
 			@ModelAttribute("projetoAberto") Projeto projetoAberto) {
 
-		List<ItemBacklog> itensBacklog = itemBacklogService
-				.buscarTodosPorProduto(projetoAberto.getProduto().getId());
+		String resultado;
 
-		model.addAttribute("itensBacklog", itensBacklog);
+		if (projetoAberto.getId() == null) {
+			model.remove("projetoAberto");
+			resultado = "main";
+		} else {
 
-		return "itembacklog";
+			List<ItemBacklog> itensBacklog = itemBacklogService
+					.buscarTodosPorProduto(projetoAberto.getProduto().getId());
+
+			model.addAttribute("itensBacklog", itensBacklog);
+			
+			resultado = "itembacklog";
+		}
+
+		return resultado;
 	}
 }

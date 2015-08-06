@@ -27,12 +27,16 @@ import br.edu.ifpb.screamtool.service.negocio.ItemBacklogService;
 @SessionAttributes("projetoAberto")
 public class ItemBacklogRestService {
 
+	/**
+	 * 
+	 */
 	@Autowired
 	@Qualifier("itemBacklogService")
 	private ItemBacklogService itemBacklogService;
 
 	/**
-	 * @param produto
+	 * @param itemBacklog
+	 * @param projeto
 	 * @return
 	 */
 	@PreAuthorize("hasRole('perm_salvar_item_backlog')")
@@ -42,7 +46,7 @@ public class ItemBacklogRestService {
 			@ModelAttribute("projetoAberto") Projeto projeto) {
 
 		ItemBacklog resultado = null;
-		
+
 		Produto produto = projeto.getProduto();
 		itemBacklog.setProduto(produto);
 
@@ -51,8 +55,25 @@ public class ItemBacklogRestService {
 			resultado = itemBacklogService.criar(itemBacklog);
 		} else {
 			resultado = itemBacklogService.atualizar(itemBacklog);
+			// Limpando o proxy da referencia a projeto do objeto detached. Sem
+			// isso um problema ocorrerá ao editar.
+			resultado.setProduto(null);
 		}
 
 		return resultado;
+	}
+
+	/**
+	 * @param itemBacklog
+	 * @return
+	 */
+	@PreAuthorize("hasRole('perm_excluir_item_backlog')")
+	@RequestMapping(value = "/excluirItemBacklog.rest", method = RequestMethod.POST)
+	public @ResponseBody boolean excluirItemBacklog(
+			@ModelAttribute ItemBacklog itemBacklog) {
+
+		itemBacklogService.apagar(itemBacklog);
+
+		return Boolean.TRUE;
 	}
 }

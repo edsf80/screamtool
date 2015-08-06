@@ -12,12 +12,11 @@ $(function() {
 		$(".has-error").removeClass("has-error");
 		
 		if(dados !== undefined) {
-			$("#hIdItemBacklog").val(dados[0]);
-			$("#tDescricao").val(dados[1]);
-			alert(dados[2]);
-			$("#sStatus").val(dados[2].substring(1,1));
-			$("#sPontos").val(dados[3]);
-			$("#tEstoriaUsuario").val(dados[4]);
+			$("#hIdItemBacklog").val(dados.id);
+			$("#tDescricao").val(dados.descricao);
+			$("#sStatus").val(dados.status.substr(dados.status.indexOf(">")+1,1));
+			$("#sPontos").val(dados.storyPoints);
+			$("#tEstoriaUsuario").val(dados.estoriaUsuario);
 		}
 		
 		$("#mCadItemBacklog").modal('toggle');		
@@ -43,15 +42,51 @@ $(function() {
 		                   "targets": [ 4 ],
 		                   "visible": false,
 		                   "searchable": false
-		               }
-		            ]
-		    	});
+		               },
+		            ],
+        "columns": [
+                    { "data": "id" },
+                    { "data": "descricao" },
+                    { "data": "status" },
+                    { "data": "storyPoints" },
+                    { "data": "estoriaUsuario" },
+                    { "data": "opcoes" }
+                ]
+	});
 	
-	$('#tItensBacklog tbody').on( 'click', 'button', function () {
+	$('#tItensBacklog tbody').on( 'click', '#bAltItemBacklog', function () {
         linhaSelecionada = table.row( $(this).parents('tr') );
 		var data = linhaSelecionada.data();
 		
 		abrirModal('Alterar Item de Backlog', data);
+    } );
+	
+	$('#tItensBacklog tbody').on( 'click', '#bExcItemBacklog', function () {
+		var linha = table.row( $(this).parents('tr') );
+		var dados = linha.data();
+		
+        var confirmacao = confirm("Deseja realmente apagar essa item de backlog?");
+        
+        if(confirmacao) {
+        	$.ajax({
+				type : "post",
+				url : "../service/itembacklog/excluirItemBacklog.rest",
+				datatype : "json",
+				data : "id="+dados.id
+			}).done(function(data) {
+				linha.remove();
+				table.draw(false);
+				alert("Item de Backlog Excluído com Sucesso!");
+			}).fail(function(data) {
+				if(data.status == 403) {
+					exibirCaixaAlerta(["Usuário não possui permissão para executar operação!"]);
+				}else if (data.status == 404) {
+					exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
+				} else {
+					window.location.href = "erro.htm";
+				}
+			});
+        }
     } );
 	
 	function exibirCaixaAlerta(mensagens) {
@@ -78,12 +113,12 @@ $(function() {
 		onkeyup : false,
 		onfocusout: false,
 		showErrors : function(errorMap, errorList) {
+			this.defaultShowErrors();
 			$("#caixaAlerta p").empty();
 			$.each(errorList, function(i, val) {
 				$("#caixaAlerta").append("<p>"+val.message+"</p>");
 			});
 			$("#caixaAlerta").show();
-			this.defaultShowErrors();
 		},
 		rules : {
 			descricao : "required",
@@ -99,10 +134,18 @@ $(function() {
 			var actionurl = form.action;
 			var method = form.method;
 			var dados = $("#frmItemBacklog").serialize();
+			var ordem;
 			
 			$(".overlay").show();
-				dados = dados+"&ordem=1";
-			alert(dados);
+			if(linhaSelecionada === undefined) {
+				ordem = table.column(0).data().length;
+				console.log(ordem);
+				dados = dados+"&ordem="+ordem;
+			} else {
+				ordem = linhaSelecionada.index();
+				console.log(ordem);
+				dados = dados+"&ordem="+ordem;
+			}
 			
 			$.ajax({
 				type : method,
@@ -115,7 +158,31 @@ $(function() {
 				if(linhaSelecionada !== undefined) {
 					linhaSelecionada.remove();
 				}
-				estado = table.row.add([data.id, data.descricao, data.status, data.storyPoints,'<button id="bAltItemBacklog" type="button" class="btn btn-xs btn-default disabled">	<i class="fa fa-edit"></i></button><button id="bExcItemBacklog" type="button" class="btn btn-xs btn-default disabled">	<i class="fa fa-trash"></i></button>']);
+				
+				var statusExtenso;
+				
+				switch(data.status) {
+				case 'N':
+					statusExtenso = '<span class="label label-danger">NOVO</span>';
+					break;
+				case 'P':
+					statusExtenso = '<span class="label label-warning">PREPARADO</span>';
+					break;
+				case 'A':
+					statusExtenso = '<span class="label label-primary">EM ANDAMENTO</span>';
+					break;
+				case 'F':
+					statusExtenso = '<span class="label label-success">FINALIZADO</span>';
+					break;
+				}
+				
+				estado = table.row.add({
+					"id": data.id, 
+					"descricao": data.descricao, 
+					"status": statusExtenso, 
+					"storyPoints": data.storyPoints,
+					"estoriaUsuario": data.estoriaUsuario,
+					"opcoes": '<button id="bAltItemBacklog" type="button" class="btn btn-xs btn-default disabled">	<i class="fa fa-edit"></i></button><button id="bExcItemBacklog" type="button" class="btn btn-xs btn-default disabled">	<i class="fa fa-trash"></i></button>'});
 				linhaSelecionada = table.row(estado.index());
 				estado.draw(false);
 				$("#hIdItemBacklog").val(data.id);
@@ -126,7 +193,7 @@ $(function() {
 				}else if (data.status == 404) {
 					exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
 				} else {
-					window.location.href = "../erro.html";
+					window.location.href = "erro.htm";
 				}
 			});
 		}

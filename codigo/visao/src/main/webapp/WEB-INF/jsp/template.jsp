@@ -131,7 +131,7 @@
 		          <ul class="sidebar-menu">
 		            <li class="header">${projetoAberto.nome}</li>
 		            <li>
-		              <a href="widgets.html">
+		              <a href="dashboard.htm">
 		                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
 		              </a>
 		            </li>
@@ -144,12 +144,12 @@
 		            </sec:authorize>
 		            <li>
 		              <a href="widgets.html">
-		                <i class="fa fa-fighter-jet"></i> <span>Sprints</span>
+		                <i class="fa fa-gift"></i> <span>Releases</span>
 		              </a>
 		            </li>
 		            <li>
 		              <a href="widgets.html">
-		                <i class="fa fa-gift"></i> <span>Releases</span>
+		                <i class="fa fa-fighter-jet"></i> <span>Sprints</span>
 		              </a>
 		            </li>
 		            <li>

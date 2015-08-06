@@ -82,6 +82,7 @@ public class GenericServiceImpl<T, K> implements GenericService<T, K> {
 	@Transactional
 	@Override
 	public void apagar(@NotNull @Valid T entidade) {
+		
 		dao.apagar(entidade);
 	}
 

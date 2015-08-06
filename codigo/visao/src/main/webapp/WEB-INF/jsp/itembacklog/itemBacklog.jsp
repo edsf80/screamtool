@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 <!-- Content Header (Page header) -->
@@ -34,10 +35,10 @@
 						<thead>
 							<tr>
 								<th>id</th>
-								<th>Descrição</th>
+								<th>DescriÃ§Ã£o</th>
 								<th>Status</th>
 								<th>Pontos</th>
-								<th>Estória</th>
+								<th>EstÃ³ria</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -84,10 +85,10 @@
 						<tfoot>
 							<tr>
 								<th>Id</th>
-								<th>Descrição</th>
+								<th>DescriÃ§Ã£o</th>
 								<th>Status</th>
 								<th>Pontos</th>
-								<th>Estória</th>
+								<th>EstÃ³ria</th>
 								<th></th>
 							</tr>
 						</tfoot>

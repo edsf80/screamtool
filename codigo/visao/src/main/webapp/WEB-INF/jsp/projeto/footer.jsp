@@ -24,6 +24,8 @@
 <script src='../plugins/fastclick/fastclick.min.js'></script>
 <!-- Datepicker -->
 <script src='../plugins/datepicker/bootstrap-datepicker.js'></script>
+<!-- AdminLTE App -->
+<script src="../dist/js/app.min.js" type="text/javascript"></script>
 <sec:authorize access="hasRole('perm_salvar_projeto')">
 	<script type="text/javascript">
 		$(function() {

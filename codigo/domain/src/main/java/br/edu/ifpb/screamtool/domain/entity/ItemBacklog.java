@@ -17,6 +17,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -53,12 +55,14 @@ public class ItemBacklog extends EntidadeBasica {
 	/**
 	 * 
 	 */
+	@NotNull
 	@Column(name = "ibl_dsc")
 	private String descricao;
 
 	/**
 	 * 
 	 */
+	@Valid
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "prd_id", nullable = false)
 	private Produto produto;
@@ -66,6 +70,7 @@ public class ItemBacklog extends EntidadeBasica {
 	/**
 	 * 
 	 */
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "ibl_sts")
 	private ItemBacklogStatus status;
@@ -73,12 +78,14 @@ public class ItemBacklog extends EntidadeBasica {
 	/**
 	 * 
 	 */
+	@NotNull
 	@Column(name = "ibl_ord")
 	private Integer ordem;
 	
 	/**
 	 * 
 	 */
+	@NotNull
 	@Column(name = "ibl_esu")
 	private String estoriaUsuario;
 

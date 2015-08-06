@@ -16,9 +16,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ifpb.screamtool.data.dao.ItemBacklogDao;
 import br.edu.ifpb.screamtool.domain.entity.ItemBacklog;
+import br.edu.ifpb.screamtool.domain.entity.ItemBacklog.ItemBacklogStatus;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -77,6 +79,26 @@ public class ItemBacklogDaoImplTest {
 		
 		Assert.assertNotNull(itens);
 		Assert.assertTrue(itens.size() == 0);
+
+	}
+	
+	@Transactional
+	@Test
+	public void testeCriarDepoisBuscar() {
+
+		ItemBacklog ib = new ItemBacklog();
+		ib.setDescricao("item teste");
+		ib.setEstoriaUsuario("Estoria doida");
+		ib.setOrdem(new Integer(1));
+		ib.setStatus(ItemBacklogStatus.N);
+		ib.setStoryPoints(new Integer(8));
+		
+		itemBacklogDao.criar(ib);
+		Assert.assertNotNull(ib.getId());
+		Long id = ib.getId();
+		
+		ib = itemBacklogDao.buscarPorId(id);
+		Assert.assertNotNull(ib.getStoryPoints());	
 
 	}
 }

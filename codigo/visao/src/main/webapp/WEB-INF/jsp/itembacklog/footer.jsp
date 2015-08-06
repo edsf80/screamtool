@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 <!-- jQuery 2.1.4 
 <script src="../plugins/jQuery/jQuery-2.1.3.js"></script>-->
