@@ -27,7 +27,8 @@ import org.hibernate.annotations.FetchMode;
 @NamedQueries({
 		@NamedQuery(name = "Usuario.buscarPorLogin", query = "SELECT u FROM Usuario u LEFT JOIN FETCH u.projetos LEFT JOIN FETCH u.papeis where u.login = :login"),
 		@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-		@NamedQuery(name = "Usuario.verificarExiste", query = "SELECT 1 FROM Usuario u where u.login = :login") })
+		@NamedQuery(name = "Usuario.verificarExiste", query = "SELECT 1 FROM Usuario u where u.login = :login"),
+		@NamedQuery(name = "Usuario.buscarTodosPorProjeto", query = "SELECT u FROM Usuario u JOIN FETCH u.projetos p where p.id = :projeto")})
 public class Usuario extends EntidadeBasica {
 	/**
 	 * 

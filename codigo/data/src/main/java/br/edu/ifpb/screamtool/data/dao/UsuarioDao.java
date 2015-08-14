@@ -3,6 +3,8 @@
  */
 package br.edu.ifpb.screamtool.data.dao;
 
+import java.util.List;
+
 import br.edu.ifpb.screamtool.domain.entity.Usuario;
 
 /**
@@ -24,4 +26,10 @@ public interface UsuarioDao extends GenericDao<Usuario, Long> {
 	 * @return
 	 */
 	Usuario bucarPorLogin(String login);
+	
+	/**
+	 * @param idProjeto
+	 * @return
+	 */
+	List<Usuario> buscarTodosPorProjeto(Long idProjeto);
 }

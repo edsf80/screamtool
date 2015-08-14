@@ -3,31 +3,36 @@
  */
 $(function() {
 	
-	var linhaSelecionada, table, permissoes;
+	var linhaSelecionada, table;
 	
 	function abrirModal(titulo, dados) {
 		$("#caixaAlerta").hide();
-		$('#mCadItemBacklog').find('.modal-title').text(titulo);
-		$("#frmItemBacklog")[0].reset();
+		$('#mCadRisco').find('.modal-title').text(titulo);
+		$("#frmRisco")[0].reset();
 		$(".has-error").removeClass("has-error");
 		
 		if(dados !== undefined) {
-			$("#hIdItemBacklog").val(dados.id);
+			$("#hId").val(dados.id);
 			$("#tDescricao").val(dados.descricao);
 			$("#sStatus").val(dados.status.substr(dados.status.indexOf(">")+1,1));
-			$("#sPontos").val(dados.storyPoints);
-			$("#tEstoriaUsuario").val(dados.estoriaUsuario);
+			$("#sProbabilidade").val(dados.probabilidade);
+			$("#sImpacto").val(dados.impacto);
+			if(dados.responsavel != null) {
+				$("#sResponsavel").val(dados.responsavel.id+"-"+dados.responsavel.nome);
+			}
+			$("#tMitigacao").val(dados.mitigacao);
+			$("#tContingencia").val(dados.contin);
 		}
 		
-		$("#mCadItemBacklog").modal('toggle');		
+		$("#mCadRisco").modal('toggle');		
 	}
 	
 	$.fn.dataTable.ext.errMode = 'none';
 	
-	table = $("#tItensBacklog").on( 'draw.dt', function () {
-		var semPermissao = $("#bAdItemBacklog").hasClass("disabled"); 
+	table = $("#tRiscos").on( 'draw.dt', function () {
+		var temPermissao = $(".perm_salvar_risco").text() == 'S'; 
 		
-		if(!semPermissao) {
+		if(temPermissao) {
 			$(".disabled").removeClass("disabled");
 		}
 	}).DataTable({
@@ -37,56 +42,37 @@ $(function() {
 		                   "targets": [ 0 ],
 		                   "visible": false,
 		                   "searchable": false
-		               },
-		               {
-		                   "targets": [ 4 ],
-		                   "visible": false,
-		                   "searchable": false
-		               },
+		               }
 		            ],
         "columns": [
                     { "data": "id" },
                     { "data": "descricao" },
                     { "data": "status" },
-                    { "data": "storyPoints" },
-                    { "data": "estoriaUsuario" },
+                    { "data": "responsavel" },
                     { "data": "opcoes" }
                 ]
 	});
 	
-	$('#tItensBacklog tbody').on( 'click', '#bAltItemBacklog', function () {
+	$('#tRiscos tbody').on( 'click', '#bAltRisco', function () {
         linhaSelecionada = table.row( $(this).parents('tr') );
 		var data = linhaSelecionada.data();
 		
-		abrirModal('Alterar Item de Backlog', data);
-    } );
-	
-	$('#tItensBacklog tbody').on( 'click', '#bExcItemBacklog', function () {
-		var linha = table.row( $(this).parents('tr') );
-		var dados = linha.data();
-		
-        var confirmacao = confirm("Deseja realmente apagar essa item de backlog?");
-        
-        if(confirmacao) {
-        	$.ajax({
-				type : "post",
-				url : "../service/itembacklog/excluirItemBacklog.rest",
-				datatype : "json",
-				data : "id="+dados.id
-			}).done(function(data) {
-				linha.remove();
-				table.draw(false);
-				alert("Item de Backlog Excluído com Sucesso!");
-			}).fail(function(data) {
-				if(data.status == 403) {
-					exibirCaixaAlerta(["Usuário não possui permissão para executar operação!"]);
-				}else if (data.status == 404) {
-					exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
-				} else {
-					window.location.href = "erro.htm";
-				}
-			});
-        }
+		$.ajax({
+			type : "get",
+			url : "../service/risco/buscarPorId.rest",
+			datatype : "json",
+			data : "id="+data.id
+		}).done(function(data) {
+			abrirModal('Alterar Risco', data);			
+		}).fail(function(data) {
+			if(data.status == 403) {
+				exibirCaixaAlerta(["Usuário não possui permissão para executar operação!"]);
+			}else if (data.status == 404) {
+				exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
+			} else {
+				window.location.href = "erro.htm";
+			}
+		});
     } );
 	
 	function exibirCaixaAlerta(mensagens) {
@@ -97,67 +83,59 @@ $(function() {
 		$("#caixaAlerta").show();
 	}
 	
-	$("#bAdItemBacklog").click(function(){
+	$("#bAdRisco").click(function(){
 		linhaSelecionada = undefined;
-		abrirModal('Novo Item de Backlog');		
+		abrirModal('Novo Risco');		
 	});
 
-	$("#frmItemBacklog").validate({
+	$("#frmRisco").validate({
 		errorPlacement : function(error, element) {
-			$(element).parent().addClass("has-error");
+			$(element).closest(".form-group").addClass("has-error");
 		},
 		unhighlight: function(element, errorClass, validClass) {
-			$(element).parent().removeClass("has-error");
+			$(element).closest(".form-group").removeClass("has-error");
 			$("#caixaAlerta").hide();
 		},
 		onkeyup : false,
 		onfocusout: false,
 		showErrors : function(errorMap, errorList) {
+			var temErro = false;
 			this.defaultShowErrors();
 			$("#caixaAlerta p").empty();
 			$.each(errorList, function(i, val) {
 				$("#caixaAlerta").append("<p>"+val.message+"</p>");
+				temErro = true;
 			});
-			$("#caixaAlerta").show();
+			if(temErro) {
+				$("#caixaAlerta").show();
+			}
 		},
 		rules : {
 			descricao : "required",
-			status: "required",
-			estoriaUsuario: "required"
+			status: "required"
 		},
 		messages : {
 			descricao : "A descrição é obrigatória",
-			status: "O status do item é obrigatório",
-			estoriaUsuario: "A estória do usuário é obrigatória"
+			status: "O status do item é obrigatório"
 		},
 		submitHandler : function(form) {
 			var actionurl = form.action;
 			var method = form.method;
-			var dados = $("#frmItemBacklog").serialize();
-			var ordem;
 			
 			$(".overlay").show();
-			if(linhaSelecionada === undefined) {
-				ordem = table.column(0).data().length;
-				dados = dados+"&ordem="+ordem;
-			} else {
-				ordem = linhaSelecionada.index();
-				console.log(ordem);
-				dados = dados+"&ordem="+ordem;
-			}
 			
 			$.ajax({
 				type : method,
 				url : actionurl,
 				datatype : "json",
-				data : dados
+				data : $("#frmRisco").serialize()
 			}).done(function(data) {
-				alert("Item de Backlog Salvo com Sucesso!");
+				alert("Risco Salvo com Sucesso!");
 				$(".overlay").hide();
 				if(linhaSelecionada !== undefined) {
 					linhaSelecionada.remove();
 				}
-				
+
 				var statusExtenso;
 				
 				switch(data.status) {
@@ -175,16 +153,21 @@ $(function() {
 					break;
 				}
 				
+				var nomeResponsavel = null;
+				
+				if(data.responsavel != null) {
+					nomeResponsavel = data.responsavel.nome;
+				}
+				
 				estado = table.row.add({
 					"id": data.id, 
 					"descricao": data.descricao, 
 					"status": statusExtenso, 
-					"storyPoints": data.storyPoints,
-					"estoriaUsuario": data.estoriaUsuario,
-					"opcoes": '<button id="bAltItemBacklog" type="button" class="btn btn-xs btn-default disabled">	<i class="fa fa-edit"></i></button><button id="bExcItemBacklog" type="button" class="btn btn-xs btn-default disabled">	<i class="fa fa-trash"></i></button>'});
+					"responsavel": nomeResponsavel,
+					"opcoes": '<button id="bAltRisco" type="button" class="btn btn-xs btn-default disabled">	<i class="fa fa-edit"></i></button>'});
 				linhaSelecionada = table.row(estado.index());
 				estado.draw(false);
-				$("#hIdItemBacklog").val(data.id);
+				$("#hId").val(data.id);
 			}).fail(function(data) {
 				$(".overlay").hide();
 				if(data.status == 403) {

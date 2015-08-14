@@ -3,6 +3,8 @@
  */
 package br.edu.ifpb.screamtool.service.negocio.impl;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -36,6 +38,13 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Long>
 		this.dao = dao;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.edu.ifpb.screamtool.service.negocio.UsuarioService#registrarUsuario
+	 * (br.edu.ifpb.screamtool.service.vo.RegistroUsuarioVO)
+	 */
 	@Transactional
 	public boolean registrarUsuario(@NotNull @Valid RegistroUsuarioVO usuario) {
 
@@ -75,6 +84,21 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Long>
 	 */
 	public void setDao(UsuarioDao dao) {
 		this.dao = dao;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.edu.ifpb.screamtool.service.negocio.UsuarioService#buscarTodosPorProjeto
+	 * (java.lang.Long)
+	 */
+	@Override
+	public List<Usuario> buscarTodosPorProjeto(@NotNull Long idProjeto) {
+
+		UsuarioDao usuarioDao = (UsuarioDao) this.dao;
+
+		return usuarioDao.buscarTodosPorProjeto(idProjeto);
 	}
 
 }

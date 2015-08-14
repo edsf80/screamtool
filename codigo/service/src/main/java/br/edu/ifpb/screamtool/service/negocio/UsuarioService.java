@@ -3,6 +3,8 @@
  */
 package br.edu.ifpb.screamtool.service.negocio;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -28,6 +30,15 @@ public interface UsuarioService extends GenericService<Usuario, Long> {
 	 */
 	UsuarioVO buscarUsuarioLogado();
 	
+	/**
+	 * @param dao
+	 */
 	void setDao(UsuarioDao dao);
+	
+	/**
+	 * @param idProjeto
+	 * @return
+	 */
+	List<Usuario> buscarTodosPorProjeto(@NotNull Long idProjeto);
 
 }

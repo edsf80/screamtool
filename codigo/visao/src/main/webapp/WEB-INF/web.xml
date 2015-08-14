@@ -41,4 +41,8 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/config/web-application-config.xml</param-value>
 	</context-param>
+	
+	<welcome-file-list>
+		<welcome-file>login.html</welcome-file>
+	</welcome-file-list>
 </web-app>

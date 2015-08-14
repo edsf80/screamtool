@@ -8,4 +8,6 @@
 	<item_backlog ibl_id="1" prd_id="20" ibl_dsc="Item de backlog teste" ibl_sts="N" ibl_ord="1" ibl_esu="Estoria doida"/>
 	<item_backlog ibl_id="2" prd_id="20" ibl_dsc="Item de backlog teste 2" ibl_sts="N" ibl_ord="2" ibl_esu="Estoria tosca"/>
 	<item_backlog ibl_id="3" prd_id="20" ibl_dsc="Item de backlog teste 3" ibl_sts="N" ibl_ord="3" ibl_esu="Estoria escrota"/>
+	<risco rsc_id="1" rsc_dsc="Risco teste" rsc_cnt="Teste Contingencia" rsc_prb="M" rsc_imp="M" rsc_sts="N" rsc_mit="Teste mitigacao" rsc_rsp="20" prj_id="1"/>
+	<risco rsc_id="2" rsc_dsc="Risco teste 2" rsc_cnt="Teste Contingencia" rsc_prb="M" rsc_imp="M" rsc_sts="N" rsc_mit="Teste mitigacao" prj_id="1"/>
 </dataset>

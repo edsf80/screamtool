@@ -22,9 +22,9 @@ $(function() {
 	$.fn.dataTable.ext.errMode = 'none';
 	
 	table = $("#tProdutos").on( 'draw.dt', function () {
-		var semPermissao = $("#bAdProduto").hasClass("disabled"); 
+		var temPermissao = $(".perm_salvar_produto").text() == 'S'; 
 		
-		if(!semPermissao) {
+		if(temPermissao) {
 			$(".disabled").removeClass("disabled");
 		}
 	}).DataTable();
@@ -51,10 +51,10 @@ $(function() {
 
 	$("#frmProduto").validate({
 		errorPlacement : function(error, element) {
-			$(element).parent().addClass("has-error");
+			$(element).closest(".form-group").addClass("has-error");
 		},
 		unhighlight: function(element, errorClass, validClass) {
-			$(element).parent().removeClass("has-error");
+			$(element).closest(".form-group").removeClass("has-error");
 			$("#caixaAlerta").hide();
 		},
 		onkeyup : false,
@@ -102,7 +102,7 @@ $(function() {
 				}else if (data.status == 404) {
 					exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
 				} else {
-					window.location.href = "../erro.html";
+					window.location.href = "../erro.htm";
 				}
 			});
 		}

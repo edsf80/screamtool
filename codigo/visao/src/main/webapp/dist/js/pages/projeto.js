@@ -29,9 +29,9 @@ $(function() {
 	$.fn.dataTable.ext.errMode = 'none';
 	
 	table = $("#tProjetos").on( 'draw.dt', function () {
-		var semPermissao = $("#bAdProjeto").hasClass("disabled"); 
+		var temPermissao = $(".perm_salvar_projeto").text() == 'S'; 
 		
-		if(!semPermissao) {
+		if(temPermissao) {
 			$(".disabled").removeClass("disabled");
 		}
 	}).DataTable({

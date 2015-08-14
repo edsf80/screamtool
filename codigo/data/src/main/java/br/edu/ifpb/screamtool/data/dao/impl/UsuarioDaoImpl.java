@@ -48,9 +48,31 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario, Long> implements
 		Query query = this.entityManager
 				.createNamedQuery("Usuario.buscarPorLogin");
 		query.setParameter("login", login);
+
+		@SuppressWarnings("unchecked")
 		List<Usuario> usuarios = query.getResultList();
 
 		Usuario resultado = usuarios.isEmpty() ? null : usuarios.get(0);
+
+		return resultado;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.edu.ifpb.screamtool.data.dao.UsuarioDao#buscarTodosPorProjeto(java
+	 * .lang.Long)
+	 */
+	@Override
+	public List<Usuario> buscarTodosPorProjeto(Long idProjeto) {
+
+		Query query = this.entityManager
+				.createNamedQuery("Usuario.buscarTodosPorProjeto");
+		query.setParameter("projeto", idProjeto);
+
+		@SuppressWarnings("unchecked")
+		List<Usuario> resultado = query.getResultList();
 
 		return resultado;
 	}

@@ -67,6 +67,8 @@ public class GenericDaoImpl<T, K> implements GenericDao<T, K> {
 
 		T resultado = this.entityManager.merge(entidade);
 
+		this.entityManager.flush();
+		
 		this.entityManager.detach(resultado);
 
 		return resultado;

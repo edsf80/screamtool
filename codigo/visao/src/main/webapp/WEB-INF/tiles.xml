@@ -3,35 +3,44 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-	<definition name="projeto" template="/WEB-INF/jsp/template.jsp">
-		<put-attribute name="header" value="/WEB-INF/jsp/projeto/header.jsp" />
+	<definition name="projeto" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
+		<put-attribute name="titulo" value="Cadastro de Projetos" />
 		<put-attribute name="content" value="/WEB-INF/jsp/projeto/projeto.jsp" />
 		<put-attribute name="modal" value="/WEB-INF/jsp/projeto/cadProjeto.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/jsp/projeto/footer.jsp" />
 	</definition>
 	
 	<definition name="main" template="/WEB-INF/jsp/template.jsp">
+		<put-attribute name="titulo" value="Cadastro de Projetos" />
 		<put-attribute name="header" value="/WEB-INF/jsp/main/header.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/main/main.jsp" />
 		<put-attribute name="modal" value="" />
 		<put-attribute name="footer" value="/WEB-INF/jsp/main/footer.jsp" />
 	</definition>
 	
-	<definition name="produto" template="/WEB-INF/jsp/template.jsp">
-		<put-attribute name="header" value="/WEB-INF/jsp/produto/header.jsp" />
+	<definition name="produto" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
+		<put-attribute name="titulo" value="Cadastro de Produtos" />
 		<put-attribute name="content" value="/WEB-INF/jsp/produto/produto.jsp" />
 		<put-attribute name="modal" value="/WEB-INF/jsp/produto/cadProduto.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/jsp/produto/footer.jsp" />
 	</definition>
 	
-	<definition name="itembacklog" template="/WEB-INF/jsp/template.jsp">
-		<put-attribute name="header" value="/WEB-INF/jsp/itembacklog/header.jsp" />
+	<definition name="itembacklog" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
+		<put-attribute name="titulo" value="Cadastro de Itens de Backlog" />
 		<put-attribute name="content" value="/WEB-INF/jsp/itembacklog/itemBacklog.jsp" />
 		<put-attribute name="modal" value="/WEB-INF/jsp/itembacklog/cadItemBacklog.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/jsp/itembacklog/footer.jsp" />
 	</definition>
 	
+	<definition name="risco" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
+		<put-attribute name="titulo" value="Cadastro de Riscos" />
+		<put-attribute name="content" value="/WEB-INF/jsp/risco/risco.jsp" />
+		<put-attribute name="modal" value="/WEB-INF/jsp/risco/cadRisco.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/risco/footer.jsp" />
+	</definition>
+	
 	<definition name="erro" template="/WEB-INF/jsp/template.jsp">
+		<put-attribute name="titulo" value="Erro Inesperado no Sistema" />
 		<put-attribute name="header" value="/WEB-INF/jsp/main/header.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/erro.jsp" />
 		<put-attribute name="modal" value="" />

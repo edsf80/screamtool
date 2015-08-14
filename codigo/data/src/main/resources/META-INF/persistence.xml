@@ -11,6 +11,7 @@
 		<class>br.edu.ifpb.screamtool.domain.entity.Release</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.Sprint</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.Tarefa</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.Risco</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.Usuario</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.UsuarioProjeto</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.UsuarioProjetoPK</class>
