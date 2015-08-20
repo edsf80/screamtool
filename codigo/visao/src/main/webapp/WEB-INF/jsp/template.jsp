@@ -58,12 +58,12 @@
 						<!-- User Account: style can be found in dropdown.less -->
 						<li class="dropdown user user-menu"><a href="#"
 							class="dropdown-toggle" data-toggle="dropdown"> <img
-								src="../dist/img/user.png" class="user-image" alt="User Image" />
+								src="../images/user.png" class="user-image" alt="User Image" />
 								<span id="sNomeUsuario" class="hidden-xs">${usuario.nome}</span>
 						</a>
 							<ul class="dropdown-menu">
 								<!-- User image -->
-								<li class="user-header"><img src="../dist/img/user.png"
+								<li class="user-header"><img src="../images/user.png"
 									class="img-circle" alt="User Image" />
 									<p id="pNomeUsuarioMenu">
 										${usuario.nome}
@@ -105,7 +105,7 @@
 				<!-- Sidebar user panel -->
 				<div class="user-panel">
 					<div class="pull-left image">
-						<img src="../dist/img/user.png" class="img-circle"
+						<img src="../images/user.png" class="img-circle"
 							alt="User Image" />
 					</div>
 					<div class="pull-left info">

@@ -25,24 +25,19 @@ $(function() {
 	$.fn.dataTable.ext.errMode = 'none';
 	
 	table = $("#tItensBacklog").on( 'draw.dt', function () {
-		var semPermissao = $("#bAdItemBacklog").hasClass("disabled"); 
+		var temPermissao = $(".perm_salvar_item_backlog").text() == 'S'; 
 		
-		if(!semPermissao) {
+		if(temPermissao) {
 			$(".disabled").removeClass("disabled");
 		}
 	}).DataTable({
 		"paging": false,
 		"columnDefs": [
 		               {
-		                   "targets": [ 0 ],
+		                   "targets": [ 0, 4 ],
 		                   "visible": false,
 		                   "searchable": false
-		               },
-		               {
-		                   "targets": [ 4 ],
-		                   "visible": false,
-		                   "searchable": false
-		               },
+		               }
 		            ],
         "columns": [
                     { "data": "id" },

@@ -18,7 +18,9 @@
 				<version>2.5</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<warSourceExcludes>bootstrap/,dist/,plugins/,private/</warSourceExcludes>
+					<warSourceExcludes>bootstrap/,dist/,plugins/,private/,
+						css/main.css, js/itembacklog.js, js/login.js, js/main.js,
+						js/produto.js, js/projeto.js, js/risco.js</warSourceExcludes>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -48,6 +50,28 @@
 							</jsSourceFiles>
 							<jsTargetDir>js</jsTargetDir>
 							<jsFinalFile>produto.js</jsFinalFile>
+							<jsEngine>CLOSURE</jsEngine>
+						</configuration>
+						<goals>
+							<goal>minify</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>itembacklog-minify</id>
+						<configuration>
+							<jsSourceFiles>
+								<jsSourceFile>plugins/jQuery/jQuery-2.1.4.js</jsSourceFile>
+								<jsSourceFile>plugins/jQueryValidate/jquery.validate-1.14.0.js</jsSourceFile>
+								<jsSourceFile>bootstrap/js/bootstrap.js</jsSourceFile>
+								<jsSourceFile>plugins/datatables/jquery.dataTables-1.10.7.js</jsSourceFile>
+								<jsSourceFile>plugins/datatables/dataTables.bootstrap-1.10.7.js</jsSourceFile>
+								<jsSourceFile>plugins/slimScroll/jquery.slimscroll.min.js</jsSourceFile>
+								<jsSourceFile>plugins/fastclick/fastclick.min.js</jsSourceFile>
+								<jsSourceFile>dist/js/app.min.js</jsSourceFile>
+								<jsSourceFile>dist/js/pages/itembacklog.js</jsSourceFile>
+							</jsSourceFiles>
+							<jsTargetDir>js</jsTargetDir>
+							<jsFinalFile>itembacklog.js</jsFinalFile>
 							<jsEngine>CLOSURE</jsEngine>
 						</configuration>
 						<goals>
@@ -133,7 +157,7 @@
 								<cssSourceFile>dist/css/skins/_all-skins.min.css</cssSourceFile>
 							</cssSourceFiles>
 							<cssFinalFile>main.css</cssFinalFile>
-							<cssTargetDir>css</cssTargetDir>							
+							<cssTargetDir>css</cssTargetDir>
 							<jsSourceFiles>
 								<jsSourceFile>plugins/jQuery/jQuery-2.1.4.js</jsSourceFile>
 								<jsSourceFile>bootstrap/js/bootstrap.js</jsSourceFile>

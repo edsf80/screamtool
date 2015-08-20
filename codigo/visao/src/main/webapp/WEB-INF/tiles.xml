@@ -3,6 +3,9 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
+	<definition name="blank" template="/WEB-INF/jsp/blank.jsp">
+	</definition>
+
 	<definition name="projeto" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
 		<put-attribute name="titulo" value="Cadastro de Projetos" />
 		<put-attribute name="content" value="/WEB-INF/jsp/projeto/projeto.jsp" />
@@ -37,6 +40,13 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/risco/risco.jsp" />
 		<put-attribute name="modal" value="/WEB-INF/jsp/risco/cadRisco.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/jsp/risco/footer.jsp" />
+	</definition>
+	
+	<definition name="release" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
+		<put-attribute name="titulo" value="Cadastro de Releases" />
+		<put-attribute name="content" value="/WEB-INF/jsp/release/release.jsp" />
+		<put-attribute name="modal" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/release/footer.jsp" />
 	</definition>
 	
 	<definition name="erro" template="/WEB-INF/jsp/template.jsp">

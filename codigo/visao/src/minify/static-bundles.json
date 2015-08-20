@@ -1,0 +1,28 @@
+{
+    "bundles": [
+        {
+            "type": "css",
+            "name": "main.css",
+            "files": [
+                "bootstrap/css/bootstrap.min.css",
+                "bootstrap/css/font-awesome-4.3.css",
+                "plugins/ionicons/ionicons-2.0.0.css",
+                "plugins/datatables/jquery.dataTables.css",
+                "dist/css/AdminLTE.css",
+                "plugins/iCheck/square/blue.css",
+                "dist/css/skins/_all-skins.min.css"
+            ]
+        },
+        {
+            "type": "js",
+            "name": "main.js",
+            "files": [
+                "plugins/jQuery/jQuery-2.1.4.js",
+                "bootstrap/js/bootstrap.js",
+                "plugins/slimScroll/jquery.slimscroll.min.js",
+                "plugins/fastclick/fastclick.min.js",
+                "dist/js/app.min.js"
+            ]
+        }
+    ]
+}
