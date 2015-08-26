@@ -95,6 +95,8 @@
 										<li><a href="projeto.htm"><i class="fa fa-circle-o"></i>
 												Projetos</a></li>
 									</sec:authorize>
+									    <li><a href="teste.htm"><i class="fa fa-circle-o"></i>
+												Testes</a></li>
 								</ul>
 							</li>
 						</sec:authorize>

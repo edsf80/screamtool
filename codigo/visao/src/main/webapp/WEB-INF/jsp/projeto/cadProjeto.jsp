@@ -18,7 +18,7 @@
 					</h4>
 				</div>
 				<form id="frmProjeto" method="POST"
-					action="../service/projeto/salvarProjeto.rest" role="form">
+					action="../service/projeto" role="form">
 					<div class="box-body">
 						<input type="text" name="id" style="display: none;"
 							id="hIdProjeto" />

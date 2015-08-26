@@ -23,7 +23,7 @@ import br.edu.ifpb.screamtool.service.negocio.ItemBacklogService;
  *
  */
 @Controller
-@RequestMapping("/private/itembacklog")
+@RequestMapping("/itembacklog")
 @SessionAttributes("projetoAberto")
 public class ItemBacklogController {
 

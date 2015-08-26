@@ -19,12 +19,12 @@
  
 	<servlet-mapping>
  		<servlet-name>rest</servlet-name>
- 		<url-pattern>*.rest</url-pattern>
+ 		<url-pattern>/service/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
  		<servlet-name>rest</servlet-name>
- 		<url-pattern>*.htm</url-pattern>
+ 		<url-pattern>/private/*</url-pattern>
 	</servlet-mapping>
 	
 	<filter>

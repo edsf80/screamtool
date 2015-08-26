@@ -59,20 +59,11 @@ $(function() {
 		
 		$.ajax({
 			type : "get",
-			url : "../service/risco/buscarPorId.rest",
-			datatype : "json",
-			data : "id="+data.id
+			url : "../service/risco/"+data.id,
+			datatype : "json"
 		}).done(function(data) {
 			abrirModal('Alterar Risco', data);			
-		}).fail(function(data) {
-			if(data.status == 403) {
-				exibirCaixaAlerta(["Usuário não possui permissão para executar operação!"]);
-			}else if (data.status == 404) {
-				exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
-			} else {
-				window.location.href = "erro.htm";
-			}
-		});
+		}).fail($.fn.tratarErro);
     } );
 	
 	function exibirCaixaAlerta(mensagens) {
@@ -89,27 +80,6 @@ $(function() {
 	});
 
 	$("#frmRisco").validate({
-		errorPlacement : function(error, element) {
-			$(element).closest(".form-group").addClass("has-error");
-		},
-		unhighlight: function(element, errorClass, validClass) {
-			$(element).closest(".form-group").removeClass("has-error");
-			$("#caixaAlerta").hide();
-		},
-		onkeyup : false,
-		onfocusout: false,
-		showErrors : function(errorMap, errorList) {
-			var temErro = false;
-			this.defaultShowErrors();
-			$("#caixaAlerta p").empty();
-			$.each(errorList, function(i, val) {
-				$("#caixaAlerta").append("<p>"+val.message+"</p>");
-				temErro = true;
-			});
-			if(temErro) {
-				$("#caixaAlerta").show();
-			}
-		},
 		rules : {
 			descricao : "required",
 			status: "required"
@@ -168,16 +138,7 @@ $(function() {
 				linhaSelecionada = table.row(estado.index());
 				estado.draw(false);
 				$("#hId").val(data.id);
-			}).fail(function(data) {
-				$(".overlay").hide();
-				if(data.status == 403) {
-					exibirCaixaAlerta(["Usuário não possui permissão para executar operação!"]);
-				}else if (data.status == 404) {
-					exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
-				} else {
-					window.location.href = "erro.htm";
-				}
-			});
+			}).fail($.fn.tratarErro);
 		}
 	});
 });

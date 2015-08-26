@@ -23,7 +23,6 @@ import br.edu.ifpb.screamtool.visao.exception.ResponseEntity;
  *
  */
 @RestController
-@RequestMapping(value = "/service")
 @SessionAttributes("usuario")
 public class LoginRestService {
 
@@ -35,7 +34,7 @@ public class LoginRestService {
 	@Qualifier("usuarioService")
 	private UsuarioService usuarioService;
 
-	@RequestMapping(value = "/login.rest", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<Boolean> autenticarUsuario(
 			@RequestParam(value = "login", required = true) String login,
 			@RequestParam(value = "senha", required = true) String senha,

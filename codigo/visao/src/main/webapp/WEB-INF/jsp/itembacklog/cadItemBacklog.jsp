@@ -19,7 +19,7 @@
 				</div>
 				<!-- form start -->				
 				<form id="frmItemBacklog" method="POST"
-					action="../service/itembacklog/salvarItemBacklog.rest" role="form">
+					action="../service/itembacklog" role="form">
 						<input type="text" name="id" style="display: none;"
 							id="hIdItemBacklog" />
 						<div class="form-group">

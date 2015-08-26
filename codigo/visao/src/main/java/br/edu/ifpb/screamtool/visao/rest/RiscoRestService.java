@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +26,7 @@ import br.edu.ifpb.screamtool.visao.form.RiscoForm;
  *
  */
 @RestController
-@RequestMapping(value = "/service/risco")
+@RequestMapping(value = "/risco")
 public class RiscoRestService {
 
 	@Autowired
@@ -34,7 +34,7 @@ public class RiscoRestService {
 	private RiscoService riscoService;
 
 	@PreAuthorize("hasRole('perm_salvar_risco')")
-	@RequestMapping(value = "/salvarRisco.rest", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody Risco salvarRisco(@ModelAttribute RiscoForm riscoForm,
 			HttpSession session) {
 
@@ -81,8 +81,8 @@ public class RiscoRestService {
 	 * @return
 	 */
 	@PreAuthorize("hasRole('perm_consultar_risco')")
-	@RequestMapping(value = "/buscarPorId.rest", method = RequestMethod.GET)
-	public @ResponseBody Risco buscarPorId(@RequestParam("id") Long id) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public @ResponseBody Risco buscarPorId(@PathVariable("id") Long id) {
 
 		Risco risco = riscoService.buscarPorIdSemAssociacoes(id);
 

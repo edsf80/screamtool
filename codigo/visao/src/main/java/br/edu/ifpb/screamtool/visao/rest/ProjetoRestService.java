@@ -22,7 +22,7 @@ import br.edu.ifpb.screamtool.visao.form.ProjetoForm;
  *
  */
 @RestController
-@RequestMapping(value = "/service/projeto")
+@RequestMapping(value = "/projeto")
 public class ProjetoRestService {
 
 	@Autowired
@@ -34,7 +34,7 @@ public class ProjetoRestService {
 	 * @return
 	 */
 	@PreAuthorize("hasRole('perm_salvar_projeto')")
-	@RequestMapping(value = "/salvarProjeto.rest", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody Projeto salvarProjeto(@ModelAttribute ProjetoForm projetoForm) {
 		
 		Produto produto = new Produto();

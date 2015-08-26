@@ -19,7 +19,7 @@ import br.edu.ifpb.screamtool.service.vo.UsuarioVO;
  *
  */
 @Controller
-@RequestMapping("/private/dashboard")
+@RequestMapping("/dashboard")
 @SessionAttributes({ "usuario", "projetoAberto" })
 public class DashboardController {
 

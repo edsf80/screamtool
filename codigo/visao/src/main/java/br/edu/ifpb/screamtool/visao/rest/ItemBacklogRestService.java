@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +24,7 @@ import br.edu.ifpb.screamtool.service.negocio.ItemBacklogService;
  *
  */
 @RestController
-@RequestMapping(value = "/service/itembacklog")
+@RequestMapping(value = "/itembacklog")
 @SessionAttributes("projetoAberto")
 public class ItemBacklogRestService {
 
@@ -40,7 +41,7 @@ public class ItemBacklogRestService {
 	 * @return
 	 */
 	@PreAuthorize("hasRole('perm_salvar_item_backlog')")
-	@RequestMapping(value = "/salvarItemBacklog.rest", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody ItemBacklog salvarItemBacklog(
 			@ModelAttribute ItemBacklog itemBacklog,
 			@ModelAttribute("projetoAberto") Projeto projeto) {
@@ -68,12 +69,13 @@ public class ItemBacklogRestService {
 	 * @return
 	 */
 	@PreAuthorize("hasRole('perm_excluir_item_backlog')")
-	@RequestMapping(value = "/excluirItemBacklog.rest", method = RequestMethod.POST)
-	public @ResponseBody boolean excluirItemBacklog(
-			@ModelAttribute ItemBacklog itemBacklog) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public void excluirItemBacklog(
+			@PathVariable Long id) {
+		
+		ItemBacklog itemBacklog = new ItemBacklog();
+		itemBacklog.setId(id);
 
 		itemBacklogService.apagar(itemBacklog);
-
-		return Boolean.TRUE;
 	}
 }

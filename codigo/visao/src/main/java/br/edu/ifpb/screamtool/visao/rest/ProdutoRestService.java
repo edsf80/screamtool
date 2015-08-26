@@ -20,7 +20,7 @@ import br.edu.ifpb.screamtool.service.negocio.ProdutoService;
  *
  */
 @RestController
-@RequestMapping(value = "/service/produto")
+@RequestMapping(value = "/produto")
 public class ProdutoRestService {
 
 	@Autowired
@@ -32,7 +32,7 @@ public class ProdutoRestService {
 	 * @return
 	 */
 	@PreAuthorize("hasRole('perm_salvar_produto')")
-	@RequestMapping(value = "/salvarProduto.rest", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody Produto salvarProduto(@ModelAttribute Produto produto) {
 
 		Produto resultado = null;

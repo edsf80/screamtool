@@ -33,9 +33,7 @@ $(function() {
 				} else {
 					alert("Login ou senha invalida!");
 				}
-			}).fail(function(data) {
-				alert("Erro na bagaca!");
-			});
+			}).fail($.fn.tratarErro);
 		},
 		rules : {
 			login : "required",

@@ -65,25 +65,6 @@ $(function() {
 	});
 
 	$("#frmProjeto").validate({
-		errorPlacement : function(error, element) {
-			$(element).closest(".form-group").addClass("has-error");
-		},
-		unhighlight: function(element, errorClass, validClass) {
-			$(element).closest(".form-group").removeClass("has-error");
-			$("#caixaAlerta").hide();
-		},
-		onkeyup : false,
-		onclick : false,
-		//onsubmit : false,
-		onfocusout: false,
-		showErrors : function(errorMap, errorList) {
-			$("#caixaAlerta p").empty();
-			$.each(errorList, function(i, val) {
-				$("#caixaAlerta").append("<p>"+val.message+"</p>");
-			});
-			$("#caixaAlerta").show();
-			this.defaultShowErrors();
-		},
 		rules : {
 			nome : "required",
 			dataInicio: "required",
@@ -119,16 +100,7 @@ $(function() {
 				linhaSelecionada = table.row(estado.index());
 				estado.draw(false);
 				$("#hIdProjeto").val(data.id);
-			}).fail(function(data) {
-				$(".overlay").hide();
-				if(data.status == 403) {
-					exibirCaixaAlerta(["Usuário não possui permissão para executar operação!"]);
-				}else if (data.status == 404) {
-					exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
-				} else {
-					window.location.href = "../erro.html";
-				}
-			});
+			}).fail($.fn.tratarErro);
 		}
 	});
 });

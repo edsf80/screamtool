@@ -22,6 +22,14 @@ $(function() {
 		$("#mCadItemBacklog").modal('toggle');		
 	}
 	
+	function exibirCaixaAlerta(mensagens) {
+		$("#caixaAlerta p").empty();
+		$.each(mensagens, function(i, val) {
+			$("#caixaAlerta").append("<p>"+val+"</p>");			
+		});
+		$("#caixaAlerta").show();
+	}
+	
 	$.fn.dataTable.ext.errMode = 'none';
 	
 	table = $("#tItensBacklog").on( 'draw.dt', function () {
@@ -64,33 +72,16 @@ $(function() {
         
         if(confirmacao) {
         	$.ajax({
-				type : "post",
-				url : "../service/itembacklog/excluirItemBacklog.rest",
-				datatype : "json",
-				data : "id="+dados.id
+				type : "delete",
+				url : "../service/itembacklog/"+dados.id,
+				datatype : "json"
 			}).done(function(data) {
 				linha.remove();
 				table.draw(false);
 				alert("Item de Backlog Excluído com Sucesso!");
-			}).fail(function(data) {
-				if(data.status == 403) {
-					exibirCaixaAlerta(["Usuário não possui permissão para executar operação!"]);
-				}else if (data.status == 404) {
-					exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
-				} else {
-					window.location.href = "erro.htm";
-				}
-			});
+			}).fail($.fn.tratarErro);
         }
     } );
-	
-	function exibirCaixaAlerta(mensagens) {
-		$("#caixaAlerta p").empty();
-		$.each(mensagens, function(i, val) {
-			$("#caixaAlerta").append("<p>"+val+"</p>");			
-		});
-		$("#caixaAlerta").show();
-	}
 	
 	$("#bAdItemBacklog").click(function(){
 		linhaSelecionada = undefined;
@@ -98,23 +89,6 @@ $(function() {
 	});
 
 	$("#frmItemBacklog").validate({
-		errorPlacement : function(error, element) {
-			$(element).parent().addClass("has-error");
-		},
-		unhighlight: function(element, errorClass, validClass) {
-			$(element).parent().removeClass("has-error");
-			$("#caixaAlerta").hide();
-		},
-		onkeyup : false,
-		onfocusout: false,
-		showErrors : function(errorMap, errorList) {
-			this.defaultShowErrors();
-			$("#caixaAlerta p").empty();
-			$.each(errorList, function(i, val) {
-				$("#caixaAlerta").append("<p>"+val.message+"</p>");
-			});
-			$("#caixaAlerta").show();
-		},
 		rules : {
 			descricao : "required",
 			status: "required",
@@ -180,16 +154,7 @@ $(function() {
 				linhaSelecionada = table.row(estado.index());
 				estado.draw(false);
 				$("#hIdItemBacklog").val(data.id);
-			}).fail(function(data) {
-				$(".overlay").hide();
-				if(data.status == 403) {
-					exibirCaixaAlerta(["Usuário não possui permissão para executar operação!"]);
-				}else if (data.status == 404) {
-					exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
-				} else {
-					window.location.href = "erro.htm";
-				}
-			});
+			}).fail($.fn.tratarErro);
 		}
 	});
 });
