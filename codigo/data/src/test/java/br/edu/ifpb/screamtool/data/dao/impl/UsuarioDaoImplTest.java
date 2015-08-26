@@ -6,6 +6,8 @@ package br.edu.ifpb.screamtool.data.dao.impl;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.ConstraintViolationException;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -117,7 +119,7 @@ public class UsuarioDaoImplTest {
 
 	}
 
-	@Test
+	@Test(expected = ConstraintViolationException.class)
 	@Transactional
 	public void testeAlterarUsuarioSemAtributos() {
 
