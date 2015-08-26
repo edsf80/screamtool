@@ -40,5 +40,5 @@ public interface GenericService<T, K> {
 	/**
 	 * @param entidade
 	 */
-	void apagar(@NotNull @Valid T entidade);
+	void apagar(@NotNull T entidade);
 }

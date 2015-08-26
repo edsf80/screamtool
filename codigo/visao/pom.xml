@@ -46,6 +46,7 @@
 								<jsSourceFile>plugins/slimScroll/jquery.slimscroll.min.js</jsSourceFile>
 								<jsSourceFile>plugins/fastclick/fastclick.min.js</jsSourceFile>
 								<jsSourceFile>dist/js/app.min.js</jsSourceFile>
+								<jsSourceFile>dist/js/pages/global.js</jsSourceFile>
 								<jsSourceFile>dist/js/pages/produto.js</jsSourceFile>
 							</jsSourceFiles>
 							<jsTargetDir>js</jsTargetDir>
@@ -68,6 +69,7 @@
 								<jsSourceFile>plugins/slimScroll/jquery.slimscroll.min.js</jsSourceFile>
 								<jsSourceFile>plugins/fastclick/fastclick.min.js</jsSourceFile>
 								<jsSourceFile>dist/js/app.min.js</jsSourceFile>
+								<jsSourceFile>dist/js/pages/global.js</jsSourceFile>
 								<jsSourceFile>dist/js/pages/itembacklog.js</jsSourceFile>
 							</jsSourceFiles>
 							<jsTargetDir>js</jsTargetDir>
@@ -94,6 +96,7 @@
 								<jsSourceFile>plugins/input-mask/jquery.inputmask.date.extensions.js</jsSourceFile>
 								<jsSourceFile>plugins/input-mask/jquery.inputmask.extensions.js</jsSourceFile>
 								<jsSourceFile>plugins/datepicker/bootstrap-datepicker.js</jsSourceFile>
+								<jsSourceFile>dist/js/pages/global.js</jsSourceFile>
 								<jsSourceFile>dist/js/pages/projeto.js</jsSourceFile>
 							</jsSourceFiles>
 							<jsTargetDir>js</jsTargetDir>
@@ -112,6 +115,7 @@
 								<jsSourceFile>plugins/jQueryValidate/jquery.validate-1.14.0.js</jsSourceFile>
 								<jsSourceFile>bootstrap/js/bootstrap.js</jsSourceFile>
 								<jsSourceFile>plugins/iCheck/icheck.min.js</jsSourceFile>
+								<jsSourceFile>dist/js/pages/global.js</jsSourceFile>
 								<jsSourceFile>dist/js/pages/login.js</jsSourceFile>
 							</jsSourceFiles>
 							<jsTargetDir>js</jsTargetDir>
@@ -134,6 +138,7 @@
 								<jsSourceFile>plugins/slimScroll/jquery.slimscroll.min.js</jsSourceFile>
 								<jsSourceFile>plugins/fastclick/fastclick.min.js</jsSourceFile>
 								<jsSourceFile>dist/js/app.min.js</jsSourceFile>
+								<jsSourceFile>dist/js/pages/global.js</jsSourceFile>
 								<jsSourceFile>dist/js/pages/risco.js</jsSourceFile>
 							</jsSourceFiles>
 							<jsTargetDir>js</jsTargetDir>

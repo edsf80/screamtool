@@ -5,6 +5,8 @@ package br.edu.ifpb.screamtool.data.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -112,9 +114,9 @@ public class ProdutoDaoImplTest {
 
 	}
 
-	@Test
+	@Test(expected = PersistenceException.class)
 	@Transactional
-	public void testeAlterarUsuarioSemAtributos() {
+	public void testeAlterarProdutoSemAtributos() {
 
 		produtoDao.atualizar(new Produto());
 
