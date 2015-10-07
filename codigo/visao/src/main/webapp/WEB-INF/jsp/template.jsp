@@ -144,7 +144,7 @@
 		            </li>
 		            </sec:authorize>
 		            <li>
-		              <a href="widgets.html">
+		              <a href="release.htm">
 		                <i class="fa fa-gift"></i> <span>Releases</span>
 		              </a>
 		            </li>

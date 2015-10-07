@@ -20,7 +20,6 @@ import br.edu.ifpb.screamtool.visao.exception.ResponseEntity;
  *
  */
 @RestController
-@RequestMapping(value = "/service")
 public class RegistroRestService {
 
 	@Autowired

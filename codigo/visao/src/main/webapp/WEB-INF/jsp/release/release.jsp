@@ -61,16 +61,19 @@
 				<div class="box-body no-padding">
 					<div class="panel panel-default collapsed-panel">
 						<!-- Default panel contents -->
-						<div class="panel-heading">Panel heading</div>
+						<div class="panel-heading">Release 1</div>
 						<div class="panel-body">
-					  	<!-- List group -->
-							<ul id="sprints" class="list-group">
-							    <li class="list-group-item">Cras justo odio</li>
-							    <li class="list-group-item">Dapibus ac facilisis in</li>
-							    <li class="list-group-item">Morbi leo risus</li>
-							    <li class="list-group-item">Porta ac consectetur ac</li>
-							    <li class="list-group-item">Vestibulum at eros</li>
-					  		</ul>  
+					  		<div class="row-sm-4">
+					  			Sprint 1 do dia 25/04 à 30/05
+					  			<div id="itensSprint" style="height:40px;">
+					  			</div>
+					  			Sprint 2 do dia 25/04 à 30/05
+					  			<div id="itensSprint" style="height:40px;">
+					  			</div>
+					  		</div>
+					  		<div class="row-sm-4">
+					  			Sprint 2
+					  		</div>
 					  	</div>					  
 					</div>
 				</div>

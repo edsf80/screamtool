@@ -33,7 +33,7 @@ public class LoginRestService {
 	@Autowired
 	@Qualifier("usuarioService")
 	private UsuarioService usuarioService;
-
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<Boolean> autenticarUsuario(
 			@RequestParam(value = "login", required = true) String login,

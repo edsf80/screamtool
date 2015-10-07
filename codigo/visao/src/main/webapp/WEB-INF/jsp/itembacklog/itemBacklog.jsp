@@ -20,13 +20,13 @@
 		<div class="col-xs-12">
 			<div class="box box-primary">
 				<div class="box-header">
-					<h3 class="box-title"></h3>
-					<div class="box-tools">
+					<!-- <h3 class="box-title"></h3>
+					<div class="box-tools"> -->
 						<div class="input-group">
 							<button id="bAdItemBacklog" class="btn btn-sm btn-primary disabled">Novo
 								Item de Backlog</button>
 						</div>
-					</div>
+					<!-- </div> -->
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">

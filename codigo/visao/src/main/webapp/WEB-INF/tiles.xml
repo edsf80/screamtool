@@ -6,6 +6,13 @@
 	<definition name="blank" template="/WEB-INF/jsp/blank.jsp">
 	</definition>
 
+	<definition name="teste" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
+		<put-attribute name="titulo" value="Cadastro de Testes" />
+		<put-attribute name="content" value="/WEB-INF/jsp/teste/teste.jsp" />
+		<put-attribute name="modal" value="/WEB-INF/jsp/teste/cadTeste.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/teste/footer.jsp" />
+	</definition>
+
 	<definition name="projeto" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
 		<put-attribute name="titulo" value="Cadastro de Projetos" />
 		<put-attribute name="content" value="/WEB-INF/jsp/projeto/projeto.jsp" />

@@ -52,7 +52,7 @@
 			<!-- /.modal-body -->
 			<div class="modal-footer">
 				<button type="button" id="bCancelar"
-					class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+					class="btn btn-primary pull-left" data-dismiss="modal">Cancelar</button>
 				<button type="submit" id="bSalvar" class="btn btn-primary">Salvar</button>
 			</div>
 			</form>

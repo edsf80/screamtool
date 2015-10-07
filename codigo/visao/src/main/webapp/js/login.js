@@ -12921,26 +12921,73 @@ c.add(a):c.add(a.find(d))})};if(/^(check|uncheck|toggle|indeterminate|determinat
 A=!!f.aria,E=q+"-"+Math.random().toString(36).replace("0.",""),g='<div class="'+k+'" '+(A?'role="'+c[n]+'" ':"");m.length&&A&&m.each(function(){g+='aria-labelledby="';this.id?g+=this.id:(this.id=E,g+=E);g+='"'});g=a.wrap(g+"/>")[p]("ifCreated").parent().append(f.insert);d=h('<ins class="'+I+'"/>').css(d).appendTo(g);a.data(q,{o:f,s:a.attr("style")}).css(e);f.inheritClass&&g[v](c.className||"");f.inheritID&&b&&g.attr("id",q+"-"+b);"static"==g.css("position")&&g.css("position","relative");F(a,!0,H);
 if(m.length)m.on("click.i mouseover.i mouseout.i touchbegin.i touchend.i",function(b){var d=b[n],e=h(this);if(!c[s]){if("click"==d){if(h(b.target).is("a"))return;F(a,!1,!0)}else y&&(/ut|nd/.test(d)?(g[z](B),e[z](C)):(g[v](B),e[v](C)));if(J)b.stopPropagation();else return!1}});a.on("click.i focus.i blur.i keyup.i keydown.i keypress.i",function(b){var d=b[n];b=b.keyCode;if("click"==d)return!1;if("keydown"==d&&32==b)return c[n]==u&&c[l]||(c[l]?t(a,l):D(a,l)),!1;if("keyup"==d&&c[n]==u)!c[l]&&D(a,l);else if(/us|ur/.test(d))g["blur"==
 d?z:v](x)});d.on("click mousedown mouseup mouseover mouseout touchbegin.i touchend.i",function(b){var d=b[n],e=/wn|up/.test(d)?w:B;if(!c[s]){if("click"==d)F(a,!1,!0);else{if(/wn|er|in/.test(d))g[v](e);else g[z](e+" "+w);if(m.length&&y&&e==B)m[/ut|nd/.test(d)?z:v](C)}if(J)b.stopPropagation();else return!1}})})}})(window.jQuery||window.Zepto);
+$(function() {
+	jQuery.validator.setDefaults({
+		errorPlacement : function(error, element) {
+			$(element).closest(".form-group").addClass("has-error");
+		},
+		unhighlight : function(element, errorClass, validClass) {
+			$(element).closest(".form-group").removeClass("has-error");
+			$("#caixaAlerta").hide();
+		},
+		onkeyup : false,
+		onfocusout : false,
+		showErrors : function(errorMap, errorList) {
+			var temErro = false;
+			this.defaultShowErrors();
+			$("#caixaAlerta p").empty();
+			$.each(errorList, function(i, val) {
+				$("#caixaAlerta").append("<p>" + val.message + "</p>");
+				temErro = true;
+			});
+			if (temErro) {
+				$("#caixaAlerta").show();
+			}
+		}
+	});
+
+	$.fn.abrirModal = function(tela, titulo, dados) {
+		$("#caixaAlerta").hide();
+		$(tela).find('.modal-title').text(titulo);
+		$("form[role='form']")[0].reset();
+		$(".has-error").removeClass("has-error");
+
+		if (dados !== undefined) {
+			for ( var name in dados) {
+				$("input[name='" + name + "']").val(dados[name]);
+			}
+		}
+
+		$('#hIdTeste').focus();
+
+		$(tela).modal('toggle');
+	}
+
+	$.fn.exibirCaixaAlerta = function(mensagens) {
+		$("#caixaAlerta p").empty();
+		$.each(mensagens, function(i, val) {
+			$("#caixaAlerta").append("<p>" + val + "</p>");
+		});
+		$("#caixaAlerta").show();
+	}
+
+	$.fn.tratarErro = function(data) {
+		$(".overlay").hide();
+		if (data.status == 403) {
+			$.fn.exibirCaixaAlerta([ "Usuário não possui permissão para executar operação!" ]);
+		} else if (data.status == 404) {
+			$.fn.exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
+		} else {
+			window.location.href = "../erro.htm";
+		}
+	}
+});
 /**
  * Depente do jquery e jquery.validate
  */
 $(function() {
 
 	$("#frmLogin").validate({
-		errorPlacement : function(error, element) {
-			$(element).parent().addClass("has-error");
-		},
-		unhighlight: function(element, errorClass, validClass) {
-			$(element).parent().removeClass("has-error");
-		},
-		onkeyup: false,
-		showErrors: function(errorMap, errorList) {
-			$.each( errorList, function( i, val ) {
-				$("#caixaAlerta p").empty();
-				$("#caixaAlerta").append("<p>"+val.message+"</p>");
-			});
-			this.defaultShowErrors();
-		},
 		submitHandler : function(form) {
 			var actionurl = form.action;
 			var method = form.method;
@@ -12954,11 +13001,9 @@ $(function() {
 				if (data.objeto) {
 					window.location.href = "private/main.htm";
 				} else {
-					alert("Login ou senha invalida!");
+					$.fn.exibirCaixaAlerta(["Login ou senha inválida!"]);
 				}
-			}).fail(function(data) {
-				alert("Erro na bagaca!");
-			});
+			}).fail($.fn.tratarErro);
 		},
 		rules : {
 			login : "required",
@@ -12967,15 +13012,6 @@ $(function() {
 		messages : {
 			login : "O login é obrigatório",
 			senha : "A senha é obrigatória"
-		},
-		invalidHandler : function(event, validator) {
-			// 'this' refers to the form
-			var errors = validator.numberOfInvalids();
-			if (errors) {
-				$("#caixaAlerta").show();
-			} else {
-				$("#caixaAlerta").hide();
-			}
 		}
 	});
 });

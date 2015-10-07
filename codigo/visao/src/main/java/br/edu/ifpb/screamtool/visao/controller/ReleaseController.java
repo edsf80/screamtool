@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  */
 @Controller
-@RequestMapping("/private/release")
+@RequestMapping("/release")
 public class ReleaseController {
 
 	@RequestMapping(method = RequestMethod.GET)
