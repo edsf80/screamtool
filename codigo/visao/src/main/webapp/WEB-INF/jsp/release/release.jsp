@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Content Header (Page header) -->
 <section class="content-header">
 	<h1>
@@ -48,34 +50,59 @@
 		<div class="col-md-9">
 			<div class="box box-primary">
 				<div class="box-header">
-					<h3 class="box-title"></h3>
-					<div class="box-tools">
+					
 						<div class="input-group">
 							<button id="bAdRelease"
-								class="btn btn-sm btn-primary disabled">Nova Release</button>
+								class="btn btn-sm btn-primary">Novo Release</button>
 							<div class="panel panel-default">
 						</div>
-					</div>
+					
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body no-padding">
-					<div class="panel panel-default collapsed-panel">
-						<!-- Default panel contents -->
-						<div class="panel-heading">Release 1</div>
-						<div class="panel-body">
-					  		<div class="row-sm-4">
-					  			Sprint 1 do dia 25/04 à 30/05
-					  			<div id="itensSprint" style="height:40px;">
-					  			</div>
-					  			Sprint 2 do dia 25/04 à 30/05
-					  			<div id="itensSprint" style="height:40px;">
-					  			</div>
-					  		</div>
-					  		<div class="row-sm-4">
-					  			Sprint 2
-					  		</div>
-					  	</div>					  
-					</div>
+					<c:if test="${not empty releases}">
+						<c:forEach var="release" items="${releases}">
+							<div class="panel panel-default collapsed-panel">
+								<!-- Default panel contents -->
+								<div class="panel-heading">							
+									<div class="row">
+										<div class="col-lg-5">
+											${release.nome}
+										</div>
+										<div class="col-sm-3 pull-left">
+											<div class="input-group">
+												<button id="bAdSprint"
+													class="btn btn-sm btn-primary disabled">Nova Sprint</button>						
+											</div>
+										</div>
+									</div>							
+								</div>
+							
+								<div class="panel-body">
+									<table class="table table-bordered">
+										<c:if test="${not empty release.sprints}">
+											<tbody>
+												<c:forEach var="sprint" items="${release.sprints}">
+													<tr>
+														<td>Sprint 1</td>
+														<td id="itensSprint" style="height:40px;"></td>
+													</tr>
+													<tr>
+														<td>Sprint 1</td>
+														<td id="itensSprint" style="height:40px;"></td>
+													</tr>
+													<tr>
+														<td>Sprint 1</td>
+														<td id="itensSprint" style="height:40px;"></td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</c:if>
+									</table>					  		
+							  	</div>					  
+							</div>	
+						</c:forEach>					
+					</c:if>
 				</div>
 				<!-- /.box-body -->
 			</div>

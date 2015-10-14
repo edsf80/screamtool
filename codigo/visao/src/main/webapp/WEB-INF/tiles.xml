@@ -52,7 +52,7 @@
 	<definition name="release" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
 		<put-attribute name="titulo" value="Cadastro de Releases" />
 		<put-attribute name="content" value="/WEB-INF/jsp/release/release.jsp" />
-		<put-attribute name="modal" value="" />
+		<put-attribute name="modal" value="/WEB-INF/jsp/release/cadRelease.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/jsp/release/footer.jsp" />
 	</definition>
 	
