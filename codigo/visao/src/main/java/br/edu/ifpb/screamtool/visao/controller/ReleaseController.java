@@ -23,7 +23,7 @@ import br.edu.ifpb.screamtool.service.negocio.ReleaseService;
  *
  */
 @Controller
-@RequestMapping("/release")
+@RequestMapping("/private/release")
 @SessionAttributes("projetoAberto")
 public class ReleaseController {
 

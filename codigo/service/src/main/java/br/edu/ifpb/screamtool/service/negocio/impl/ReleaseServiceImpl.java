@@ -36,7 +36,6 @@ public class ReleaseServiceImpl extends GenericServiceImpl<Release, Long>
 	 * br.edu.ifpb.screamtool.service.negocio.ReleaseService#buscarPorProjeto
 	 * (java.lang.Long)
 	 */
-	@Override
 	public List<Release> buscarPorProjeto(@NotNull Long idProjeto) {
 
 		ReleaseDao releaseDao = (ReleaseDao) this.dao;

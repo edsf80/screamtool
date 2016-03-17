@@ -64,7 +64,6 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario, Long> implements
 	 * br.edu.ifpb.screamtool.data.dao.UsuarioDao#buscarTodosPorProjeto(java
 	 * .lang.Long)
 	 */
-	@Override
 	public List<Usuario> buscarTodosPorProjeto(Long idProjeto) {
 
 		Query query = this.entityManager

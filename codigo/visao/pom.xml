@@ -26,7 +26,7 @@
 			<plugin>
 				<groupId>com.samaxes.maven</groupId>
 				<artifactId>minify-maven-plugin</artifactId>
-				<version>1.7.4</version>
+				<version>1.7.5-SNAPSHOT</version>
 				<configuration>
 					<charset>UTF-8</charset>
 					<cssSourceDir>/</cssSourceDir>
@@ -35,163 +35,35 @@
 				</configuration>
 				<executions>
 					<execution>
-						<id>produto-minify</id>
-						<configuration>
-							<jsSourceFiles>
-								<jsSourceFile>plugins/jQuery/jQuery-2.1.4.js</jsSourceFile>
-								<jsSourceFile>plugins/jQueryValidate/jquery.validate-1.14.0.js</jsSourceFile>
-								<jsSourceFile>bootstrap/js/bootstrap.js</jsSourceFile>
-								<jsSourceFile>plugins/datatables/jquery.dataTables-1.10.7.js</jsSourceFile>
-								<jsSourceFile>plugins/datatables/dataTables.bootstrap-1.10.7.js</jsSourceFile>
-								<jsSourceFile>plugins/slimScroll/jquery.slimscroll.min.js</jsSourceFile>
-								<jsSourceFile>plugins/fastclick/fastclick.min.js</jsSourceFile>
-								<jsSourceFile>dist/js/app.min.js</jsSourceFile>
-								<jsSourceFile>dist/js/pages/global.js</jsSourceFile>
-								<jsSourceFile>dist/js/pages/produto.js</jsSourceFile>
-							</jsSourceFiles>
-							<jsTargetDir>js</jsTargetDir>
-							<jsFinalFile>produto.js</jsFinalFile>
-							<jsEngine>CLOSURE</jsEngine>
-						</configuration>
-						<goals>
-							<goal>minify</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>itembacklog-minify</id>
-						<configuration>
-							<jsSourceFiles>
-								<jsSourceFile>plugins/jQuery/jQuery-2.1.4.js</jsSourceFile>
-								<jsSourceFile>plugins/jQueryValidate/jquery.validate-1.14.0.js</jsSourceFile>
-								<jsSourceFile>bootstrap/js/bootstrap.js</jsSourceFile>
-								<jsSourceFile>plugins/datatables/jquery.dataTables-1.10.7.js</jsSourceFile>
-								<jsSourceFile>plugins/datatables/dataTables.bootstrap-1.10.7.js</jsSourceFile>
-								<jsSourceFile>plugins/slimScroll/jquery.slimscroll.min.js</jsSourceFile>
-								<jsSourceFile>plugins/fastclick/fastclick.min.js</jsSourceFile>
-								<jsSourceFile>dist/js/app.min.js</jsSourceFile>
-								<jsSourceFile>dist/js/pages/global.js</jsSourceFile>
-								<jsSourceFile>dist/js/pages/itembacklog.js</jsSourceFile>
-							</jsSourceFiles>
-							<jsTargetDir>js</jsTargetDir>
-							<jsFinalFile>itembacklog.js</jsFinalFile>
-							<jsEngine>CLOSURE</jsEngine>
-						</configuration>
-						<goals>
-							<goal>minify</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>projeto-minify</id>
-						<configuration>
-							<jsSourceFiles>
-								<jsSourceFile>plugins/jQuery/jQuery-2.1.4.js</jsSourceFile>
-								<jsSourceFile>plugins/jQueryValidate/jquery.validate-1.14.0.js</jsSourceFile>
-								<jsSourceFile>bootstrap/js/bootstrap.js</jsSourceFile>
-								<jsSourceFile>plugins/datatables/jquery.dataTables-1.10.7.js</jsSourceFile>
-								<jsSourceFile>plugins/datatables/dataTables.bootstrap-1.10.7.js</jsSourceFile>
-								<jsSourceFile>plugins/slimScroll/jquery.slimscroll.min.js</jsSourceFile>
-								<jsSourceFile>plugins/fastclick/fastclick.min.js</jsSourceFile>
-								<jsSourceFile>dist/js/app.min.js</jsSourceFile>
-								<jsSourceFile>plugins/input-mask/jquery.inputmask.js</jsSourceFile>
-								<jsSourceFile>plugins/input-mask/jquery.inputmask.date.extensions.js</jsSourceFile>
-								<jsSourceFile>plugins/input-mask/jquery.inputmask.extensions.js</jsSourceFile>
-								<jsSourceFile>plugins/datepicker/bootstrap-datepicker.js</jsSourceFile>
-								<jsSourceFile>dist/js/pages/global.js</jsSourceFile>
-								<jsSourceFile>dist/js/pages/projeto.js</jsSourceFile>
-							</jsSourceFiles>
-							<jsTargetDir>js</jsTargetDir>
-							<jsFinalFile>projeto.js</jsFinalFile>
-							<jsEngine>CLOSURE</jsEngine>
-						</configuration>
-						<goals>
-							<goal>minify</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>login-minify</id>
-						<configuration>
-							<jsSourceFiles>
-								<jsSourceFile>plugins/jQuery/jQuery-2.1.4.js</jsSourceFile>
-								<jsSourceFile>plugins/jQueryValidate/jquery.validate-1.14.0.js</jsSourceFile>
-								<jsSourceFile>bootstrap/js/bootstrap.js</jsSourceFile>
-								<jsSourceFile>plugins/iCheck/icheck.min.js</jsSourceFile>
-								<jsSourceFile>dist/js/pages/global.js</jsSourceFile>
-								<jsSourceFile>dist/js/pages/login.js</jsSourceFile>
-							</jsSourceFiles>
-							<jsTargetDir>js</jsTargetDir>
-							<jsFinalFile>login.js</jsFinalFile>
-							<jsEngine>CLOSURE</jsEngine>
-						</configuration>
-						<goals>
-							<goal>minify</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>risco-minify</id>
-						<configuration>
-							<jsSourceFiles>
-								<jsSourceFile>plugins/jQuery/jQuery-2.1.4.js</jsSourceFile>
-								<jsSourceFile>plugins/jQueryValidate/jquery.validate-1.14.0.js</jsSourceFile>
-								<jsSourceFile>bootstrap/js/bootstrap.js</jsSourceFile>
-								<jsSourceFile>plugins/datatables/jquery.dataTables-1.10.7.js</jsSourceFile>
-								<jsSourceFile>plugins/datatables/dataTables.bootstrap-1.10.7.js</jsSourceFile>
-								<jsSourceFile>plugins/slimScroll/jquery.slimscroll.min.js</jsSourceFile>
-								<jsSourceFile>plugins/fastclick/fastclick.min.js</jsSourceFile>
-								<jsSourceFile>dist/js/app.min.js</jsSourceFile>
-								<jsSourceFile>dist/js/pages/global.js</jsSourceFile>
-								<jsSourceFile>dist/js/pages/risco.js</jsSourceFile>
-							</jsSourceFiles>
-							<jsTargetDir>js</jsTargetDir>
-							<jsFinalFile>risco.js</jsFinalFile>
-							<jsEngine>CLOSURE</jsEngine>
-						</configuration>
-						<goals>
-							<goal>minify</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>main-minify</id>
-						<configuration>
-							<cssSourceFiles>
-								<cssSourceFile>bootstrap/css/bootstrap.min.css</cssSourceFile>
-								<cssSourceFile>bootstrap/css/font-awesome-4.3.css</cssSourceFile>
-								<cssSourceFile>plugins/ionicons/ionicons-2.0.0.css</cssSourceFile>
-								<cssSourceFile>plugins/datatables/jquery.dataTables.css</cssSourceFile>
-								<cssSourceFile>dist/css/AdminLTE.css</cssSourceFile>
-								<cssSourceFile>plugins/iCheck/square/blue.css</cssSourceFile>
-								<cssSourceFile>dist/css/skins/_all-skins.min.css</cssSourceFile>
-							</cssSourceFiles>
-							<cssFinalFile>main.css</cssFinalFile>
-							<cssTargetDir>css</cssTargetDir>
-							<jsSourceFiles>
-								<jsSourceFile>plugins/jQuery/jQuery-2.1.4.js</jsSourceFile>
-								<jsSourceFile>bootstrap/js/bootstrap.js</jsSourceFile>
-								<jsSourceFile>plugins/slimScroll/jquery.slimscroll.min.js</jsSourceFile>
-								<jsSourceFile>plugins/fastclick/fastclick.min.js</jsSourceFile>
-								<jsSourceFile>dist/js/app.min.js</jsSourceFile>
-							</jsSourceFiles>
-							<jsTargetDir>js</jsTargetDir>
-							<jsFinalFile>main.js</jsFinalFile>
-							<jsEngine>CLOSURE</jsEngine>
-						</configuration>
-						<goals>
-							<goal>minify</goal>
-						</goals>
-					</execution>
+                        <id>bundle-configuration-minify</id>
+                        <configuration>
+                            <bundleConfiguration>visao/src/minify/static-bundles.json</bundleConfiguration>
+                            <jsEngine>CLOSURE</jsEngine>
+                            <closureCreateSourceMap>true</closureCreateSourceMap>
+                            <cssTargetDir>css</cssTargetDir>
+                            <jsTargetDir>js</jsTargetDir>
+                        </configuration>
+                        <goals>
+                            <goal>minify</goal>
+                        </goals>
+                    </execution>					
 				</executions>
 			</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
+	
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>screamtool-service</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>screamtool-domain</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>br.edu.ifpb.screamtool</groupId>
-			<artifactId>screamtool-service</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>

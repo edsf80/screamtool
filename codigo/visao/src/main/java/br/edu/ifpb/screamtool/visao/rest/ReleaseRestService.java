@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,7 +42,7 @@ public class ReleaseRestService {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody Release salvarRelease(@ModelAttribute Release release,
+	public @ResponseBody Release salvarRelease(@RequestBody Release release,
 			HttpSession session) {
 
 		// Aqui foi utilizado o HttpSession por que tive problemas com o

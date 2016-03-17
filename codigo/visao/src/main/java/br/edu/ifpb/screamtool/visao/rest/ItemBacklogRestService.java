@@ -3,6 +3,9 @@
  */
 package br.edu.ifpb.screamtool.visao.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -64,15 +68,41 @@ public class ItemBacklogRestService {
 		return resultado;
 	}
 
+	@RequestMapping(value ="/list", method = RequestMethod.GET)
+	public List<ItemBacklog> buscarTodosPorProduto(
+			@ModelAttribute("projetoAberto") Projeto projetoAberto) {
+
+		List<ItemBacklog> resultado;
+
+		if (projetoAberto.getId() == null) {
+
+			resultado = new ArrayList<>();
+		} else {
+
+			resultado = itemBacklogService.buscarTodosPorProduto(projetoAberto
+					.getProduto().getId());
+			for(ItemBacklog itemBacklog: resultado) {
+				itemBacklog.setTarefas(null);
+				itemBacklog.setProduto(null);
+			}
+		}
+
+		return resultado;
+	}
+	
+	@RequestMapping(value ="/update", method= RequestMethod.POST)
+	public void atualizarOrdem(@RequestParam(value = "item[]") String[] teste) {
+		System.out.println(teste);
+	}
+
 	/**
 	 * @param itemBacklog
 	 * @return
 	 */
 	@PreAuthorize("hasRole('perm_excluir_item_backlog')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void excluirItemBacklog(
-			@PathVariable Long id) {
-		
+	public void excluirItemBacklog(@PathVariable Long id) {
+
 		ItemBacklog itemBacklog = new ItemBacklog();
 		itemBacklog.setId(id);
 

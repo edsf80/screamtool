@@ -28,7 +28,6 @@ public class RiscoDaoImpl extends GenericDaoImpl<Risco, Long> implements
 	 * br.edu.ifpb.screamtool.data.dao.RiscoDao#buscarTodosPorProjeto(java.lang
 	 * .Long)
 	 */
-	@Override
 	public List<Risco> buscarTodosPorProjeto(Long idProjeto) {
 
 		if (idProjeto == null) {
@@ -53,7 +52,6 @@ public class RiscoDaoImpl extends GenericDaoImpl<Risco, Long> implements
 	 * br.edu.ifpb.screamtool.data.dao.RiscoDao#buscarPorIdSemAssociacoes(java
 	 * .lang.Long)
 	 */
-	@Override
 	public Risco buscarPorIdSemAssociacoes(Long id) {
 
 		if (id == null) {

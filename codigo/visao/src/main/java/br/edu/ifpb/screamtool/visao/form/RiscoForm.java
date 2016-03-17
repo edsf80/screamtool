@@ -5,6 +5,8 @@ package br.edu.ifpb.screamtool.visao.form;
 
 import java.io.Serializable;
 
+import br.edu.ifpb.screamtool.domain.entity.Risco;
+
 /**
  * @author edsf
  *
@@ -20,11 +22,11 @@ public class RiscoForm implements Serializable {
 
 	private String descricao;
 
-	/*private Risco.RiscoStatus Status;
+	private Risco.RiscoStatus Status;
 	
 	private Risco.NivelProbImpacto probabilidade;
 
-	private Risco.NivelProbImpacto impacto;*/
+	private Risco.NivelProbImpacto impacto;
 
 	private String mitigacao;
 
@@ -65,47 +67,47 @@ public class RiscoForm implements Serializable {
 	/**
 	 * @return the status
 	 */
-	/*public Risco.RiscoStatus getStatus() {
+	public Risco.RiscoStatus getStatus() {
 		return Status;
-	}*/
+	}
 
 	/**
 	 * @param status
 	 *            the status to set
 	 */
-	/*public void setStatus(Risco.RiscoStatus status) {
+	public void setStatus(Risco.RiscoStatus status) {
 		Status = status;
-	}*/
+	}
 
 	/**
 	 * @return the probabilidade
 	 */
-	/*public Risco.NivelProbImpacto getProbabilidade() {
+	public Risco.NivelProbImpacto getProbabilidade() {
 		return probabilidade;
-	}*/
+	}
 
 	/**
 	 * @param probabilidade
 	 *            the probabilidade to set
 	 */
-	/*public void setProbabilidade(Risco.NivelProbImpacto probabilidade) {
+	public void setProbabilidade(Risco.NivelProbImpacto probabilidade) {
 		this.probabilidade = probabilidade;
-	}*/
+	}
 
 	/**
 	 * @return the impacto
 	 */
-	/*public Risco.NivelProbImpacto getImpacto() {
+	public Risco.NivelProbImpacto getImpacto() {
 		return impacto;
-	}*/
+	}
 
 	/**
 	 * @param impacto
 	 *            the impacto to set
 	 */
-	/*public void setImpacto(Risco.NivelProbImpacto impacto) {
+	public void setImpacto(Risco.NivelProbImpacto impacto) {
 		this.impacto = impacto;
-	}*/
+	}
 
 	/**
 	 * @return the mitigacao

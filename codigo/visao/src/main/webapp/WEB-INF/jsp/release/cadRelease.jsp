@@ -23,11 +23,11 @@
 							id="hIdRelease" />
 						<div class="form-group">
 							<label for="tNomeRelease">Nome*</label> <input type="text"
-								name="nome" class="form-control" id="tNomeRelease" autofocus>
+								name="nome" field="nome" class="form-control" id="tNomeRelease" autofocus>
 						</div>
 						<div class="form-group">
 							<label for="tDescricaoRelease">Descrição*</label> <input type="text"
-								name="descricao" class="form-control" id="tDescricaoRelease" autofocus>
+								name="descricao" field="descricao" class="form-control" id="tDescricaoRelease" autofocus>
 						</div>						
 					</div>
 			</div>

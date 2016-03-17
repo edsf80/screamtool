@@ -93,7 +93,6 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Long>
 	 * br.edu.ifpb.screamtool.service.negocio.UsuarioService#buscarTodosPorProjeto
 	 * (java.lang.Long)
 	 */
-	@Override
 	public List<Usuario> buscarTodosPorProjeto(@NotNull Long idProjeto) {
 
 		UsuarioDao usuarioDao = (UsuarioDao) this.dao;

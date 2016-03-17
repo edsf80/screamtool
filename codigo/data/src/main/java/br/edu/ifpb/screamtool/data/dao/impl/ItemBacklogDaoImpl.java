@@ -27,7 +27,6 @@ public class ItemBacklogDaoImpl extends GenericDaoImpl<ItemBacklog, Long>
 	 * br.edu.ifpb.screamtool.data.dao.ItemBacklogDao#buscarTodosPorProduto(
 	 * java.lang.Long)
 	 */
-	@Override
 	public List<ItemBacklog> buscarTodosPorProduto(Long idProduto) {
 
 		if (idProduto == null) {

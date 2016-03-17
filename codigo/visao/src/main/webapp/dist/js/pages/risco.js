@@ -14,6 +14,8 @@ $(function() {
 		if(dados !== undefined) {
 			$("#hId").val(dados.id);
 			$("#tDescricao").val(dados.descricao);
+			$("#sStatus").empty();
+			$("#sStatus").append("<option value='"+dados.status.substr(dados.status.indexOf(">")+1,1)+"'>"+traduzirStatusExtenso(dados.status.substr(dados.status.indexOf(">")+1,1))+"</option>");
 			$("#sStatus").val(dados.status.substr(dados.status.indexOf(">")+1,1));
 			$("#sProbabilidade").val(dados.probabilidade);
 			$("#sImpacto").val(dados.impacto);
@@ -22,6 +24,13 @@ $(function() {
 			}
 			$("#tMitigacao").val(dados.mitigacao);
 			$("#tContingencia").val(dados.contin);
+			
+			$.each(dados.transicoes, function(i, val) {
+				$("#sStatus").append("<option value='"+val+"'>"+traduzirStatusExtenso(val)+"</option>");			
+			});
+		} else {
+			$("#sStatus").empty();
+			$("#sStatus").append("<option value='N'>Novo</option>");
 		}
 		
 		$("#mCadRisco").modal('toggle');		
@@ -74,6 +83,24 @@ $(function() {
 		$("#caixaAlerta").show();
 	}
 	
+	function traduzirStatusExtenso(simboloStatus) {
+		var statusExtenso;
+		
+		switch(simboloStatus) {
+		case 'N':
+			statusExtenso = 'Novo';
+			break;
+		case 'E':
+			statusExtenso = 'Em Andamento';
+			break;
+		case 'F':
+			statusExtenso = 'Finalizado';
+			break;
+		}
+		
+		return statusExtenso;
+	}
+	
 	$("#bAdRisco").click(function(){
 		linhaSelecionada = undefined;
 		abrirModal('Novo Risco');		
@@ -105,21 +132,18 @@ $(function() {
 				if(linhaSelecionada !== undefined) {
 					linhaSelecionada.remove();
 				}
-
+				
 				var statusExtenso;
 				
 				switch(data.status) {
 				case 'N':
-					statusExtenso = '<span class="label label-danger">NOVO</span>';
+					statusExtenso = '<span class="label label-danger">Novo</span>';
 					break;
-				case 'P':
-					statusExtenso = '<span class="label label-warning">PREPARADO</span>';
-					break;
-				case 'A':
-					statusExtenso = '<span class="label label-primary">EM ANDAMENTO</span>';
+				case 'E':
+					statusExtenso = '<span class="label label-primary">Em Andamento</span>';
 					break;
 				case 'F':
-					statusExtenso = '<span class="label label-success">FINALIZADO</span>';
+					statusExtenso = '<span class="label label-success">Finalizado</span>';
 					break;
 				}
 				

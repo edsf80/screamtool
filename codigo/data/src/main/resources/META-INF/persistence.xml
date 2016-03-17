@@ -13,6 +13,7 @@
 		<class>br.edu.ifpb.screamtool.domain.entity.Tarefa</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.Risco</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.Usuario</class>
+		<class>br.edu.ifpb.screamtool.domain.entity.Teste</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.UsuarioProjeto</class>
 		<class>br.edu.ifpb.screamtool.domain.entity.UsuarioProjetoPK</class>
 	</persistence-unit>

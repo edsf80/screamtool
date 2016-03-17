@@ -3,6 +3,8 @@
  */
 package br.edu.ifpb.screamtool.visao.rest;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.ModelMap;
@@ -38,7 +40,7 @@ public class LoginRestService {
 	public @ResponseBody ResponseEntity<Boolean> autenticarUsuario(
 			@RequestParam(value = "login", required = true) String login,
 			@RequestParam(value = "senha", required = true) String senha,
-			ModelMap model) {
+			ModelMap model, HttpSession session) {
 
 		Boolean resultado = new Boolean(loginService.autenticarUsuario(login,
 				senha));

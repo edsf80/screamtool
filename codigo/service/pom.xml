@@ -13,13 +13,15 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>screamtool-domain</artifactId>
+			<version>${project.version}</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>screamtool-data</artifactId>
+			<version>${project.version}</version>
 		</dependency>
-
+	
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>

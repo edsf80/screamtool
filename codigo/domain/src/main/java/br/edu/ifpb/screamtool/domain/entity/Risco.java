@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -35,14 +36,14 @@ public class Risco extends EntidadeBasica {
 	private static final long serialVersionUID = 8179666740955980605L;
 
 	public enum RiscoStatus {
-		N, E, F
+		N, E, F			
 	}
 
 	public enum NivelProbImpacto {
 		A, M, B
 	}
 	
-	public Risco() {
+	public Risco() {		
 		super();
 	}
 	
@@ -111,6 +112,9 @@ public class Risco extends EntidadeBasica {
 	@ManyToOne
 	@JoinColumn(name = "rsc_rsp", nullable = true)
 	private Usuario responsavel;
+	
+	@Transient
+	private RiscoStatus[] transicoes;
 
 	/*
 	 * (non-Javadoc)
@@ -118,7 +122,7 @@ public class Risco extends EntidadeBasica {
 	 * @see br.edu.ifpb.screamtool.domain.entity.EntidadeBasica#getId()
 	 */
 	@Override
-	public Long getId() {
+	public Long getId() { 
 		// TODO Auto-generated method stub
 		return this.id;
 	}
@@ -203,6 +207,7 @@ public class Risco extends EntidadeBasica {
 	 */
 	public void setStatus(RiscoStatus status) {
 		this.status = status;
+		this.transicoes = this.estadosPossiveis(this.status);
 	}
 
 	/**
@@ -247,6 +252,37 @@ public class Risco extends EntidadeBasica {
 	 */
 	public void setResponsavel(Usuario responsavel) {
 		this.responsavel = responsavel;
+	}
+	
+	public RiscoStatus[] getTransicoes() {
+		return this.transicoes;
+	}
+	
+	/**
+	 * Esse método retorna os estados para o qual o risco pode ser alterado.
+	 * 
+	 * @return
+	 */
+	private RiscoStatus[] estadosPossiveis(RiscoStatus estadoAtual) {
+		RiscoStatus[] resultado = null;
+		
+		switch (estadoAtual) {
+		case N:
+			resultado = new RiscoStatus[2];
+			resultado[0] = RiscoStatus.E;
+			resultado[1] = RiscoStatus.F;
+			break;
+		case E:
+			resultado = new RiscoStatus[1];
+			resultado[0] = RiscoStatus.F;
+			break;
+		case F:
+			resultado = new RiscoStatus[1];
+			resultado[0] = RiscoStatus.E;
+			break;
+		}
+		
+		return resultado;
 	}
 
 }

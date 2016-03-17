@@ -21,7 +21,7 @@
 				</div>
 				<div class="box-body">
 					<!-- the events -->
-					<div id="external-events">
+					<!-- <div id="external-events">
 						<div class="external-event bg-yellow">Item de Backlog 1 - 3pts</div>
 						<div class="external-event bg-yellow">Item de Backlog 1 - 3pts</div>
 						<div class="external-event bg-yellow">Item de Backlog 1 - 3pts</div>
@@ -40,7 +40,10 @@
 								id="drop-remove" /> remove after drop
 							</label>
 						</div>
-					</div>
+					</div> -->
+					<ul class="connectedSortable sortable1" style="list-style-type: none; margin: 0; padding: 0;">
+						
+					</ul>
 				</div>
 				<!-- /.box-body -->
 			</div>
@@ -59,50 +62,29 @@
 					
 				</div>
 				<!-- /.box-header -->
-				<div class="box-body no-padding">
-					<c:if test="${not empty releases}">
-						<c:forEach var="release" items="${releases}">
-							<div class="panel panel-default collapsed-panel">
-								<!-- Default panel contents -->
-								<div class="panel-heading">							
-									<div class="row">
-										<div class="col-lg-5">
-											${release.nome}
-										</div>
-										<div class="col-sm-3 pull-left">
-											<div class="input-group">
-												<button id="bAdSprint"
-													class="btn btn-sm btn-primary disabled">Nova Sprint</button>						
-											</div>
-										</div>
-									</div>							
+				<div id="painelRelease" class="box-body no-padding">					
+					<div class="panel panel-default collapsed-panel">
+						<div class="panel-heading"> 
+							<div class="row"> 
+								<div class="col-lg-5">Release Fuck</div>
+								<div class="col-sm-3 pull-left"> 
+									<div class="input-group">
+										<button	class="btn btn-sm btn-primary sprintButton">Nova Sprint</button>
+									</div>
 								</div>
-							
-								<div class="panel-body">
-									<table class="table table-bordered">
-										<c:if test="${not empty release.sprints}">
-											<tbody>
-												<c:forEach var="sprint" items="${release.sprints}">
-													<tr>
-														<td>Sprint 1</td>
-														<td id="itensSprint" style="height:40px;"></td>
-													</tr>
-													<tr>
-														<td>Sprint 1</td>
-														<td id="itensSprint" style="height:40px;"></td>
-													</tr>
-													<tr>
-														<td>Sprint 1</td>
-														<td id="itensSprint" style="height:40px;"></td>
-													</tr>
-												</c:forEach>
-											</tbody>
-										</c:if>
-									</table>					  		
-							  	</div>					  
-							</div>	
-						</c:forEach>					
-					</c:if>
+							</div>
+						</div>							
+						<div class="panel-body itensSprint" style="width: 100%; heigth: 300px;">
+							<!-- <table class="table table-bordered">
+								<tbody>			
+									<tr><td>Teste</td><td id="itensSprint" style="height:40px;"></td></tr>														
+								</tbody>
+							</table> -->
+							<ul class="connectedSortable sortable2" style="list-style-type: none; width: 100%">
+								
+							</ul>
+						</div>
+					</div>
 				</div>
 				<!-- /.box-body -->
 			</div>

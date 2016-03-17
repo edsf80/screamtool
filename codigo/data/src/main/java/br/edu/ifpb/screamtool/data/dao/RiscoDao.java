@@ -4,7 +4,6 @@
 package br.edu.ifpb.screamtool.data.dao;
 
 import java.util.List;
-
 import br.edu.ifpb.screamtool.domain.entity.Risco;
 
 /**

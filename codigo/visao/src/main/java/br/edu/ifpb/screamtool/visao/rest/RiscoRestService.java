@@ -3,8 +3,6 @@
  */
 package br.edu.ifpb.screamtool.visao.rest;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import br.edu.ifpb.screamtool.domain.entity.Projeto;
 import br.edu.ifpb.screamtool.domain.entity.Risco;
@@ -27,6 +26,7 @@ import br.edu.ifpb.screamtool.visao.form.RiscoForm;
  */
 @RestController
 @RequestMapping(value = "/risco")
+@SessionAttributes("projetoAberto")
 public class RiscoRestService {
 
 	@Autowired
@@ -36,11 +36,11 @@ public class RiscoRestService {
 	@PreAuthorize("hasRole('perm_salvar_risco')")
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody Risco salvarRisco(@ModelAttribute RiscoForm riscoForm,
-			HttpSession session) {
+			@ModelAttribute("projetoAberto") Projeto projetoAberto) {
 
 		// Aqui foi utilizado o HttpSession por que tive problemas com o
 		// SessionAttributes no RestController
-		Projeto projetoAberto = (Projeto) session.getAttribute("projetoAberto");
+		//Projeto projetoAberto = (Projeto) session.getAttribute("projetoAberto");
 
 		Usuario responsavel = null;
 
@@ -57,13 +57,13 @@ public class RiscoRestService {
 				: riscoForm.getContingencia());
 		risco.setDescricao(riscoForm.getDescricao().isEmpty() ? null
 				: riscoForm.getDescricao());
-		risco.setImpacto(Risco.NivelProbImpacto.B);
+		risco.setImpacto(riscoForm.getImpacto());
 		risco.setMitigacao(riscoForm.getMitigacao().isEmpty() ? null
 				: riscoForm.getMitigacao());
-		risco.setProbabilidade(Risco.NivelProbImpacto.B);
+		risco.setProbabilidade(riscoForm.getProbabilidade());
 		risco.setProjeto(projetoAberto);
 		risco.setResponsavel(responsavel);
-		risco.setStatus(Risco.RiscoStatus.N);
+		risco.setStatus(riscoForm.getStatus());
 
 		if (riscoForm.getId() == null) {
 			risco = riscoService.criar(risco);

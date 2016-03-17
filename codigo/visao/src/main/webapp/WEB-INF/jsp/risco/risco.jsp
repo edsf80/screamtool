@@ -51,13 +51,13 @@
 										<td>
 											<c:choose>
   												<c:when test="${risco.status == 'N'}">
-													<span class="label label-danger">NOVO</span>
+													<span class="label label-danger">Novo</span>
 												</c:when>
 												<c:when test="${risco.status == 'E'}">
-													<span class="label label-primary">EM ANDAMENTO</span>
+													<span class="label label-primary">Em Andamento</span>
 												</c:when>
 												<c:when test="${risco.status == 'F'}">
-													<span class="label label-success">FINALIZADO</span>
+													<span class="label label-success">Finalizado</span>
 												</c:when>
 											</c:choose>	
 										</td>

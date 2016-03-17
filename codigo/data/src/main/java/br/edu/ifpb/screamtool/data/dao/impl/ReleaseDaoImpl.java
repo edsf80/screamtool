@@ -27,9 +27,7 @@ public class ReleaseDaoImpl extends GenericDaoImpl<Release, Long> implements
 	 * br.edu.ifpb.screamtool.data.dao.ReleaseDao#buscarPorProjeto(java.lang
 	 * .Long)
 	 */
-	@Override
 	public List<Release> buscarPorProjeto(Long idProjeto) {
-
 		TypedQuery<Release> query = this.entityManager.createNamedQuery(
 				"Release.buscarProProjeto", Release.class);
 		query.setParameter("idProjeto", idProjeto);

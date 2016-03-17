@@ -13,7 +13,7 @@ import br.edu.ifpb.screamtool.domain.entity.Produto;
 import br.edu.ifpb.screamtool.service.negocio.ProdutoService;
 
 @Controller
-@RequestMapping("/produto")
+@RequestMapping("/private/produto")
 public class ProdutoController {
 
 	/**

@@ -28137,7 +28137,7 @@ else if ( jQuery ) {
 		} else if (data.status == 404) {
 			$.fn.exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
 		} else {
-			window.location.href = "../erro.htm";
+			//window.location.href = "../erro.htm";
 		}
 	}
 });

@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  */
 @Controller
-@RequestMapping("/private/main")
-public class MainController {
-	
+@RequestMapping("/private/planoentrega")
+public class PlanoEntregaController {
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String loadPage(ModelMap model) {
-		 
-		return "main";
-	}
 
+		return "planoentrega";
+	}
 }

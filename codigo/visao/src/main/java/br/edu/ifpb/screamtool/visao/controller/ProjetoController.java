@@ -15,7 +15,7 @@ import br.edu.ifpb.screamtool.service.negocio.ProdutoService;
 import br.edu.ifpb.screamtool.service.negocio.ProjetoService;
 
 @Controller
-@RequestMapping("/projeto")
+@RequestMapping("/private/projeto")
 public class ProjetoController {
 	
 	/**

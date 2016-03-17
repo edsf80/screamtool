@@ -6,6 +6,12 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	<listener>
+		<listener-class>
+			org.springframework.security.web.session.HttpSessionEventPublisher
+		</listener-class>
+	</listener>
 
 	<servlet>
  		<servlet-name>rest</servlet-name>
@@ -24,7 +30,7 @@
 	
 	<servlet-mapping>
  		<servlet-name>rest</servlet-name>
- 		<url-pattern>/private/*</url-pattern>
+ 		<url-pattern>*.htm</url-pattern>
 	</servlet-mapping>
 	
 	<filter>

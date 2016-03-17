@@ -40,7 +40,6 @@ public class RiscoServiceImpl extends GenericServiceImpl<Risco, Long> implements
 	 * br.edu.ifpb.screamtool.service.negocio.RiscoSerivce#buscarTodosPorProjeto
 	 * (java.lang.Long)
 	 */
-	@Override
 	public List<Risco> buscarTodosPorProjeto(@NotNull Long idProjeto) {
 
 		RiscoDao riscoDao = (RiscoDao) this.dao;
@@ -55,7 +54,6 @@ public class RiscoServiceImpl extends GenericServiceImpl<Risco, Long> implements
 	 * br.edu.ifpb.screamtool.service.negocio.RiscoService#buscarPorIdSemAssociacoes
 	 * (java.lang.Long)
 	 */
-	@Override
 	@Transactional
 	public Risco buscarPorIdSemAssociacoes(@NotNull Long id) {
 		RiscoDao riscoDao = (RiscoDao) this.dao;

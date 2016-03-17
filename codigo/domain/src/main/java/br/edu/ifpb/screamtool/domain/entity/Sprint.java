@@ -1,5 +1,7 @@
 package br.edu.ifpb.screamtool.domain.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,16 +35,21 @@ public class Sprint extends EntidadeBasica {
 	 * 
 	 */
 	@ManyToOne
-	@JoinColumn(name = "prj_id")
-	private Projeto projeto;
+	@JoinColumn(name = "rls_id")
+	private Release release;
 
 	/**
 	 * 
 	 */
-	@ManyToOne
-	@JoinColumn(name = "rls_id")
-	private Release release;
-
+	@Column(name = "spt_ini")
+	private Date dataInicio;
+	
+	/**
+	 * 
+	 */
+	@Column(name = "spt_fim")
+	private Date dataTermino;
+	
 	/**
 	 * @return the id
 	 */
@@ -56,21 +63,6 @@ public class Sprint extends EntidadeBasica {
 	 */
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	/**
-	 * @return the projeto
-	 */
-	public Projeto getProjeto() {
-		return projeto;
-	}
-
-	/**
-	 * @param projeto
-	 *            the projeto to set
-	 */
-	public void setProjeto(Projeto projeto) {
-		this.projeto = projeto;
 	}
 
 	/**

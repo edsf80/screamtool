@@ -25,7 +25,7 @@ import br.edu.ifpb.screamtool.service.negocio.UsuarioService;
  *
  */
 @Controller
-@RequestMapping("/risco")
+@RequestMapping("/private/risco")
 @SessionAttributes("projetoAberto")
 public class RiscoController {
 

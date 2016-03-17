@@ -19,7 +19,7 @@
 				</div>
 				<!-- form start -->				
 				<form id="frmRisco" method="post" class="form-horizontal"
-					action="../service/risco/salvarRisco.rest" role="form">
+					action="../service/risco" role="form">
 						<input type="text" name="id" style="display: none;"
 							id="hId" />
 						<div class="form-group">
@@ -34,9 +34,7 @@
 							<div class="col-sm-4"> 
 							<select
 									id="sStatus" name="status" class="form-control input-sm">
-									<option value="N">Novo</option>
-									<option value="E">Em Andamento</option>
-									<option value="F">Finalizado</option>
+									
 							</select>
 							</div>
 							<label for="sProbabilidade" class="col-sm-2 control-label">Probabilidade</label>

@@ -31,7 +31,6 @@ public class ItemBacklogServiceImpl extends
 	 * @see br.edu.ifpb.screamtool.service.negocio.ItemBacklogService#
 	 * buscarTodosPorProduto(java.lang.Long)
 	 */
-	@Override
 	public List<ItemBacklog> buscarTodosPorProduto(@NotNull Long idProduto) {
 
 		ItemBacklogDao dao = (ItemBacklogDao) this.dao;

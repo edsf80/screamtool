@@ -1,6 +1,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles-extras" prefix="tilesx" %>
+<tilesx:useAttribute id="list" name="modais" classname="java.util.List" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +66,7 @@
 
 .modal-content .overlay.dark {
 	background: rgba(0, 0, 0, 0.5);
-}
+}  
 </style>
 </head>
 <body class="skin-blue">
@@ -210,6 +212,11 @@
 		              </a>
 		            </li>
 		            <li>
+		              <a href="planoentrega.htm">
+		                <i class="fa fa-gift"></i> <span>Plano de Entregas</span>
+		              </a>
+		            </li>
+		            <li>
 		              <a href="widgets.html">
 		                <i class="fa fa-fighter-jet"></i> <span>Sprints</span>
 		              </a>
@@ -245,7 +252,10 @@
 	</div>
 	<!-- ./wrapper -->
 
-	<tiles:insertAttribute name="modal" />	
+	<c:forEach var="modal" items="${list}">
+  		<tiles:insertAttribute value="${modal}" flush="true" />
+  		  
+	</c:forEach>	
 
 	<tiles:insertAttribute name="footer" />	
 </body>

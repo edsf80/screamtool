@@ -8,16 +8,20 @@
 
 	<definition name="teste" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
 		<put-attribute name="titulo" value="Cadastro de Testes" />
-		<put-attribute name="content" value="/WEB-INF/jsp/teste/teste.jsp" />
-		<put-attribute name="modal" value="/WEB-INF/jsp/teste/cadTeste.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/teste/teste.jsp" />		
 		<put-attribute name="footer" value="/WEB-INF/jsp/teste/footer.jsp" />
+		<put-list-attribute name="modais">		 
+			<add-attribute value="/WEB-INF/jsp/teste/cadTeste.jsp" />
+		</put-list-attribute>
 	</definition>
 
 	<definition name="projeto" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
 		<put-attribute name="titulo" value="Cadastro de Projetos" />
-		<put-attribute name="content" value="/WEB-INF/jsp/projeto/projeto.jsp" />
-		<put-attribute name="modal" value="/WEB-INF/jsp/projeto/cadProjeto.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/projeto/projeto.jsp" />		
 		<put-attribute name="footer" value="/WEB-INF/jsp/projeto/footer.jsp" />
+		<put-list-attribute name="modais">
+			<add-attribute value="/WEB-INF/jsp/projeto/cadProjeto.jsp" />
+		</put-list-attribute>
 	</definition>
 	
 	<definition name="main" template="/WEB-INF/jsp/template.jsp">
@@ -30,30 +34,49 @@
 	
 	<definition name="produto" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
 		<put-attribute name="titulo" value="Cadastro de Produtos" />
-		<put-attribute name="content" value="/WEB-INF/jsp/produto/produto.jsp" />
-		<put-attribute name="modal" value="/WEB-INF/jsp/produto/cadProduto.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/produto/produto.jsp" />				
 		<put-attribute name="footer" value="/WEB-INF/jsp/produto/footer.jsp" />
+		<put-list-attribute name="modais">
+			<add-attribute value="/WEB-INF/jsp/produto/cadProduto.jsp" />
+		</put-list-attribute>
 	</definition>
 	
 	<definition name="itembacklog" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
 		<put-attribute name="titulo" value="Cadastro de Itens de Backlog" />
-		<put-attribute name="content" value="/WEB-INF/jsp/itembacklog/itemBacklog.jsp" />
-		<put-attribute name="modal" value="/WEB-INF/jsp/itembacklog/cadItemBacklog.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/itembacklog/itemBacklog.jsp" />		
 		<put-attribute name="footer" value="/WEB-INF/jsp/itembacklog/footer.jsp" />
+		<put-list-attribute name="modais">
+			<add-attribute value="/WEB-INF/jsp/itembacklog/cadItemBacklog.jsp"/>
+		</put-list-attribute>
 	</definition>
 	
 	<definition name="risco" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
 		<put-attribute name="titulo" value="Cadastro de Riscos" />
-		<put-attribute name="content" value="/WEB-INF/jsp/risco/risco.jsp" />
-		<put-attribute name="modal" value="/WEB-INF/jsp/risco/cadRisco.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/risco/risco.jsp" />		
 		<put-attribute name="footer" value="/WEB-INF/jsp/risco/footer.jsp" />
+		<put-list-attribute name="modais">
+			<add-attribute value="/WEB-INF/jsp/risco/cadRisco.jsp"/>
+		</put-list-attribute>
 	</definition>
 	
 	<definition name="release" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
 		<put-attribute name="titulo" value="Cadastro de Releases" />
-		<put-attribute name="content" value="/WEB-INF/jsp/release/release.jsp" />
-		<put-attribute name="modal" value="/WEB-INF/jsp/release/cadRelease.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/release/release.jsp" />		
 		<put-attribute name="footer" value="/WEB-INF/jsp/release/footer.jsp" />
+		<put-list-attribute name="modais">
+			<add-attribute value="/WEB-INF/jsp/release/cadRelease.jsp"/>
+			<add-attribute value="/WEB-INF/jsp/sprint/cadSprint.jsp"/>
+		</put-list-attribute>
+	</definition>
+	
+	<definition name="planoentrega" template="/WEB-INF/jsp/cadastro/cadastro.jsp">
+		<put-attribute name="titulo" value="Plano de Entregas" />
+		<put-attribute name="content" value="/WEB-INF/jsp/planoentrega/planoentrega.jsp" />		
+		<put-attribute name="footer" value="/WEB-INF/jsp/planoentrega/footer.jsp" />
+		<put-list-attribute name="modais">
+			<add-attribute value="/WEB-INF/jsp/release/cadRelease.jsp"/>
+			<add-attribute value="/WEB-INF/jsp/sprint/cadSprint.jsp"/>
+		</put-list-attribute>
 	</definition>
 	
 	<definition name="erro" template="/WEB-INF/jsp/template.jsp">

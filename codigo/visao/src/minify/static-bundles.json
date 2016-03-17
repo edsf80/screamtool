@@ -3,6 +3,7 @@
         {
             "type": "css",
             "name": "main.css",
+            "targetDir": "images",
             "files": [
                 "bootstrap/css/bootstrap.min.css",
                 "bootstrap/css/font-awesome-4.3.css",
@@ -23,6 +24,86 @@
                 "plugins/fastclick/fastclick.min.js",
                 "dist/js/app.min.js"
             ]
-        }
+        },
+        {
+            "type": "js",
+            "name": "risco.js",
+            "files": [
+                "plugins/jQuery/jQuery-2.1.4.js",
+                "plugins/jQueryValidate/jquery.validate-1.14.0.js",
+                "bootstrap/js/bootstrap.js",
+                "plugins/datatables/jquery.dataTables-1.10.7.js",
+                "plugins/datatables/dataTables.bootstrap-1.10.7.js",
+                "plugins/slimScroll/jquery.slimscroll.min.js",
+                "plugins/fastclick/fastclick.min.js",
+                "dist/js/app.min.js",
+                "dist/js/pages/global.js",
+                "dist/js/pages/risco.js"
+            ]
+        },
+        {
+            "type": "js",
+            "name": "login.js",
+            "files": [
+                "plugins/jQuery/jQuery-2.1.4.js",
+			    "plugins/jQueryValidate/jquery.validate-1.14.0.js",
+			    "bootstrap/js/bootstrap.js",
+			    "plugins/iCheck/icheck.min.js",
+			    "dist/js/pages/global.js",
+			    "dist/js/pages/login.js"
+            ]
+        },
+        {
+            "type": "js",
+            "name": "projeto.js",
+            "files": [
+                "plugins/jQuery/jQuery-2.1.4.js",
+			    "plugins/jQueryValidate/jquery.validate-1.14.0.js",
+			    "bootstrap/js/bootstrap.js",
+			    "plugins/datatables/jquery.dataTables-1.10.7.js",
+			    "plugins/datatables/dataTables.bootstrap-1.10.7.js",
+			    "plugins/slimScroll/jquery.slimscroll.min.js",
+			    "plugins/fastclick/fastclick.min.js",
+			    "dist/js/app.min.js",
+			    "plugins/input-mask/jquery.inputmask.js",
+			    "plugins/input-mask/jquery.inputmask.date.extensions.js",
+			    "plugins/input-mask/jquery.inputmask.extensions.js",
+			    "plugins/datepicker/bootstrap-datepicker.js",
+			    "dist/js/pages/global.js",
+			    "dist/js/pages/projeto.js"
+            ]
+        },
+        {
+            "type": "js",
+            "name": "itembacklog.js",
+            "files": [
+         	    "plugins/jQuery/jQuery-2.1.4.js",
+			    "plugins/jQueryValidate/jquery.validate-1.14.0.js",
+			    "bootstrap/js/bootstrap.js",
+			    "plugins/datatables/jquery.dataTables-1.10.7.js",
+			    "plugins/datatables/dataTables.bootstrap-1.10.7.js",
+			    "plugins/slimScroll/jquery.slimscroll.min.js",
+			    "plugins/fastclick/fastclick.min.js",
+			    "dist/js/app.min.js",
+			    "dist/js/pages/global.js",
+			    "dist/js/pages/itembacklog.js"
+            ]
+        },
+        {
+            "type": "js",
+            "name": "produto.js",
+            "files": [
+         	    "plugins/jQuery/jQuery-2.1.4.js",
+			    "plugins/jQueryValidate/jquery.validate-1.14.0.js",
+			    "bootstrap/js/bootstrap.js",
+			    "plugins/datatables/jquery.dataTables-1.10.7.js",
+			    "plugins/datatables/dataTables.bootstrap-1.10.7.js",
+			    "plugins/slimScroll/jquery.slimscroll.min.js",
+			    "plugins/fastclick/fastclick.min.js",
+			    "dist/js/app.min.js",
+			    "dist/js/pages/global.js",
+			    "dist/js/pages/produto.js"
+            ]
+        }        
     ]
 }
