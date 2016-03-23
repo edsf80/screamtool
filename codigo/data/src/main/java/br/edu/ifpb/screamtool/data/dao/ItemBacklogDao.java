@@ -24,4 +24,16 @@ public interface ItemBacklogDao extends GenericDao<ItemBacklog, Long> {
 	 */
 	List<ItemBacklog> buscarTodosPorProduto(Long idProduto);
 
+	/**
+	 * Busca todos os itens de backlog por produto que não estejam alocados em
+	 * nenhum sprint, através do id do produto.
+	 * 
+	 * @param idProduto
+	 *            Identificador do produto que se deseja os itens de backlog.
+	 * @return A lista de itens de backlog daquele produto. Caso o produto não
+	 *         exista ou não possua itens de backlog não alocados o retorno será
+	 *         uma lista vazia.
+	 */
+	List<ItemBacklog> buscarTodosPorProdutoNaoAlocados(Long idProduto);
+
 }

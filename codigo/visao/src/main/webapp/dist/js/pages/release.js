@@ -11,7 +11,7 @@ $(function() {
 		format: 'dd/mm/yyyy'
 	});
 	
-	$.get("../service/itembacklog/list").done(function(data){
+	/*$.get("../service/itembacklog").done(function(data){
 		
 		$.each(data, function(index, value){
 			$(".sortable1").append("<li id='item_"+value.id+"' title='"+value.descricao+"' class='external-event bg-yellow' style='margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px; text-align: center;'>"+
@@ -19,45 +19,58 @@ $(function() {
 			
 			
 		});
-	});
+	});*/
 	
-	/*$.get("../service/releases").done(function(data){
+	$.get("../service/release").done(function(data){
 		releases = data;
 		
-		$.each(data, function(index, value){
-			$(".panel").clone([true, true]).appendTo("#painelRelease");
-		});*/
+		var painelReleases;
 		
-		/*$.each(data, function(index, value){
-			$("#painelRelease").append('<div class="panel panel-default collapsed-panel"> '+
-									   		'<div class="panel-heading"> <div class="row"> <div class="col-lg-5">'+value.nome+'</div>'+
-									   		'<div class="col-sm-3 pull-left"> <div class="input-group"><button '+
-													'class="btn btn-sm btn-primary sprintButton">Nova Sprint</button></div></div></div></div>'+							
-											'<div class="panel-body"><table class="table table-bordered"><tbody>');
-			$.each(value.sprints, function(index, value){
-				$("#painelRelease").append('<tr><td>'+value.descricao+'</td><td id="itensSprint" style="height:40px;"></td></tr>');
-			});									
-														
-			$("#painelRelease").append('</tbody></table></div></div>');
+		$.each(data.releases, function(index, release){			
+			painelReleases = '<div class="panel panel-default collapsed-panel"><div class="panel-heading">'+ 
+				             '<div class="row"><div class="col-lg-5">'+release.nome+'</div><div class="col-sm-3 pull-left">'+ 
+						     '<div class="input-group"><button	class="btn btn-sm btn-primary sprintButton">Nova Sprint</button>'+
+						     '</div></div></div></div><div class="panel-body itensSprint" style="width: 100%; heigth: 300px;">'+						
+				             '<table class="table table-bordered"><tbody>';
+						     
+			$.each(release.sprints, function(index, sprint) {
+				painelReleases += '<tr id="sprint_'+sprint.id+'"><td>'+sprint.nome+'</td><td style="height:40px;">'+
+						    	  '<ul class="connectedSortable sortable2" style="list-style-type: none; width: 100%">';
+				$.each(sprint.itensBacklog, function(index, itemBacklog) {
+					painelReleases += '<li id="item_"'+itemBacklog.id+' title="'+itemBacklog.descricao+'" class="external-event bg-yellow" '+
+					                  'style="margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px;'+  
+					                  ' text-align: center;">'+itemBacklog.descricao+'<br><br><select><option>0</option>'+
+					                  '<option>1</option><option>2</option><option>3</option><option>5</option></select></li>';
+				});
+						    	  								
+				painelReleases += '</ul></td></tr>';														
+			});			
 			
-		})*/
-	//});
+			painelReleases += '</tbody></table></div></div>';
+			console.log(painelReleases);
+			
+			$("#boxReleases").append(painelReleases);	
+			
+			// Essa parte foi transferida para dentro do bloco por que fora o sortable nao fucnionava.
+			$( ".sortable1, .sortable2" ).sortable({
+			      connectWith: ".connectedSortable",
+			      update : function () { 
+		              var order = $(this).sortable('serialize');
+		              console.log(order);
+		              $.ajax({
+		            	  url: '../service/itembacklog',
+		            	  type: 'POST',
+		            	  data: order,
+		            	  success: function(data) {
+		            	    alert('Load was performed.');
+		            	  }
+		            	});
+		          } 
+			    }).disableSelection();
+		})
+	});
 	
-	$( ".sortable1, .sortable2" ).sortable({
-	      connectWith: ".connectedSortable",
-	      update : function () { 
-              var order = $(this).sortable('serialize');
-              console.log(order);
-              $.ajax({
-            	  url: '../service/itembacklog/update',
-            	  type: 'POST',
-            	  data: order,
-            	  success: function(data) {
-            	    alert('Load was performed.');
-            	  }
-            	});
-          } 
-	    }).disableSelection();
+	
 	
 	/*$('#external-events div.external-event').draggable({
 		containment : '.content',

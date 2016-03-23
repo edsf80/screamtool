@@ -6,6 +6,7 @@ package br.edu.ifpb.screamtool.data.dao.impl;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
@@ -39,6 +40,29 @@ public class ItemBacklogDaoImpl extends GenericDaoImpl<ItemBacklog, Long>
 		query.setParameter("produto", idProduto);
 
 		@SuppressWarnings("unchecked")
+		List<ItemBacklog> resultado = query.getResultList();
+
+		return resultado;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.edu.ifpb.screamtool.data.dao.ItemBacklogDao#
+	 * buscarTodosPorProdutoNaoAlocado(java.lang.Long)
+	 */
+	@Override
+	public List<ItemBacklog> buscarTodosPorProdutoNaoAlocados(Long idProduto) {
+
+		if (idProduto == null) {
+			throw new IllegalArgumentException(
+					"Itembacklogdao.buscarTodosPorProduto deve receber id do produto não nulo.");
+		}
+
+		TypedQuery<ItemBacklog> query = this.entityManager.createNamedQuery(
+				"ItemBacklog.buscarPorProdutoNaoAlocado", ItemBacklog.class);
+		query.setParameter("produto", idProduto);
+
 		List<ItemBacklog> resultado = query.getResultList();
 
 		return resultado;

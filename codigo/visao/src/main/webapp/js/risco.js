@@ -28172,6 +28172,7 @@ $(function() {
 				$("#sStatus").append("<option value='"+val+"'>"+traduzirStatusExtenso(val)+"</option>");			
 			});
 		} else {
+			$("#sStatus").empty();
 			$("#sStatus").append("<option value='N'>Novo</option>");
 		}
 		

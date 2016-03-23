@@ -18,6 +18,9 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 /**
  * The persistent class for the release database table.
  * 
@@ -25,7 +28,9 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "Release.findAll", query = "SELECT r FROM Release r"),
-		@NamedQuery(name = "Release.buscarProProjeto", query = "SELECT r FROM Release r LEFT JOIN FETCH r.sprints s WHERE r.projeto.id = :idProjeto") })
+		@NamedQuery(name = "Release.buscarProProjeto", 
+		            query = "SELECT r.id, r.nome, s.id, s.nome, i.id, i.descricao FROM Release r LEFT JOIN r.sprints s LEFT JOIN s.itensBacklog i WHERE r.projeto.id = :idProjeto") })
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Release extends EntidadeBasica {
 
 	private static final long serialVersionUID = 1L;
@@ -47,7 +52,7 @@ public class Release extends EntidadeBasica {
 	@ManyToOne
 	@JoinColumn(name = "prj_id")
 	private Projeto projeto;
-	
+
 	@OneToMany(mappedBy = "release")
 	@Fetch(FetchMode.SUBSELECT)
 	private List<Sprint> sprints;
@@ -120,7 +125,8 @@ public class Release extends EntidadeBasica {
 	}
 
 	/**
-	 * @param sprints the sprints to set
+	 * @param sprints
+	 *            the sprints to set
 	 */
 	public void setSprints(List<Sprint> sprints) {
 		this.sprints = sprints;

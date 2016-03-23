@@ -37,4 +37,18 @@ public class ItemBacklogServiceImpl extends
 
 		return dao.buscarTodosPorProduto(idProduto);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.edu.ifpb.screamtool.service.negocio.ItemBacklogService#
+	 * buscarTodosPorProdutoNaoAlocados(java.lang.Long)
+	 */
+	@Override
+	public List<ItemBacklog> buscarTodosPorProdutoNaoAlocados(Long idProduto) {
+
+		ItemBacklogDao dao = (ItemBacklogDao) this.dao;
+
+		return dao.buscarTodosPorProdutoNaoAlocados(idProduto);
+	}
 }

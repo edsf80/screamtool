@@ -23,6 +23,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the item_backlog database table.
  * 
@@ -31,7 +33,8 @@ import org.hibernate.annotations.FetchMode;
 @Table(name = "item_backlog")
 @NamedQueries({
 		@NamedQuery(name = "ItemBacklog.findAll", query = "SELECT i FROM ItemBacklog i"),
-		@NamedQuery(name = "ItemBacklog.buscarPorProduto", query = "SELECT i FROM ItemBacklog i where i.produto.id = :produto") })
+		@NamedQuery(name = "ItemBacklog.buscarPorProduto", query = "SELECT i FROM ItemBacklog i where i.produto.id = :produto"),
+		@NamedQuery(name = "ItemBacklog.buscarPorProdutoNaoAlocado", query = "SELECT i FROM ItemBacklog i where i.produto.id = :produto AND i.sprint IS NULL")})
 public class ItemBacklog extends EntidadeBasica {
 
 	public enum ItemBacklogStatus {
@@ -65,6 +68,7 @@ public class ItemBacklog extends EntidadeBasica {
 	@Valid
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "prd_id", nullable = false)
+	@JsonIgnore
 	private Produto produto;
 
 	/**
@@ -101,6 +105,13 @@ public class ItemBacklog extends EntidadeBasica {
 	@OneToMany(mappedBy = "itemBacklog")
 	@Fetch(FetchMode.SUBSELECT)
 	private List<Tarefa> tarefas;
+	
+	/**
+	 * 
+	 */
+	@ManyToOne
+	@JoinColumn(name = "spt_id")
+	private Sprint sprint;
 
 	public List<Tarefa> getTarefas() {
 		return this.tarefas;
@@ -228,6 +239,20 @@ public class ItemBacklog extends EntidadeBasica {
 	 */
 	public void setEstoriaUsuario(String estoriaUsuario) {
 		this.estoriaUsuario = estoriaUsuario;
+	}
+
+	/**
+	 * @return the sprint
+	 */
+	public Sprint getSprint() {
+		return sprint;
+	}
+
+	/**
+	 * @param sprint the sprint to set
+	 */
+	public void setSprint(Sprint sprint) {
+		this.sprint = sprint;
 	}
 
 }
