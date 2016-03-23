@@ -23,8 +23,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
  * The persistent class for the item_backlog database table.
  * 
@@ -32,7 +30,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "item_backlog")
 @NamedQueries({
-		@NamedQuery(name = "ItemBacklog.findAll", query = "SELECT i FROM ItemBacklog i"),
 		@NamedQuery(name = "ItemBacklog.buscarPorProduto", query = "SELECT i FROM ItemBacklog i where i.produto.id = :produto"),
 		@NamedQuery(name = "ItemBacklog.buscarPorProdutoNaoAlocado", query = "SELECT i FROM ItemBacklog i where i.produto.id = :produto AND i.sprint IS NULL")})
 public class ItemBacklog extends EntidadeBasica {
@@ -68,7 +65,6 @@ public class ItemBacklog extends EntidadeBasica {
 	@Valid
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "prd_id", nullable = false)
-	@JsonIgnore
 	private Produto produto;
 
 	/**

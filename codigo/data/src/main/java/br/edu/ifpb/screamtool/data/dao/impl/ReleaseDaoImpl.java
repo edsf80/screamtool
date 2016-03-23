@@ -30,6 +30,7 @@ public class ReleaseDaoImpl extends GenericDaoImpl<Release, Long> implements
 	 * br.edu.ifpb.screamtool.data.dao.ReleaseDao#buscarPorProjeto(java.lang
 	 * .Long)
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Release> buscarPorProjeto(Long idProjeto) {
 		Query query = this.entityManager
 				.createNamedQuery("Release.buscarProProjeto");
@@ -38,9 +39,28 @@ public class ReleaseDaoImpl extends GenericDaoImpl<Release, Long> implements
 		return buildReleaseList(query.getResultList());
 	}
 
+	/**
+	 * Constroi um objeto release a partir de dados de uma lista de arrays. Cada
+	 * array da lista deve ter o formato onde o primeiro elemento é o código do
+	 * release, o segundo a descrição do release, o terceiro o código do sprint,
+	 * o quarto a descrição da sprint, o quinto o código dos itens de backlog e
+	 * o sexto a descrição do item de backlog. Esse método foi criado, pois a
+	 * busca pelo jpql padrão do objeto iria trazer dados desnecessários, além
+	 * de campos com lazy loading o que faria necessária a busca de itens filhos
+	 * em outros selects.
+	 * 
+	 * @param dados
+	 * @return Uma lista de releases com nome e descrição com seus respectivos
+	 *         sprints e itens de backlog.
+	 */
 	private List<Release> buildReleaseList(List<Object[]> dados) {
 
 		List<Release> resultado = new ArrayList<>();
+		
+		if(dados == null) {
+			return resultado;
+		}
+		
 		List<Sprint> sprints = null;
 		List<ItemBacklog> itensBacklog = null;
 		Long lastReleaseId = 0l;
@@ -52,7 +72,7 @@ public class ReleaseDaoImpl extends GenericDaoImpl<Release, Long> implements
 			Long sprintId = (Long) dado[2];
 			Long itemBacklogId = (Long) dado[4];
 			Release release = null;
-			
+
 			if (!releaseId.equals(lastReleaseId)) {
 				release = new Release();
 				sprints = new ArrayList<>();
@@ -72,8 +92,9 @@ public class ReleaseDaoImpl extends GenericDaoImpl<Release, Long> implements
 				sprint.setNome((String) dado[3]);
 				sprints.add(sprint);
 			}
-			
-			if(itemBacklogId != null && !itemBacklogId.equals(lastItemBacklogId)) {
+
+			if (itemBacklogId != null
+					&& !itemBacklogId.equals(lastItemBacklogId)) {
 				lastItemBacklogId = itemBacklogId;
 				ItemBacklog itemBacklog = new ItemBacklog();
 				itemBacklog.setId(itemBacklogId);

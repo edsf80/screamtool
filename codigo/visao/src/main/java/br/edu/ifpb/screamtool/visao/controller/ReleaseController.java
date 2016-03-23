@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import br.edu.ifpb.screamtool.domain.entity.ItemBacklog;
 import br.edu.ifpb.screamtool.domain.entity.Projeto;
 import br.edu.ifpb.screamtool.domain.entity.Release;
+import br.edu.ifpb.screamtool.service.negocio.ItemBacklogService;
 import br.edu.ifpb.screamtool.service.negocio.ReleaseService;
+import br.edu.ifpb.screamtool.visao.form.ReleaseForm;
 
 /**
  * @author edsf
@@ -33,6 +36,10 @@ public class ReleaseController {
 	@Autowired
 	@Qualifier("releaseService")
 	private ReleaseService releaseService;
+	
+	@Autowired
+	@Qualifier("itemBacklogService")
+	private ItemBacklogService itemBacklogService;
 
 	/**
 	 * @return
@@ -57,10 +64,18 @@ public class ReleaseController {
 			model.remove("projetoAberto");
 			resultado = "main";
 		} else {
+			ReleaseForm releaseForm = new ReleaseForm();
+			
 			List<Release> releases = releaseService
 					.buscarPorProjeto(projetoAberto.getId());
 			
-			model.addAttribute("releases", releases);
+			releaseForm.setReleases(releases);
+			
+			List<ItemBacklog> itensBacklogNaoAlocados = itemBacklogService
+					.buscarTodosPorProdutoNaoAlocados(projetoAberto.getProduto().getId());
+			releaseForm.setItensBacklogNaoAlocados(itensBacklogNaoAlocados);
+			
+			model.addAttribute("releaseForm", releaseForm);
 			
 			resultado = "release";
 		}

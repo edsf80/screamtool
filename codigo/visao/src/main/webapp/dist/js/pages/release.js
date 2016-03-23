@@ -21,7 +21,7 @@ $(function() {
 		});
 	});*/
 	
-	$.get("../service/release").done(function(data){
+	/*$.get("../service/release").done(function(data){
 		releases = data;
 		
 		var painelReleases;
@@ -68,9 +68,23 @@ $(function() {
 		          } 
 			    }).disableSelection();
 		})
-	});
+	});*/
 	
-	
+	$( ".sortable1, .sortable2" ).sortable({
+	      connectWith: ".connectedSortable",
+	      update : function () { 
+            var order = $(this).sortable('serialize');
+            console.log(order);
+            $.ajax({
+          	  url: '../service/itembacklog',
+          	  type: 'POST',
+          	  data: order,
+          	  success: function(data) {
+          	    alert('Load was performed.');
+          	  }
+          	});
+        } 
+	    }).disableSelection();
 	
 	/*$('#external-events div.external-event').draggable({
 		containment : '.content',

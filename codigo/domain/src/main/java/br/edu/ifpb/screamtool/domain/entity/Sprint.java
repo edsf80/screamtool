@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,15 +17,11 @@ import javax.persistence.SequenceGenerator;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 /**
  * The persistent class for the sprint database table.
  * 
  */
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 @NamedQuery(name = "Sprint.findAll", query = "SELECT s FROM Sprint s")
 public class Sprint extends EntidadeBasica {
 
@@ -63,7 +58,7 @@ public class Sprint extends EntidadeBasica {
 	/**
 	 * 
 	 */
-	@OneToMany(mappedBy = "sprint", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "sprint")
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ItemBacklog> itensBacklog;
 	

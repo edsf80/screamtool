@@ -44,7 +44,7 @@ public class ItemBacklogDaoImplTest {
 
 	@Test
 	public void testeBuscarTodosPorProduto() {
-
+				
 		List<ItemBacklog> itens = itemBacklogDao.buscarTodosPorProduto(20l);
 		
 		Assert.assertNotNull(itens);
@@ -99,6 +99,16 @@ public class ItemBacklogDaoImplTest {
 		
 		ib = itemBacklogDao.buscarPorId(id);
 		Assert.assertNotNull(ib.getStoryPoints());	
+
+	}
+	
+	@Test
+	public void testeBuscarTodosPorProdutoNaoAlocados() {
+
+		List<ItemBacklog> itens = itemBacklogDao.buscarTodosPorProdutoNaoAlocados(20l);
+		
+		Assert.assertNotNull(itens);
+		Assert.assertTrue(itens.size() > 0);
 
 	}
 }
