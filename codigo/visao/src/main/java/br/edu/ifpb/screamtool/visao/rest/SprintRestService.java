@@ -5,7 +5,7 @@ package br.edu.ifpb.screamtool.visao.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,22 +25,22 @@ public class SprintRestService {
 	@Autowired
 	@Qualifier("sprintService")
 	private SprintService sprintService;
-	
+
 	/**
 	 * @param sprint
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody Sprint salvarSprint(@ModelAttribute Sprint sprint) {
+	public @ResponseBody Sprint salvarSprint(@RequestBody Sprint sprint) {
 
 		Sprint resultado = null;
-		
-		if(sprint.getId() == null) {
+
+		if (sprint.getId() == null) {
 			resultado = sprintService.criar(sprint);
 		} else {
 			resultado = sprintService.atualizar(sprint);
 		}
-		
+
 		return resultado;
 	}
 }

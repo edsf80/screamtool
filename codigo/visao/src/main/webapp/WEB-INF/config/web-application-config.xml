@@ -34,7 +34,7 @@
 
 	<!-- Configure bean to convert JSON to POJO and vice versa -->
 	<bean id="jsonMessageConverter"
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
 	

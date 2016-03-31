@@ -5,24 +5,24 @@ $(function() {
 		},
 		unhighlight : function(element, errorClass, validClass) {
 			$(element).closest(".form-group").removeClass("has-error");
-			$("#caixaAlerta").hide();
+			$(".caixa-alerta").hide();
 		},
 		onkeyup : false,
 		onfocusout : false,
 		showErrors : function(errorMap, errorList) {
 			var temErro = false;
 			this.defaultShowErrors();
-			$("#caixaAlerta p").empty();
+			$(".caixa-alerta p").empty();
 			$.each(errorList, function(i, val) {
-				$("#caixaAlerta").append("<p>" + val.message + "</p>");
+				$(".caixa-alerta").append("<p>" + val.message + "</p>");
 				temErro = true;
 			});
 			if (temErro) {
-				$("#caixaAlerta").show();
+				$(".caixa-alerta").show();
 			}
 		}
 	});
-
+	
 	$.fn.abrirModal = function(tela, titulo, dados) {
 		$("#caixaAlerta").hide();
 		$(tela).find('.modal-title').text(titulo);

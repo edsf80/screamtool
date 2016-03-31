@@ -67,7 +67,9 @@
 				             					<div class="col-lg-5">${release.nome}</div>
 				             					<div class="col-sm-3 pull-left"> 
 						     						<div class="input-group">
-						     							<button	class="btn btn-sm btn-primary sprintButton">Nova Sprint</button>
+						     							<button class="btn btn-sm btn-primary sprintButton" data-toggle="modal" data-target="#mCadSprint" data-release-id="${release.id}">
+						     								Nova Sprint
+						     							</button>
 						     						</div>
 						     					</div>
 						     				</div>

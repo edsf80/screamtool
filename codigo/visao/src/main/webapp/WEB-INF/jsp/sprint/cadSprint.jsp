@@ -1,3 +1,7 @@
+<!-- Colocar o calendário na frente do modal. Sem isso ele fica atrás no chrome. -->
+<style>
+.daterangepicker {z-index: 1151 !important;}
+</style>
 <!-- Modal -->
 <div class="modal fade" id="mCadSprint">
 	<div class="modal-dialog" role="document">
@@ -10,8 +14,8 @@
 				<h4 class="modal-title">Novo Sprint</h4>
 			</div>
 			<div class="modal-body">
-				<div id="caixaAlerta" style="display: none;"
-					class="alert alert-warning alert-dismissable">
+				<div style="display: none;"
+					class="alert alert-warning alert-dismissable caixa-alerta">
 					<h4>
 						<i class="icon fa fa-warning"></i> Validação do formulário!
 					</h4>
@@ -20,33 +24,26 @@
 					action="../service/sprint" role="form">
 					<div class="box-body">
 						<input type="text" name="id" style="display: none;"
-							id="hIdSprint" />
+							id="hIdSprint" field="id"/>
 						<div class="form-group">
-							<label for="tDescricaoSprint">Descrição*</label> <input type="text"
-								name="descricao" field="descricao" class="form-control" id="tDescricaoSprint" autofocus>
+							<label for="tNomeSprint">Nome*</label> <input type="text"
+								name="nome" field="nome" class="form-control" id="tNomeSprint" autofocus>
 						</div>						
+						<!-- Date range -->
+			            <div class="form-group">
+			            	<label>Período do Sprint*</label>			
+			                <div class="input-group">
+			                	<div class="input-group-addon">
+			                    	<i class="fa fa-calendar"></i>
+			                	</div>
+			                	<input name="periodoSprint" id="drPeriodoSprint" type="text" class="form-control pull-right" id="reservation">
+			                </div>
+			                <!-- /.input group -->
+			            </div>
 						<div class="form-group">
-							<label class="control-label" for="tDataInicio">Início*</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="fa fa-calendar"></i>
-								</div>
-								<input type="text" class="form-control pull-right"
-									name="dataInicio" id="tDataInicio" />
-							</div>
-							<!-- /.input group -->
-						</div>
-						<div class="form-group">
-							<label class="control-label" for="tDataTermino">Término*</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="fa fa-calendar"></i>
-								</div>
-								<input type="text" class="form-control pull-right"
-									name="dataTermino" id="tDataTermino" />
-							</div>
-							<!-- /.input group -->
-						</div>
+                      		<label for="tObjetivoSprint">Objetivo do Sprint</label>
+                      		<textarea name="objetivoSprint" id="tObjetivoSprint" class="form-control" rows="3" placeholder="Insira o objetivo do Sprint..."></textarea>
+                    	</div>
 					</div>
 			</div>
 			<div class="modal-footer">

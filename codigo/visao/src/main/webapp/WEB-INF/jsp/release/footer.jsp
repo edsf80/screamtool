@@ -8,6 +8,9 @@
 <script src="../plugins/input-mask/jquery.inputmask.js"></script>
 <script src="../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="../plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<script src="../plugins/daterangepicker/moment.js""></script>
 <script src="../plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="../plugins/daterangepicker/daterangepicker.js""></script>
 <script src="../dist/js/pages/global.js"></script>
 <script src="../dist/js/pages/release.js"></script>
+<script src="../dist/js/pages/sprint.js"></script>

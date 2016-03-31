@@ -13,9 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * The persistent class for the sprint database table.
@@ -39,6 +42,7 @@ public class Sprint extends EntidadeBasica {
 	/**
 	 * 
 	 */
+	@NotNull(message = "O release do sprint deve ser informado")
 	@ManyToOne
 	@JoinColumn(name = "rls_id")
 	private Release release;
@@ -46,28 +50,32 @@ public class Sprint extends EntidadeBasica {
 	/**
 	 * 
 	 */
+	@NotNull(message = "A data de início do sprint deve ser informado")
 	@Column(name = "spt_ini")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date dataInicio;
-	
+
 	/**
 	 * 
 	 */
+	@NotNull(message = "A data de término do sprint deve ser informado")
 	@Column(name = "spt_fim")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date dataTermino;
-	
+
 	/**
 	 * 
 	 */
 	@OneToMany(mappedBy = "sprint")
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ItemBacklog> itensBacklog;
-	
+
 	/**
 	 * 
 	 */
 	@Column(name = "spt_nm")
 	private String nome;
-	
+
 	/**
 	 * @return the id
 	 */
@@ -106,7 +114,8 @@ public class Sprint extends EntidadeBasica {
 	}
 
 	/**
-	 * @param dataInicio the dataInicio to set
+	 * @param dataInicio
+	 *            the dataInicio to set
 	 */
 	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
@@ -120,7 +129,8 @@ public class Sprint extends EntidadeBasica {
 	}
 
 	/**
-	 * @param dataTermino the dataTermino to set
+	 * @param dataTermino
+	 *            the dataTermino to set
 	 */
 	public void setDataTermino(Date dataTermino) {
 		this.dataTermino = dataTermino;
@@ -134,7 +144,8 @@ public class Sprint extends EntidadeBasica {
 	}
 
 	/**
-	 * @param itensBacklog the itensBacklog to set
+	 * @param itensBacklog
+	 *            the itensBacklog to set
 	 */
 	public void setItensBacklog(List<ItemBacklog> itensBacklog) {
 		this.itensBacklog = itensBacklog;
@@ -148,7 +159,8 @@ public class Sprint extends EntidadeBasica {
 	}
 
 	/**
-	 * @param nome the nome to set
+	 * @param nome
+	 *            the nome to set
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
