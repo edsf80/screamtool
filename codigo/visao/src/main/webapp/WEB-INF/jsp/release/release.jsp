@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- Content Header (Page header) -->
 <section class="content-header">
 	<h1>
@@ -26,7 +27,7 @@
 						<c:if test="${not empty releaseForm}">
 							<c:if test="${not empty releaseForm.itensBacklogNaoAlocados}">
 								<c:forEach var="itemBacklog" items="${releaseForm.itensBacklogNaoAlocados}">
-									<li id='item_${itemBacklog.id}' title='${itemBacklog.descricao}' class='external-event bg-yellow' style='margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px; text-align: center;'>
+									<li id='item_${itemBacklog.id}' title='${itemBacklog.descricao}' class='external-event bg-yellow' style='margin: 3px 3px 3px 0; list-style-type: none; padding: 1px; float: left; width: 100px; height: 90px; text-align: center;'>
 										${fn:substring(itemBacklog.descricao, 0, 20)}...<br><br>
 										<select>
 											<option>0</option>
@@ -67,7 +68,8 @@
 				             					<div class="col-lg-5">${release.nome}</div>
 				             					<div class="col-sm-3 pull-left"> 
 						     						<div class="input-group">
-						     							<button class="btn btn-sm btn-primary sprintButton" data-toggle="modal" data-target="#mCadSprint" data-release-id="${release.id}">
+						     							<button      							
+						     							class="btn btn-sm btn-primary sprintButton" data-toggle="modal" data-target="#mCadSprint" data-release-id="${release.id}">
 						     								Nova Sprint
 						     							</button>
 						     						</div>
@@ -75,12 +77,16 @@
 						     				</div>
 						     			</div>
 						     			<div class="panel-body itensSprint" style="width: 100%; heigth: 300px;">						
-					             			<table class="table table-bordered">
+											<table id="tSprints" class="table table-bordered table-striped" cellspacing="0">
 					             				<tbody>
 					             					<c:if test="${not empty release.sprints}">
 					             						<c:forEach var="sprint" items="${release.sprints}">
 					             							<tr id="sprint_${sprint.id}">
-					             								<td>${sprint.nome}</td>
+					             								<td style="width: 250px;">
+					             									<a href="#" data-toggle="modal" data-target="#mCadSprint" data-sprint-id="${sprint.id}">
+					             										${sprint.nome} de <fmt:formatDate type="date" value="${sprint.dataInicio}" /> à <fmt:formatDate type="date" value="${sprint.dataTermino}" />
+            														</a>            														
+            													</td>
 					             								<td style="height:40px;">
 						    	  									<ul class="connectedSortable sortable2" style="list-style-type: none; width: 100%">
 						    	  										<c:if test="${not empty sprint.itensBacklog}">
@@ -99,7 +105,7 @@
 						    	  											</c:forEach>
 						    	  										</c:if>
 						    	  									</ul>
-						    	  								</td>
+						    	  								</td>						    	  								
 						    	  							</tr>
 					             						</c:forEach>
 					             					</c:if>

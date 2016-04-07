@@ -23,6 +23,12 @@ $(function() {
 		}
 	});
 	
+	$.notifyDefaults({
+		allow_dismiss: false,
+		delay: 2000,
+		z_index: '1151'
+	});
+	
 	$.fn.abrirModal = function(tela, titulo, dados) {
 		$("#caixaAlerta").hide();
 		$(tela).find('.modal-title').text(titulo);

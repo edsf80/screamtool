@@ -4,6 +4,7 @@
 package br.edu.ifpb.screamtool.data.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -70,7 +71,7 @@ public class ReleaseDaoImpl extends GenericDaoImpl<Release, Long> implements
 		for (Object[] dado : dados) {
 			Long releaseId = (Long) dado[0];
 			Long sprintId = (Long) dado[2];
-			Long itemBacklogId = (Long) dado[4];
+			Long itemBacklogId = (Long) dado[6];
 			Release release = null;
 
 			if (!releaseId.equals(lastReleaseId)) {
@@ -90,6 +91,8 @@ public class ReleaseDaoImpl extends GenericDaoImpl<Release, Long> implements
 				sprint.setItensBacklog(itensBacklog);
 				sprint.setId((Long) dado[2]);
 				sprint.setNome((String) dado[3]);
+				sprint.setDataInicio((Date) dado[4]); 
+				sprint.setDataTermino((Date) dado[5]);
 				sprints.add(sprint);
 			}
 
@@ -98,7 +101,7 @@ public class ReleaseDaoImpl extends GenericDaoImpl<Release, Long> implements
 				lastItemBacklogId = itemBacklogId;
 				ItemBacklog itemBacklog = new ItemBacklog();
 				itemBacklog.setId(itemBacklogId);
-				itemBacklog.setDescricao((String) dado[5]);
+				itemBacklog.setDescricao((String) dado[7]);
 				itensBacklog.add(itemBacklog);
 			}
 		}

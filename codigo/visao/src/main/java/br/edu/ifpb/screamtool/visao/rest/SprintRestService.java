@@ -5,6 +5,7 @@ package br.edu.ifpb.screamtool.visao.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,7 +41,27 @@ public class SprintRestService {
 		} else {
 			resultado = sprintService.atualizar(sprint);
 		}
+		
+		//Linha para evitar que o jackson tente serializar um atributo lazy.
+		resultado.setItensBacklog(null);
+		resultado.getRelease().setSprints(null);
 
 		return resultado;
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public @ResponseBody Sprint buscarSprintPorId(@PathVariable("id") Long id) {
+
+		Sprint resultado = sprintService.buscarPorId(id);
+		//Linha para evitar que o jackson tente serializar um atributo lazy.
+		resultado.setItensBacklog(null);
+		resultado.getRelease().setSprints(null);
+
+		return resultado;
+
 	}
 }

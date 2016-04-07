@@ -25,7 +25,7 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "Release.findAll", query = "SELECT r FROM Release r"),
-		@NamedQuery(name = "Release.buscarProProjeto", query = "SELECT r.id, r.nome, s.id, s.nome, i.id, i.descricao FROM Release r LEFT JOIN r.sprints s LEFT JOIN s.itensBacklog i WHERE r.projeto.id = :idProjeto ORDER BY s.dataInicio") })
+		@NamedQuery(name = "Release.buscarProProjeto", query = "SELECT r.id, r.nome, s.id, s.nome, s.dataInicio, s.dataTermino, i.id, i.descricao FROM Release r LEFT JOIN r.sprints s LEFT JOIN s.itensBacklog i WHERE r.projeto.id = :idProjeto ORDER BY s.dataInicio") })
 public class Release extends EntidadeBasica {
 
 	private static final long serialVersionUID = 1L;

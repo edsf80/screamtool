@@ -13,7 +13,10 @@
 	name='viewport'>
 
 	<link href="../css/main.min.css" rel="stylesheet" type="text/css" />
+	<!-- Usado para pegar range de data na tela de sprint -->
 	<link rel="stylesheet" type="text/css" href="../plugins/daterangepicker/daterangepicker.css" />
+	<!-- Usado para animar as notificação -->
+	<link rel="stylesheet" type="text/css" href="../plugins/bootstrap-notify/animate.css" />
 	<!-- Bootstrap 3.3.4 -->
     <!-- <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
     <!-- Font Awesome Icons -->
