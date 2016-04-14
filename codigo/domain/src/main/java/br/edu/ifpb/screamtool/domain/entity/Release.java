@@ -1,6 +1,6 @@
 package br.edu.ifpb.screamtool.domain.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
@@ -25,7 +28,8 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "Release.findAll", query = "SELECT r FROM Release r"),
-		@NamedQuery(name = "Release.buscarProProjeto", query = "SELECT r.id, r.nome, s.id, s.nome, s.dataInicio, s.dataTermino, i.id, i.descricao FROM Release r LEFT JOIN r.sprints s LEFT JOIN s.itensBacklog i WHERE r.projeto.id = :idProjeto ORDER BY s.dataInicio") })
+		@NamedQuery(name = "Release.buscarPorIdProjeto", query = "SELECT DISTINCT r FROM Release r LEFT OUTER JOIN r.sprints s WHERE r.projeto.id = :idProjeto") })
+@NamedEntityGraph(name = "releaseSprintItensBacklog", attributeNodes = @NamedAttributeNode(value = "sprints", subgraph = "sprintItensBacklogGraph"), subgraphs = @NamedSubgraph(name = "sprintItensBacklogGraph", attributeNodes = @NamedAttributeNode("itensBacklog")))
 public class Release extends EntidadeBasica {
 
 	private static final long serialVersionUID = 1L;
@@ -50,7 +54,7 @@ public class Release extends EntidadeBasica {
 
 	@OneToMany(mappedBy = "release")
 	@Fetch(FetchMode.SUBSELECT)
-	private List<Sprint> sprints;
+	private Set<Sprint> sprints;
 
 	/**
 	 * @return the id
@@ -115,7 +119,7 @@ public class Release extends EntidadeBasica {
 	/**
 	 * @return the sprints
 	 */
-	public List<Sprint> getSprints() {
+	public Set<Sprint> getSprints() {
 		return sprints;
 	}
 
@@ -123,7 +127,7 @@ public class Release extends EntidadeBasica {
 	 * @param sprints
 	 *            the sprints to set
 	 */
-	public void setSprints(List<Sprint> sprints) {
+	public void setSprints(Set<Sprint> sprints) {
 		this.sprints = sprints;
 	}
 

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,7 +47,7 @@ public class ItemBacklogRestService {
 	@PreAuthorize("hasRole('perm_salvar_item_backlog')")
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody ItemBacklog salvarItemBacklog(
-			@ModelAttribute ItemBacklog itemBacklog,
+			@RequestBody ItemBacklog itemBacklog,
 			@ModelAttribute("projetoAberto") Projeto projeto) {
 
 		ItemBacklog resultado = null;
@@ -80,7 +81,7 @@ public class ItemBacklogRestService {
 
 			resultado = itemBacklogService.buscarTodosPorProduto(projetoAberto
 					.getProduto().getId());
-			for(ItemBacklog itemBacklog: resultado) {
+			for (ItemBacklog itemBacklog : resultado) {
 				itemBacklog.setTarefas(null);
 				itemBacklog.setProduto(null);
 			}
@@ -88,7 +89,7 @@ public class ItemBacklogRestService {
 
 		return resultado;
 	}
-	
+
 	/**
 	 * @param itemBacklog
 	 * @return
@@ -101,5 +102,16 @@ public class ItemBacklogRestService {
 		itemBacklog.setId(id);
 
 		itemBacklogService.apagar(itemBacklog);
+	}
+
+	/**
+	 * @param itemBacklog
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.PUT)
+	public void atualizarItemBacklog(
+			@RequestBody ItemBacklog itemBacklog) {
+
+		itemBacklogService.mergeItemBacklog(itemBacklog);
 	}
 }

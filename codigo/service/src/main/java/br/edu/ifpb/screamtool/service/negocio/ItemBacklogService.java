@@ -39,4 +39,17 @@ public interface ItemBacklogService extends GenericService<ItemBacklog, Long> {
 	 */
 	List<ItemBacklog> buscarTodosPorProdutoNaoAlocados(@NotNull Long idProduto);
 
+	/**
+	 * Esse método tem por objetivo fazer um merge de um item de backlog
+	 * incompleto com o item de backlog do banco de dados. Os campos que
+	 * estiverem no item passado por parametro irao ser acrescentados ao
+	 * correpondente do banco de dados. Isso é feito para que se possa alterar
+	 * apenas os pontos ou em que sprint o mesmo se encontra.
+	 * 
+	 * @param itemBacklog
+	 *            O item de backlog incompleto a ser alterado.
+	 * @return Retorna o item de backlog alteraddo.
+	 */
+	ItemBacklog mergeItemBacklog(@NotNull ItemBacklog itemBacklog);
+
 }

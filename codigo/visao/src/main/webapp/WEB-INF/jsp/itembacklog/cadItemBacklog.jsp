@@ -20,11 +20,11 @@
 				<!-- form start -->				
 				<form id="frmItemBacklog" method="POST"
 					action="../service/itembacklog" role="form">
-						<input type="text" name="id" style="display: none;"
+						<input type="text" field="id" name="id" style="display: none;"
 							id="hIdItemBacklog" />
 						<div class="form-group">
 							<label for="tDescricao">Descrição*</label> <input type="text"
-								name="descricao" class="form-control" id="tDescricao" autofocus>
+								name="descricao" field="descricao" class="form-control" id="tDescricao" autofocus>
 						</div>
 						<div class="form-group">
 							<label for="sStatus">Status*</label> <select
@@ -41,11 +41,13 @@
 									<option value="8">8</option>
 									<option value="13">13</option>
 									<option value="20">20</option>
+									<option value="40">40</option>
+									<option value="100">100</option>
 							</select>
 						</div>						
 						<div class="form-group">
                       		<label for="tEstoriaUsuario">Estória do Usuário*</label>
-                      		<textarea name="estoriaUsuario" id="tEstoriaUsuario" class="form-control" rows="3" placeholder="Insira a estória do usuário..."></textarea>
+                      		<textarea name="estoriaUsuario" field="estoriaUsuario" id="tEstoriaUsuario" class="form-control" rows="3" placeholder="Insira a estória do usuário..."></textarea>
                     	</div>
 					
 			</div>

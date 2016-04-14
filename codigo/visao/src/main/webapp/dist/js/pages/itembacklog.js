@@ -3,7 +3,8 @@
  */
 $(function() {
 	
-	var linhaSelecionada, table, permissoes;
+	var linhaSelecionada, table;
+	var itemBacklog = {};
 	
 	function abrirModal(titulo, dados) {
 		$("#caixaAlerta").hide();
@@ -12,11 +13,12 @@ $(function() {
 		$(".has-error").removeClass("has-error");
 		
 		if(dados !== undefined) {
-			$("#hIdItemBacklog").val(dados.id);
-			$("#tDescricao").val(dados.descricao);
-			$("#sStatus").val(dados.status.substr(dados.status.indexOf(">")+1,1));
-			$("#sPontos").val(dados.storyPoints);
-			$("#tEstoriaUsuario").val(dados.estoriaUsuario);
+			itemBacklog = dados;
+			$("#hIdItemBacklog").val(itemBacklog.id);
+			$("#tDescricao").val(itemBacklog.descricao);
+			$("#sStatus").val(itemBacklog.status.substr(dados.status.indexOf(">")+1,1));
+			$("#sPontos").val(itemBacklog.storyPoints);
+			$("#tEstoriaUsuario").val(itemBacklog.estoriaUsuario);
 		}
 		
 		$("#mCadItemBacklog").modal('toggle');		
@@ -33,6 +35,8 @@ $(function() {
 	$.fn.dataTable.ext.errMode = 'none';
 	
 	table = $("#tItensBacklog").on( 'draw.dt', function () {
+		//Isso é utlizado por que quando se adiciona um item na tabela dincamicamente 
+		//não se tem a informação do servidor se o usuário possui ou não acesso ao botão.
 		var temPermissao = $(".perm_salvar_item_backlog").text() == 'S'; 
 		
 		if(temPermissao) {
@@ -78,7 +82,12 @@ $(function() {
 			}).done(function(data) {
 				linha.remove();
 				table.draw(false);
-				alert("Item de Backlog Excluído com Sucesso!");
+				$.notify({
+					title: '<strong>Sucesso!</strong>',
+					message: 'Item de backlog excluído com sucesso.'
+				},{
+					type: 'success'
+				});
 			}).fail($.fn.tratarErro);
         }
     } );
@@ -101,27 +110,37 @@ $(function() {
 		},
 		submitHandler : function(form) {
 			var actionurl = form.action;
-			var method = form.method;
-			var dados = $("#frmItemBacklog").serialize();
-			var ordem;
+			var method = form.method;			
 			
 			$(".overlay").show();
-			if(linhaSelecionada === undefined) {
-				ordem = table.column(0).data().length;
-				dados = dados+"&ordem="+ordem;
-			} else {
-				ordem = linhaSelecionada.index();
-				console.log(ordem);
-				dados = dados+"&ordem="+ordem;
-			}
+			
+			$("input[field]").each(function() {
+				itemBacklog[$(this).attr("field")] = $(this).val();
+			});
+			
+			itemBacklog.estoriaUsuario = $("#tEstoriaUsuario").val();
+			itemBacklog.storyPoints = $("#sPontos").val();
+			itemBacklog.status = $("#sStatus").val();
+			
+			console.log(JSON.stringify(itemBacklog));
 			
 			$.ajax({
 				type : method,
 				url : actionurl,
 				datatype : "json",
-				data : dados
+				contentType : 'application/json; charset=utf-8',
+				data : JSON.stringify(itemBacklog),
+				headers : {
+					'Accept' : 'application/json',
+					'Content-Type' : 'application/json'
+				}
 			}).done(function(data) {
-				alert("Item de Backlog Salvo com Sucesso!");
+				$.notify({
+					title: '<strong>Sucesso!</strong>',
+					message: 'Item de backlog salvo com sucesso.'
+				},{
+					type: 'success'
+				});
 				$(".overlay").hide();
 				if(linhaSelecionada !== undefined) {
 					linhaSelecionada.remove();

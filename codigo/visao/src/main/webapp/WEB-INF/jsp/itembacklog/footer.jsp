@@ -3,4 +3,4 @@
 <sec:authorize access="hasRole('perm_salvar_item_backlog')">
 <div class="perm_salvar_item_backlog" style="display: none;">S</div>
 </sec:authorize>
-<script src="../js/itembacklog.js" charset="UTF-8"></script>
+<script src="../js/itembacklog.min.js" charset="UTF-8"></script>

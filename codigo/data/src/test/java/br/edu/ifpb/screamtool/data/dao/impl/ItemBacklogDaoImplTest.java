@@ -89,7 +89,6 @@ public class ItemBacklogDaoImplTest {
 		ItemBacklog ib = new ItemBacklog();
 		ib.setDescricao("item teste");
 		ib.setEstoriaUsuario("Estoria doida");
-		ib.setOrdem(new Integer(1));
 		ib.setStatus(ItemBacklogStatus.N);
 		ib.setStoryPoints(new Integer(8));
 		

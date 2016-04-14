@@ -48,6 +48,7 @@
                 "plugins/jQuery/jQuery-2.1.4.js",
 			    "plugins/jQueryValidate/jquery.validate-1.14.0.js",
 			    "bootstrap/js/bootstrap.js",
+			    "plugins/bootstrap-notify/bootstrap-notify.js",
 			    "plugins/iCheck/icheck.min.js",
 			    "dist/js/pages/global.js",
 			    "dist/js/pages/login.js"
@@ -80,6 +81,7 @@
          	    "plugins/jQuery/jQuery-2.1.4.js",
 			    "plugins/jQueryValidate/jquery.validate-1.14.0.js",
 			    "bootstrap/js/bootstrap.js",
+			    "plugins/bootstrap-notify/bootstrap-notify.js",
 			    "plugins/datatables/jquery.dataTables-1.10.7.js",
 			    "plugins/datatables/dataTables.bootstrap-1.10.7.js",
 			    "plugins/slimScroll/jquery.slimscroll.min.js",

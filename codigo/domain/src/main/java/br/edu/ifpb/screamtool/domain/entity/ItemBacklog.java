@@ -15,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -47,9 +46,8 @@ public class ItemBacklog extends EntidadeBasica {
 	 * 
 	 */
 	@Id
-	@SequenceGenerator(name = "seq_item_backlog", sequenceName = "seq_item_backlog")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_item_backlog")
-	@Column(name = "ibl_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ibl_id", insertable = false, updatable = false)
 	private Long id;
 
 	/**
@@ -73,14 +71,7 @@ public class ItemBacklog extends EntidadeBasica {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "ibl_sts")
-	private ItemBacklogStatus status;
-
-	/**
-	 * 
-	 */
-	@NotNull
-	@Column(name = "ibl_ord")
-	private Integer ordem;
+	private ItemBacklogStatus status;	
 	
 	/**
 	 * 
@@ -191,21 +182,6 @@ public class ItemBacklog extends EntidadeBasica {
 	 */
 	public void setStatus(ItemBacklogStatus status) {
 		this.status = status;
-	}
-
-	/**
-	 * @return the ordem
-	 */
-	public Integer getOrdem() {
-		return ordem;
-	}
-
-	/**
-	 * @param ordem
-	 *            the ordem to set
-	 */
-	public void setOrdem(Integer ordem) {
-		this.ordem = ordem;
 	}
 
 	/**

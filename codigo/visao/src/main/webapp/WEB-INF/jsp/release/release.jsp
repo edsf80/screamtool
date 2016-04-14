@@ -22,19 +22,25 @@
 					<h4 class="box-title">Itens de Backlog</h4>
 				</div>
 				<div class="box-body">
-					<ul class="connectedSortable sortable1"
+					<ul id="uItensNaoAlocados" class="connectedSortable sortable1"
 						style="list-style-type: none; margin: 0; padding: 0;">
 						<c:if test="${not empty releaseForm}">
 							<c:if test="${not empty releaseForm.itensBacklogNaoAlocados}">
 								<c:forEach var="itemBacklog" items="${releaseForm.itensBacklogNaoAlocados}">
-									<li id='item_${itemBacklog.id}' title='${itemBacklog.descricao}' class='external-event bg-yellow' style='margin: 3px 3px 3px 0; list-style-type: none; padding: 1px; float: left; width: 100px; height: 90px; text-align: center;'>
+									<li data-itembacklog-id='${itemBacklog.id}'
+									    title='${itemBacklog.descricao}' class='external-event bg-yellow' style='margin: 3px 3px 3px 0; list-style-type: none; padding: 1px; float: left; width: 100px; height: 90px; text-align: center;'>
 										${fn:substring(itemBacklog.descricao, 0, 20)}...<br><br>
-										<select>
-											<option>0</option>
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>5</option>
+										<select class='bg-yellow select-storypoints-ib'>
+											<option <c:if test="${itemBacklog.storyPoints==0}">selected</c:if> >0</option>
+											<option <c:if test="${itemBacklog.storyPoints==1}">selected</c:if> >1</option>
+											<option <c:if test="${itemBacklog.storyPoints==2}">selected</c:if> >2</option>
+											<option <c:if test="${itemBacklog.storyPoints==3}">selected</c:if> >3</option>
+											<option <c:if test="${itemBacklog.storyPoints==5}">selected</c:if> >5</option>
+											<option <c:if test="${itemBacklog.storyPoints==8}">selected</c:if> >8</option>
+											<option <c:if test="${itemBacklog.storyPoints==13}">selected</c:if> >13</option>
+											<option <c:if test="${itemBacklog.storyPoints==20}">selected</c:if> >20</option>
+											<option <c:if test="${itemBacklog.storyPoints==40}">selected</c:if> >40</option>
+											<option <c:if test="${itemBacklog.storyPoints==100}">selected</c:if> >100</option>
 										</select>
 									</li>
 								</c:forEach>
@@ -81,25 +87,31 @@
 					             				<tbody>
 					             					<c:if test="${not empty release.sprints}">
 					             						<c:forEach var="sprint" items="${release.sprints}">
-					             							<tr id="sprint_${sprint.id}">
+					             							<tr data-sprint-id='${sprint.id}' id="sprint_${sprint.id}">
 					             								<td style="width: 250px;">
 					             									<a href="#" data-toggle="modal" data-target="#mCadSprint" data-sprint-id="${sprint.id}">
-					             										${sprint.nome} de <fmt:formatDate type="date" value="${sprint.dataInicio}" /> à <fmt:formatDate type="date" value="${sprint.dataTermino}" />
+					             										${sprint.nome} de <fmt:formatDate type="date" value="${sprint.dataInicio}" /> à <fmt:formatDate type="date" value="${sprint.dataTermino}" /><br>
+					             										Story Points: 5 Pts
             														</a>            														
             													</td>
 					             								<td style="height:40px;">
 						    	  									<ul class="connectedSortable sortable2" style="list-style-type: none; width: 100%">
 						    	  										<c:if test="${not empty sprint.itensBacklog}">
 						    	  											<c:forEach var="itemBacklog" items="${sprint.itensBacklog}">
-						    	  												<li id="item_${itemBacklog.id}" title="${itemBacklog.descricao}" class="external-event bg-yellow" style="margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px;  
+						    	  												<li id="item_${itemBacklog.id}" data-itembacklog-id='${itemBacklog.id}' title="${itemBacklog.descricao}" class="external-event bg-yellow" style="margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px;  
 					                                                                text-align: center;">
 					                                                                ${fn:substring(itemBacklog.descricao, 0, 20)}...<br><br>
-					                                                                <select>
-					                                                                	<option>0</option>
-					                  													<option>1</option>
-					                  													<option>2</option>
-					                  													<option>3</option>
-					                  													<option>5</option>
+					                                                                <select class='bg-yellow select-storypoints-ib' disabled="disabled">
+					                                                                	<option <c:if test="${itemBacklog.storyPoints==0}">selected</c:if> >0</option>
+																						<option <c:if test="${itemBacklog.storyPoints==1}">selected</c:if> >1</option>
+																						<option <c:if test="${itemBacklog.storyPoints==2}">selected</c:if> >2</option>
+																						<option <c:if test="${itemBacklog.storyPoints==3}">selected</c:if> >3</option>
+																						<option <c:if test="${itemBacklog.storyPoints==5}">selected</c:if> >5</option>
+																						<option <c:if test="${itemBacklog.storyPoints==8}">selected</c:if> >8</option>
+																						<option <c:if test="${itemBacklog.storyPoints==13}">selected</c:if> >13</option>
+																						<option <c:if test="${itemBacklog.storyPoints==20}">selected</c:if> >20</option>
+																						<option <c:if test="${itemBacklog.storyPoints==40}">selected</c:if> >40</option>
+																						<option <c:if test="${itemBacklog.storyPoints==100}">selected</c:if> >100</option>
 					                  												</select>
 					                  											</li>
 						    	  											</c:forEach>

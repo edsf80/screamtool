@@ -45,6 +45,16 @@ $(function() {
 
 		$(tela).modal('toggle');
 	}
+	
+	$.fn.putJSON = function(url,dados){
+		return $.ajax({type : 'put', url : url, datatype : "json",	contentType : 'application/json; charset=utf-8',
+			data : JSON.stringify(dados)}).fail($.fn.tratarErro);;
+	};
+	
+	$.fn.postJSON = function(url,dados){
+		return $.ajax({type : 'post', url : url, datatype : "json",	contentType : 'application/json; charset=utf-8',
+			data : JSON.stringify(dados)}).fail($.fn.tratarErro);
+	};
 
 	$.fn.exibirCaixaAlerta = function(mensagens) {
 		$("#caixaAlerta p").empty();
