@@ -167,8 +167,12 @@ $(function() {
 
 			$(".overlay").show();
 
-			/*$("input[field]")*/$('input:text, textarea').each(function() {
-				sprint[$(this).attr("field")] = $(this).val();
+			$('input:text, textarea').each(function() {
+				var valor = $(this).val();
+				
+				if(!!valor) {
+					sprint[$(this).attr("field")] = valor;
+				}
 			});
 
 			$.fn.postJSON(actionurl, sprint)			
