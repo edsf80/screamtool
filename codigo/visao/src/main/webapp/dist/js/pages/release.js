@@ -27,16 +27,48 @@ $(function() {
 			var $itemSelected = ui.item;
 			var $storyPoints = $itemSelected.children('select');
 			$storyPoints.attr('disabled', true);
-			var itemBacklog = {};
+			var itemBacklog = {};			
 			
 			itemBacklog.id = $itemSelected.data('itembacklog-id');
 			itemBacklog.sprint = {};
-			itemBacklog.sprint.id = $itemSelected.closest('tr').data('sprint-id');
-			itemBacklog.storyPoints = $storyPoints.val(); 
+			var sprintId = $itemSelected.closest('tr').data('sprint-id');
+			itemBacklog.sprint.id = sprintId;
+			var storyPoints = parseInt($storyPoints.val());
+			itemBacklog.storyPoints = storyPoints;
+			
+			var totalStoryPointsSprint = parseInt($("#sprint_"+sprintId+"_storyPoints").text());
+			totalStoryPointsSprint += storyPoints;
+			$("#sprint_"+sprintId+"_storyPoints").html(totalStoryPointsSprint);
+			console.log(sprintId);
 			
 			$.fn.putJSON('../service/itembacklog', itemBacklog);
+		},
+		start: function(event, ui) {
+			var $itemSelected = ui.item;
+			var $storyPoints = $itemSelected.children('select');
+			
+			var sprintId = $itemSelected.closest('tr').data('sprint-id');
+			var storyPoints = parseInt($storyPoints.val());
+			var totalStoryPointsSprint = parseInt($("#sprint_"+sprintId+"_storyPoints").text());
+			totalStoryPointsSprint -= storyPoints;
+			console.log(sprintId);
+			$("#sprint_"+sprintId+"_storyPoints").html(totalStoryPointsSprint);
 		}
 	}).disableSelection();
+	
+	// Esse método conta quantos story points o sprint possui.
+	$(".sortable2").each(function(){
+		var pontos = 0;
+		var sprint = $(this).attr("id");
+		var sprintId = sprint.substring(sprint.indexOf("_")+1, sprint.lastIndexOf("_"));
+		
+		$(this).children("li").each(function(){
+			pontoIb = parseInt($(this).children("select").val());
+			pontos += pontoIb;
+		});
+		
+		$("#sprint_"+sprintId+"_storyPoints").html(pontos);
+	});
 	
 	// Esse metodo nao precisa passar o sprint como parametro por que so eh executado nos itens nao alocados.
 	$(".select-storypoints-ib").change(function() {
@@ -56,18 +88,17 @@ $(function() {
 		var sprintId = componente.data('sprint-id');		
 		
 		if(sprintId != undefined) {
-			$.ajax({
-				type : 'get',
-				url : '../service/sprint/'+sprintId,
-				datatype : "json",
-				contentType : 'application/json; charset=utf-8'
-			}).done(function(data) {
+			$.fn.getJSON('../service/sprint/'+sprintId)
+			.done(function(data) {
 				sprint = data;
+				console.log(JSON.stringify(data));
 				$("#hIdSprint").val(sprint.id);
 				$("#tNomeSprint").val(sprint.nome);
+				console.log(sprint.dataInicio);
+				//TODO: Rever a formatação das datas.
 				$('#drPeriodoSprint').data('daterangepicker').setStartDate(sprint.dataInicio);
 				$('#drPeriodoSprint').data('daterangepicker').setEndDate(sprint.dataTermino);
-			}).fail($.fn.tratarErro);
+			});
 		} else {
 			sprint.release = {};
 			sprint.release["id"] = componente.data('release-id');
@@ -79,13 +110,14 @@ $(function() {
 
 	$('#drPeriodoSprint').daterangepicker({
 		locale : {
-			format : 'DD/MM/YYYY'
+			//format : 'DD/MM/YYYY'
+			format : 'YYYY-MM-DD'
 		}
 	});
 
 	$('#drPeriodoSprint').on('apply.daterangepicker', function(ev, picker) {
-		sprint.dataInicio = picker.startDate.format('DD/MM/YYYY');
-		sprint.dataTermino = picker.endDate.format('DD/MM/YYYY');
+		sprint.dataInicio = picker.startDate.format('YYYY-MM-DD');
+		sprint.dataTermino = picker.endDate.format('YYYY-MM-DD');
 	});
 
 	$("#bAdRelease").click(function() {
@@ -135,7 +167,7 @@ $(function() {
 
 			$(".overlay").show();
 
-			$("input[field]").each(function() {
+			/*$("input[field]")*/$('input:text, textarea').each(function() {
 				sprint[$(this).attr("field")] = $(this).val();
 			});
 

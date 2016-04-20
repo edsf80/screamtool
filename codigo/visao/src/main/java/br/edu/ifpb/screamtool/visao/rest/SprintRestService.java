@@ -37,9 +37,9 @@ public class SprintRestService {
 		Sprint resultado = null;
 
 		if (sprint.getId() == null) {
-			resultado = sprintService.criar(sprint);
+			resultado = sprintService.criarVerificacaoDatas(sprint);
 		} else {
-			resultado = sprintService.atualizar(sprint);
+			resultado = sprintService.atualizarVerificacaoDatas(sprint);
 		}
 		
 		//Linha para evitar que o jackson tente serializar um atributo lazy.

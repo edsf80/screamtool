@@ -10,22 +10,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * The persistent class for the sprint database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Sprint.findAll", query = "SELECT s FROM Sprint s")
+@NamedQueries({
+		@NamedQuery(name = "Sprint.findAll", query = "SELECT s FROM Sprint s"),
+		@NamedQuery(name = "Sprint.findByDateRangePerProject", query = "SELECT s FROM Sprint s WHERE (s.release.projeto.id = :idProjeto) AND ((:dataInicio BETWEEN s.dataInicio AND s.dataTermino) OR (:dataTermino BETWEEN s.dataInicio AND s.dataTermino))"),
+		@NamedQuery(name = "Sprint.findByDateRangePerProjectDifferentSprint", query = "SELECT s FROM Sprint s WHERE (s.id != :idSprint) AND (s.release.projeto.id = :idProjeto) AND ((:dataInicio BETWEEN s.dataInicio AND s.dataTermino) OR (:dataTermino BETWEEN s.dataInicio AND s.dataTermino))")})
 public class Sprint extends EntidadeBasica {
 
 	private static final long serialVersionUID = 1L;
@@ -34,9 +37,8 @@ public class Sprint extends EntidadeBasica {
 	 * 
 	 */
 	@Id
-	@SequenceGenerator(name = "seq_sprint", sequenceName = "seq_sprint")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_sprint")
-	@Column(name = "spt_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "spt_id", insertable = false, updatable = false)
 	private Long id;
 
 	/**
@@ -52,7 +54,7 @@ public class Sprint extends EntidadeBasica {
 	 */
 	@NotNull(message = "A data de início do sprint deve ser informado")
 	@Column(name = "spt_ini")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
 	private Date dataInicio;
 
 	/**
@@ -60,7 +62,7 @@ public class Sprint extends EntidadeBasica {
 	 */
 	@NotNull(message = "A data de término do sprint deve ser informado")
 	@Column(name = "spt_fim")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
 	private Date dataTermino;
 
 	/**
@@ -73,8 +75,12 @@ public class Sprint extends EntidadeBasica {
 	/**
 	 * 
 	 */
+	@NotNull(message = "O nome do sprint deve ser informado")
 	@Column(name = "spt_nm")
 	private String nome;
+	
+	@Column(name = "spt_obj")
+	private String objetivo;
 
 	/**
 	 * @return the id
@@ -164,6 +170,20 @@ public class Sprint extends EntidadeBasica {
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	/**
+	 * @return the objetivo
+	 */
+	public String getObjetivo() {
+		return objetivo;
+	}
+
+	/**
+	 * @param objetivo the objetivo to set
+	 */
+	public void setObjetivo(String objetivo) {
+		this.objetivo = objetivo;
 	}
 
 }

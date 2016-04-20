@@ -13,5 +13,5 @@
 <script src="../plugins/daterangepicker/moment.js""></script>
 <script src="../plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="../plugins/daterangepicker/daterangepicker.js""></script>
-<script src="../dist/js/pages/global.js"></script>
+<script src="../dist/js/pages/global.js" charset="UTF-8"></script>
 <script src="../dist/js/pages/release.js"  charset="UTF-8"></script>

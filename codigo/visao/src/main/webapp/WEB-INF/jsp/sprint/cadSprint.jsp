@@ -42,7 +42,7 @@
 			            </div>
 						<div class="form-group">
                       		<label for="tObjetivoSprint">Objetivo do Sprint</label>
-                      		<textarea name="objetivoSprint" id="tObjetivoSprint" class="form-control" rows="3" placeholder="Insira o objetivo do Sprint..."></textarea>
+                      		<textarea name="objetivoSprint" field="objetivo" id="tObjetivoSprint" class="form-control" rows="3" placeholder="Insira o objetivo do Sprint..."></textarea>
                     	</div>
 					</div>
 			</div>

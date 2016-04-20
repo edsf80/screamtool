@@ -10,8 +10,8 @@
 				<h4 class="modal-title">Novo Release</h4>
 			</div>
 			<div class="modal-body">
-				<div id="caixaAlerta" style="display: none;"
-					class="alert alert-warning alert-dismissable">
+				<div style="display: none;"
+					class="alert alert-warning alert-dismissable caixa-alerta">
 					<h4>
 						<i class="icon fa fa-warning"></i> Validação do formulário!
 					</h4>

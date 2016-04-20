@@ -55,13 +55,18 @@ $(function() {
 		return $.ajax({type : 'post', url : url, datatype : "json",	contentType : 'application/json; charset=utf-8',
 			data : JSON.stringify(dados)}).fail($.fn.tratarErro);
 	};
+	
+	$.fn.getJSON = function(url){
+		return $.ajax({type : 'get', url : url, datatype : "json",	contentType : 'application/json; charset=utf-8'})
+			.fail($.fn.tratarErro);
+	};
 
-	$.fn.exibirCaixaAlerta = function(mensagens) {
-		$("#caixaAlerta p").empty();
+	$.fn.exibirCaixaAlerta = function(mensagens) {		
+		$(".caixa-alerta p").empty();
 		$.each(mensagens, function(i, val) {
-			$("#caixaAlerta").append("<p>" + val + "</p>");
+			$(".caixa-alerta").append("<p>" + val + "</p>");
 		});
-		$("#caixaAlerta").show();
+		$(".caixa-alerta").show();
 	}
 
 	$.fn.tratarErro = function(data) {
@@ -69,9 +74,14 @@ $(function() {
 		if (data.status == 403) {
 			$.fn.exibirCaixaAlerta([ "Usuário não possui permissão para executar operação!" ]);
 		} else if (data.status == 404) {
-			$.fn.exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);
+			$.fn.exibirCaixaAlerta(data.responseJSON.objeto.errorMessages);			
 		} else {
-			//window.location.href = "../erro.htm";
+			$.notify({
+				title: '<strong>Erro!</strong>',
+				message: 'Falha de comunicação com o servidor. Tente novamente mais tarde'
+			},{
+				type: 'danger'
+			});
 		}
 	}
 });

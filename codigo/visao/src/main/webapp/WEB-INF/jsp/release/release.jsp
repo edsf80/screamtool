@@ -91,11 +91,11 @@
 					             								<td style="width: 250px;">
 					             									<a href="#" data-toggle="modal" data-target="#mCadSprint" data-sprint-id="${sprint.id}">
 					             										${sprint.nome} de <fmt:formatDate type="date" value="${sprint.dataInicio}" /> à <fmt:formatDate type="date" value="${sprint.dataTermino}" /><br>
-					             										Story Points: 5 Pts
+					             										Story Points: <span id="sprint_${sprint.id}_storyPoints">5</span>  Pts
             														</a>            														
             													</td>
 					             								<td style="height:40px;">
-						    	  									<ul class="connectedSortable sortable2" style="list-style-type: none; width: 100%">
+						    	  									<ul id="sprint_${sprint.id}_itensBacklog" class="connectedSortable sortable2" style="list-style-type: none; width: 100%">
 						    	  										<c:if test="${not empty sprint.itensBacklog}">
 						    	  											<c:forEach var="itemBacklog" items="${sprint.itensBacklog}">
 						    	  												<li id="item_${itemBacklog.id}" data-itembacklog-id='${itemBacklog.id}' title="${itemBacklog.descricao}" class="external-event bg-yellow" style="margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px;  
