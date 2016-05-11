@@ -5,7 +5,7 @@ package br.edu.ifpb.screamtool.data.dao.impl;
 
 import java.util.List;
 
-import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -62,8 +62,7 @@ public class ProdutoDaoImplTest {
 		Assert.assertTrue(produtoDao.criar(produto).getId() != null);
 	}
 
-	@Test
-	@Transactional
+	@Test	
 	public void testeBuscarPorId() {
 
 		Produto produto = produtoDao.buscarPorId(20l);
@@ -114,7 +113,7 @@ public class ProdutoDaoImplTest {
 
 	}
 
-	@Test(expected = PersistenceException.class)
+	@Test(expected = ConstraintViolationException.class)
 	@Transactional
 	public void testeAlterarProdutoSemAtributos() {
 

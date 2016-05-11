@@ -16,6 +16,7 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
 		<property name="url" value="jdbc:hsqldb:mem:paging" />
+		<!-- <property name="url" value="jdbc:hsqldb:file:testdb" /> -->		
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 	</bean>

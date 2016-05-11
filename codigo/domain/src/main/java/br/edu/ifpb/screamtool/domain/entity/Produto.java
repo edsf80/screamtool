@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 /**
  * The persistent class for the produto database table.
@@ -23,6 +24,7 @@ public class Produto extends EntidadeBasica {
 	@Column(name = "prd_id")
 	private Long id;
 
+	@NotNull(message = "O nome do produto deve ser informado")
 	@Column(name = "prd_dsc")
 	private String descricao;
 

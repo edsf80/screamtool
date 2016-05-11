@@ -186,13 +186,15 @@ $(function() {
 					$(".overlay").hide();
 					var $linha = $("#sprint_"+data.id+" > td:first-child");
 					$("#hIdSprint").val(data.id);
-					if($linha == undefined) {
-						$("#tSprints tbody").append("<tr id='sprint_'"+data.id+"'><td><a href='#' data-toggle='modal' data-target='#mCadSprint' data-sprint-id='"+
-								data.id+"'>"+data.nome+" de "+data.dataInicio+" à "+data.dataTermino+
-								"</a></td><td style='height:40px;'><ul class='connectedSortable sortable2' style='list-style-type: none; width: 100%'></ul></td></tr>");
-					} else {
+					console.log($linha);
+					if($linha.length) {						
 						$linha.html('<a href="#" data-toggle="modal" data-target="#mCadSprint" data-sprint-id="'+
 								data.id+'">'+data.nome+' de '+data.dataInicio+' à '+data.dataTermino+'</a>');
+					} else {
+						var html = "<tr id='sprint_'"+data.id+"'><td><a href='#' data-toggle='modal' data-target='#mCadSprint' data-sprint-id='"+
+						data.id+"'>"+data.nome+" de "+data.dataInicio+" à "+data.dataTermino+
+						"</a></td><td style='height:40px;'><ul class='connectedSortable sortable2' style='list-style-type: none; width: 100%'></ul></td></tr>";
+						$("#tSprints tbody").append(html);
 					}				
 					
 				});

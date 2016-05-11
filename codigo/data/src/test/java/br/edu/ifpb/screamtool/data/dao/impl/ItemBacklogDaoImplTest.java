@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.edu.ifpb.screamtool.data.dao.ItemBacklogDao;
 import br.edu.ifpb.screamtool.domain.entity.ItemBacklog;
 import br.edu.ifpb.screamtool.domain.entity.ItemBacklog.ItemBacklogStatus;
+import br.edu.ifpb.screamtool.domain.entity.Produto;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -91,6 +92,10 @@ public class ItemBacklogDaoImplTest {
 		ib.setEstoriaUsuario("Estoria doida");
 		ib.setStatus(ItemBacklogStatus.N);
 		ib.setStoryPoints(new Integer(8));
+		
+		Produto produto = new Produto();
+		produto.setId(20l);
+		ib.setProduto(produto);
 		
 		itemBacklogDao.criar(ib);
 		Assert.assertNotNull(ib.getId());
